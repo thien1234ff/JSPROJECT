@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Smart Agriculture</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-1">
+      <h2>ĐĂNG NHẬP</h2>
+      <p id="loichao">
+        <b>SmartAgri</b> chào <b>bạn</b>, <b>bạn</b> cần đăng kí hoặc đăng <br>
+        nhập tài khoản trước khi sử dụng để nhận được <br>
+        nhiều ưu đãi và <b>SmartAgri</b> phục vụ <b>bạn</b> tốt hơn <br>
+        nhé!<br>
+        Cảm ơn <b>bạn</b> rất nhiều!
+      </p>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email" style="margin-top:30px">Email</label>
+          <input type="email" id="email" placeholder="example@email.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="login-btn">ĐĂNG NHẬP</button>
+        <div class="links">
+          <a href="password.html" class="forgot-password">Quên mật khẩu?</a>
+          <a href="Register.html" class="logout">Đăng ký</a>
+        </div>
+        <div class="error-message" id="error-message"></div>
+      </form>
+    </div>
+    <div class="login-2"></div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    // 🔁 Thay thế bằng cấu hình thật của bạn từ Firebase Console
+    const firebaseConfig = {
+    apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
+    authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
+    projectId: "nongnghiepxanh-f6689",
+    storageBucket: "nongnghiepxanh-f6689.firebasestorage.app",
+    messagingSenderId: "846834085038",
+    appId: "1:846834085038:web:cfac519e025896626d113f",
+    measurementId: "G-619BFYRKGT"
+  };
+
+    // Khởi tạo Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Xử lý đăng nhập
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('error-message');
+
+      if (!email || !password) {
+        errorMsg.textContent = 'Vui lòng điền đầy đủ thông tin.';
+        return;
+      }
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          errorMsg.style.color = 'green';
+          errorMsg.textContent = '🎉 Đăng nhập thành công!';
+          console.log('User:', userCredential.user);
+          window.location.href = "index.html"; // Chuyển trang nếu cần
+        })
+        .catch((error) => {
+          console.error(error);
+          errorMsg.style.color = 'red';
+          errorMsg.textContent = '❌ Đăng nhập thất bại. Vui lòng kiểm tra email/mật khẩu.';
+        });
+    });
+  </script>
+</body>
+</html>

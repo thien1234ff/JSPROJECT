@@ -1,0 +1,137 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.login-container {
+  display:flex;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width:680px;
+  height:680px;
+  text-align: center;
+}
+.login-1{
+  width:350px;
+}
+b{
+    color:green
+}
+h2 {
+  text-align: center;  
+  margin-bottom: 20px;
+  color: #333;
+}
+#loichao{
+    text-align: justify;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    line-height: 25px;
+}
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.login-btn, .google-btn {
+  width: 300px;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+
+.login-btn {
+  background-color: #4CAF50;
+  color: white;
+  margin-top:30px;
+}
+
+.login-btn:hover {
+  background-color: #6f3ad0;
+}
+
+.links {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  font-size: 12px;
+}
+
+.forgot-password, .logout {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.forgot-password:hover, .logout:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #FF0000;
+  margin-top: 10px;
+  font-size: 14px;
+  min-height: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .login-container {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  input, .login-btn, .google-btn {
+    font-size: 14px;
+  }
+
+  .links {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .logout {
+    margin-top: 10px;
+  }
+}
+
+.login-2{
+  display:block;
+  width:300px;
+  height:680px;
+  margin-left:20px;
+  margin-top:-20px; 
+  margin-right: -20px;
+  background-image: url(login.jpg);
+  background-size: cover;
+  border-radius: 8px;;
+}
