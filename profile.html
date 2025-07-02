@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Hồ Sơ - Smart Agriculture</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <header>
+    <div class="logo">SMART AGRICULTURE</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#" id="logoutLink">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="profile-container">
+      <h2>Quản Lý Hồ Sơ</h2>
+      <div class="profile-info">
+        <p><strong>Tên:</strong> <span id="displayName"></span></p>
+        <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+        <p><strong>Số điện thoại:</strong> <span id="displayPhone"></span></p>
+        <p><strong>Vai trò:</strong> <span id="displayRole"></span></p>
+      </div>
+      <button id="editButton">Chỉnh Sửa</button>
+      <form id="editForm" style="display: none;">
+        <input type="text" id="editName" placeholder="Tên hiển thị" required>
+        <input type="tel" id="editPhone" placeholder="Số điện thoại" pattern="[0-9]{10}" required>
+        <button type="submit">Lưu</button>
+        <button type="button" id="cancelButton">Hủy</button>
+      </form>
+      <p id="message"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Smart Agriculture. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    updateProfile,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
+    authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
+    projectId: "nongnghiepxanh-f6689",
+    storageBucket: "nongnghiepxanh-f6689.firebasestorage.app",
+    messagingSenderId: "846834085038",
+    appId: "1:846834085038:web:cfac519e025896626d113f",
+    measurementId: "G-619BFYRKGT"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const displayName = document.getElementById('displayName');
+  const displayEmail = document.getElementById('displayEmail');
+  const displayPhone = document.getElementById('displayPhone');
+  const displayRole = document.getElementById('displayRole');
+  const editForm = document.getElementById('editForm');
+  const editButton = document.getElementById('editButton');
+  const cancelButton = document.getElementById('cancelButton');
+  const message = document.getElementById('message');
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      displayEmail.textContent = user.email || 'Chưa cập nhật';
+      displayName.textContent = user.displayName || 'Chưa cập nhật';
+
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        const phone = data.phone || '';
+
+        displayPhone.textContent = phone || 'Chưa cập nhật';
+        displayRole.textContent = data.role || 'Chưa cập nhật';
+
+        if (!phone) {
+          editForm.style.display = 'block';
+          editButton.style.display = 'none';
+          message.textContent = 'Bạn chưa có số điện thoại, vui lòng cập nhật.';
+          message.style.color = '#d32f2f';
+        }
+      } else {
+        // Tạo doc nếu chưa tồn tại
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          displayName: user.displayName,
+          phone: "",
+          role: "user"
+        });
+        displayPhone.textContent = 'Chưa cập nhật';
+        displayRole.textContent = 'user';
+        editForm.style.display = 'block';
+        editButton.style.display = 'none';
+        message.textContent = 'Bạn chưa có số điện thoại, vui lòng cập nhật.';
+        message.style.color = '#d32f2f';
+      }
+    } else {
+      window.location.href = 'index.html';
+    }
+  });
+
+  editButton.addEventListener('click', () => {
+    editForm.style.display = 'block';
+    editButton.style.display = 'none';
+    document.getElementById('editName').value = displayName.textContent;
+    document.getElementById('editPhone').value =
+      displayPhone.textContent !== 'Chưa cập nhật'
+        ? displayPhone.textContent
+        : '';
+  });
+
+  cancelButton.addEventListener('click', () => {
+    editForm.style.display = 'none';
+    editButton.style.display = 'block';
+    message.textContent = '';
+  });
+
+  editForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const newName = document.getElementById('editName').value.trim();
+    const newPhone = document.getElementById('editPhone').value.trim();
+
+    if (!newName) {
+      message.textContent = 'Tên không được để trống.';
+      return;
+    }
+    if (!/^[0-9]{10}$/.test(newPhone)) {
+      message.textContent = 'Số điện thoại phải là 10 chữ số.';
+      return;
+    }
+
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        await updateProfile(user, {
+          displayName: newName
+        });
+
+        await updateDoc(doc(db, "users", user.uid), {
+          phone: newPhone
+        });
+
+        const updatedDoc = await getDoc(doc(db, "users", user.uid));
+        if (updatedDoc.exists()) {
+          const data = updatedDoc.data();
+          displayPhone.textContent = data.phone || 'Chưa cập nhật';
+        }
+
+        displayName.textContent = newName;
+        editForm.style.display = 'none';
+        editButton.style.display = 'block';
+        message.textContent = 'Cập nhật thành công!';
+        message.style.color = '#2e7d32';
+      } catch (error) {
+        message.textContent = 'Cập nhật thất bại: ' + error.message;
+        message.style.color = '#d32f2f';
+      }
+    }
+  });
+
+  document.getElementById('logoutLink').addEventListener('click', () => {
+    signOut(auth).then(() => {
+      window.location.href = 'index.html';
+    }).catch((error) => {
+      console.error('Đăng xuất thất bại:', error.message);
+    });
+  });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Ký - Smart Agriculture</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="register.css">
+</head>
+<body>
+  <header>
+    <div class="logo">SMART AGRICULTURE</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Register</a></li>
+        <li><a href="#" id="logoutLink">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="register-container">
+      <h2>Đăng Ký</h2>
+      <p class="login-link">Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+      <form id="registerForm">
+        <input type="text" id="username" placeholder="Tên hiển thị" required>
+        <input type="text" id="firstName" placeholder="Tên" required>
+        <input type="text" id="lastName" placeholder="Họ" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Mật khẩu" required>
+        <label style="display: flex; align-items:self-start; gap: 4px;">
+          <input type="checkbox" id="terms" required style="margin-left:-180px"><span style="margin-left:-200px;margin-top:8px;">Tôi đồng ý với Điều khoản & Điều kiện</span>
+        </label>
+        <button type="submit" class="create-button">Tạo tài khoản</button>
+      </form>
+      <p id="error" class="error"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Smart Agriculture. All rights reserved.</p>
+  </footer>
+
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+    updateProfile
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
+    authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
+    projectId: "nongnghiepxanh-f6689",
+    storageBucket: "nongnghiepxanh-f6689.firebasestorage.app",
+    messagingSenderId: "846834085038",
+    appId: "1:846834085038:web:cfac519e025896626d113f",
+    measurementId: "G-619BFYRKGT",
+    databaseURL: "https://nongnghiepxanh-f6689-default-rtdb.asia-southeast1.firebasedatabase.app"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  document.getElementById('registerForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+
+    if (document.getElementById('terms').checked) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+
+          return updateProfile(user, {
+            displayName: username
+          }).then(() => {
+            // ✅ Lưu user vào Firestore
+            return setDoc(doc(db, "users", user.uid), {
+              email: email,
+              displayName: username,
+              firstName: firstName,
+              lastName: lastName,
+              role: "user" // mặc định là user
+            });
+          }).then(() => {
+            return sendEmailVerification(user);
+          });
+        })
+        .then(() => {
+          const error = document.getElementById('error');
+          error.textContent = 'Đăng ký thành công! Vui lòng kiểm tra email để xác nhận.';
+          error.style.color = '#2e7d32'; // xanh lá
+          document.getElementById('registerForm').reset();
+          window.location.href = "login.html";
+        })
+        .catch((error) => {
+          const errorMessage = document.getElementById('error');
+          errorMessage.textContent = 'Đăng ký thất bại: ' + error.message;
+          errorMessage.style.color = '#d32f2f';
+        });
+    } else {
+      document.getElementById('error').textContent = 'Vui lòng đồng ý với điều khoản.';
+    }
+  });
+
+  // Kiểm tra trạng thái đăng nhập
+  auth.onAuthStateChanged((user) => {
+    const logoutLink = document.getElementById('logoutLink');
+    if (user) {
+      logoutLink.style.display = 'block';
+      logoutLink.href = '#';
+      logoutLink.onclick = () => {
+        auth.signOut().then(() => {
+          window.location.href = 'index.html';
+        });
+      };
+    } else {
+      logoutLink.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

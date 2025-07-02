@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quản Lý Sản Phẩm - Firebase</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f7f7f7;
+      padding: 20px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    header h1 {
+      color: #4CAF50;
+      font-size: 24px;
+    }
+    .back-btn {
+      text-decoration: none;
+      background: #4CAF50;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 4px;
+    }
+    form {
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    form input[type="file"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+    }
+    form button {
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      width: 200px;
+    }
+    .message {
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #4CAF50;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: 0.3s;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+    .product-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .product-card .content {
+      padding: 12px;
+    }
+    .product-card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+    .product-card .price {
+      color: #e53935;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .product-card .category {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .product-card p {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .edit-btn,
+    .delete-btn {
+      background: #2196F3;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .delete-btn {
+      background: #f44336;
+    }
+    #deleteSelected,
+    #deleteAll {
+      background: #f44336;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    #deleteAll {
+      background: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Quản Lý Sản Phẩm (Firebase)</h1>
+    <a href="index.html" class="back-btn">Về Trang Chủ</a>
+  </header>
+
+  <main>
+    <!-- Form thêm nhiều sản phẩm bằng CSV -->
+    <form id="multiForm">
+      <h3>Thêm Nhiều Sản Phẩm (CSV)</h3>
+      <input type="file" id="csvFile" accept=".csv" required />
+      <button type="submit">Thêm Nhiều Sản Phẩm</button>
+    </form>
+    <!-- Nút Xóa Nhiều -->
+    <button id="deleteSelected">Xóa Nhiều Sản Phẩm</button>
+    <button id="deleteAll">Xóa Hết Tất Cả Sản Phẩm</button>
+    <!-- Form chỉnh sửa -->
+    <form id="editForm" style="display:none;">
+      <h3>Chỉnh Sửa Sản Phẩm</h3>
+      <input type="text" id="editName" placeholder="Tên sản phẩm" required>
+      <input type="number" id="editPrice" placeholder="Giá" required>
+      <input type="text" id="editImage" placeholder="URL Ảnh">
+      <input type="text" id="editCategory" placeholder="Danh mục">
+      <textarea id="editDescription" placeholder="Mô tả"></textarea>
+      <button type="submit">Lưu Thay Đổi</button>
+      <button type="button" id="cancelEdit">Hủy</button>
+    </form>
+
+    <div class="message" id="message"></div>
+
+    <section class="products-grid" id="productsContainer"></section>
+
+    
+  </main>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      onSnapshot,
+      doc,
+      deleteDoc,
+      updateDoc,
+      getDoc,
+      getDocs
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
+      authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
+      projectId: "nongnghiepxanh-f6689",
+      storageBucket: "nongnghiepxanh-f6689.appspot.com",
+      messagingSenderId: "846834085038",
+      appId: "1:846834085038:web:cfac519e025896626d113f",
+      measurementId: "G-619BFYRKGT"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const productsCol = collection(db, "products");
+
+    // Thêm nhiều sản phẩm từ CSV
+    document.getElementById('multiForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const fileInput = document.getElementById('csvFile');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert("Vui lòng chọn file CSV!");
+        return;
+      }
+
+      Papa.parse(file, {
+        header: true,
+        skipEmptyLines: true,
+        complete: async function(results) {
+          const productsArray = results.data;
+
+          for (const product of productsArray) {
+            product.price = parseInt(product.price);
+            await addDoc(productsCol, product);
+          }
+
+          document.getElementById('message').textContent = "✅ Đã thêm nhiều sản phẩm từ CSV!";
+          document.getElementById('multiForm').reset();
+        }
+      });
+    });
+
+    // Lắng nghe realtime
+    onSnapshot(productsCol, (snapshot) => {
+      const container = document.getElementById('productsContainer');
+      container.innerHTML = "";
+      snapshot.forEach(docSnap => {
+        const p = docSnap.data();
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <input type="checkbox" class="select-checkbox" data-id="${docSnap.id}" style="position: absolute; top: 10px; left: 10px; transform: scale(1.5);" />
+          <img src="${p.imageUrl}" alt="${p.name}" />
+          <div class="content">
+            <h3>${p.name}</h3>
+            <div class="category">${p.category}</div>
+            <div class="price">${p.price?.toLocaleString()} đ</div>
+            <p>${p.description}</p>
+            <div class="card-actions">
+              <button class="edit-btn" data-id="${docSnap.id}">Sửa</button>
+              <button class="delete-btn" data-id="${docSnap.id}">Xóa</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      // Gán event Delete từng sản phẩm
+      document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          if (confirm('Xóa sản phẩm này?')) {
+            await deleteDoc(doc(db, "products", btn.dataset.id));
+            document.getElementById('message').textContent = "✅ Đã xóa sản phẩm!";
+          }
+        });
+      });
+
+      // Gán event Edit
+      document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const docRef = doc(db, "products", btn.dataset.id);
+          const snap = await getDoc(docRef);
+          if (snap.exists()) {
+            const data = snap.data();
+            document.getElementById('editName').value = data.name;
+            document.getElementById('editPrice').value = data.price;
+            document.getElementById('editImage').value = data.imageUrl || '';
+            document.getElementById('editCategory').value = data.category || '';
+            document.getElementById('editDescription').value = data.description || '';
+            document.getElementById('editForm').dataset.id = btn.dataset.id;
+            document.getElementById('editForm').style.display = 'block';
+            document.getElementById('multiForm').style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Submit chỉnh sửa
+    document.getElementById('editForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const id = e.target.dataset.id;
+      const refDoc = doc(db, "products", id);
+      await updateDoc(refDoc, {
+        name: document.getElementById('editName').value,
+        price: parseInt(document.getElementById('editPrice').value),
+        imageUrl: document.getElementById('editImage').value,
+        category: document.getElementById('editCategory').value,
+        description: document.getElementById('editDescription').value
+      });
+      document.getElementById('message').textContent = "✅ Đã cập nhật sản phẩm!";
+      e.target.style.display = 'none';
+      document.getElementById('multiForm').style.display = 'block';
+    });
+
+    document.getElementById('cancelEdit').addEventListener('click', () => {
+      document.getElementById('editForm').style.display = 'none';
+      document.getElementById('multiForm').style.display = 'block';
+    });
+
+    // Xóa nhiều sản phẩm
+    document.getElementById('deleteSelected').addEventListener('click', async () => {
+      const checkedBoxes = document.querySelectorAll('.select-checkbox:checked');
+      if (checkedBoxes.length === 0) {
+        alert('Vui lòng chọn ít nhất 1 sản phẩm để xóa.');
+        return;
+      }
+      if (!confirm(`Bạn có chắc muốn xóa ${checkedBoxes.length} sản phẩm không?`)) {
+        return;
+      }
+      for (let cb of checkedBoxes) {
+        const id = cb.dataset.id;
+        await deleteDoc(doc(db, "products", id));
+      }
+      document.getElementById('message').textContent = "✅ Đã xóa nhiều sản phẩm!";
+    });
+
+    // Xóa hết tất cả sản phẩm
+    document.getElementById('deleteAll').addEventListener('click', async () => {
+      if (!confirm("⚠ Bạn có chắc muốn XÓA HẾT TẤT CẢ sản phẩm không?")) {
+        return;
+      }
+      const snapshot = await getDocs(productsCol);
+      for (let docSnap of snapshot.docs) {
+        await deleteDoc(doc(db, "products", docSnap.id));
+      }
+      document.getElementById('message').textContent = "✅ Đã xóa toàn bộ sản phẩm!";
+    });
+  </script>
+
+  <!-- PapaParse thư viện đọc CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+</body>
+</html>

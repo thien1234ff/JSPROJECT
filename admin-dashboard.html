@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quản Lý Đơn Hàng - Nông Sản Xanh</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="text-success">📦 Quản Lý Đơn Hàng</h1>
+      <div>
+        <a href="index.html" class="btn btn-outline-success">🏠 Về Trang Chủ</a>
+        <a href="product.html" class="btn btn-success ms-2">🛠️ Quản Lý Sản Phẩm</a>
+      </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+      <thead class="table-success">
+        <tr>
+          <th>Khách Hàng</th>
+          <th>SĐT</th>
+          <th>Email</th>
+          <th>Địa Chỉ</th>
+          <th>Tổng Tiền</th>
+          <th>Thời Gian</th>
+          <th>Trạng Thái</th>
+        </tr>
+      </thead>
+      <tbody id="ordersTableBody">
+        <tr><td colspan="7" class="text-center">Đang tải dữ liệu...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      query,
+      orderBy,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
+      authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
+      projectId: "nongnghiepxanh-f6689",
+      storageBucket: "nongnghiepxanh-f6689.appspot.com",
+      messagingSenderId: "846834085038",
+      appId: "1:846834085038:web:cfac519e025896626d113f",
+      measurementId: "G-619BFYRKGT"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const ordersCol = collection(db, "orders");
+    const q = query(ordersCol, orderBy("createdAt", "desc"));
+
+    const tbody = document.getElementById("ordersTableBody");
+
+    onSnapshot(q, (snapshot) => {
+      tbody.innerHTML = "";
+
+      if (snapshot.empty) {
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center">Chưa có đơn hàng nào.</td></tr>`;
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+
+        let timeStr = "";
+        if (data.createdAt && data.createdAt.seconds) {
+          const date = new Date(data.createdAt.seconds * 1000);
+          timeStr = date.toLocaleString("vi-VN");
+        }
+
+        tbody.innerHTML += `
+          <tr>
+            <td>${data.customerInfo?.name || ""}</td>
+            <td>${data.customerInfo?.phone || ""}</td>
+            <td>${data.customerInfo?.email || ""}</td>
+            <td>${data.customerInfo?.address || ""}</td>
+            <td>${data.total?.toLocaleString('vi-VN') || ""} đ</td>
+            <td>${timeStr}</td>
+            <td>${data.status || "pending"}</td>
+          </tr>
+        `;
+      });
+    });
+  </script>
+
+</body>
+</html>

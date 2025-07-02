@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f6;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #2e7d32;
+  color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin-left: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+nav ul li a:hover {
+  color: #c8e6c9;
+}
+
+main {
+  flex: 1;
+  padding: 40px;
+}
+
+.system-features {
+  text-align: center;
+}
+
+.system-features h2 {
+  color: #2e7d32;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.feature-card:hover {
+  transform: scale(1.05);
+}
+
+/* Đánh dấu tính năng chưa hoàn thành (từ 3 trở đi) */
+.feature-card:nth-child(n+3) {
+  background-color: #f0f0f0;
+  color: #888;
+  cursor: not-allowed;
+}
+
+footer {
+  padding: 20px;
+  background-color: #2e7d32;
+  color: #fff;
+  text-align: center;
+  margin-top: auto;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.9em;
+}
