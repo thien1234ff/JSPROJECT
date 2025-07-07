@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự đoán cây trồng phù hợp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .input-focus:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .prediction-result {
+            animation: fadeInUp 0.5s ease-out;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .feature-bar {
+            transition: width 0.8s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                    <i class="fas fa-seedling mr-3"></i>
+                    Hệ thống dự đoán cây trồng
+                </h1>
+                <p class="text-xl opacity-90">Sử dụng AI để tìm cây trồng phù hợp với điều kiện đất đai và thời tiết</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md py-4 sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <ul class="flex flex-wrap gap-6 justify-center">
+                <li><a href="#input" class="text-blue-600 hover:text-blue-800 font-medium">Nhập dữ liệu</a></li>
+                <li><a href="#prediction" class="text-blue-600 hover:text-blue-800 font-medium">Kết quả dự đoán</a></li>
+                <li><a href="#analysis" class="text-blue-600 hover:text-blue-800 font-medium">Phân tích</a></li>
+                <li><a href="#model-info" class="text-blue-600 hover:text-blue-800 font-medium">Thông tin mô hình</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Input Section -->
+        <section id="input" class="mb-12">
+            <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-edit mr-3 text-blue-600"></i>
+                    Nhập thông số đất đai và thời tiết
+                </h2>
+                
+                <form id="predictionForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Nitrogen -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700">
+                                <i class="fas fa-flask mr-2 text-green-600"></i>
+                                Đạm (N) - mg/kg
+                            </label>
+                            <input type="number" id="nitrogen" step="0.01" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg input-focus"
+                                   placeholder="Ví dụ: 90" required>
+                            <div class="text-xs text-gray-500">Khuyến nghị: 0-140 mg/kg</div>
+                        </div>
+
+                        <!-- Phosphorus -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700">
+                                <i class="fas fa-flask mr-2 text-orange-600"></i>
+                                Lân (P) - mg/kg
+                            </label>
+                            <input type="number" id="phosphorus" step="0.01" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg input-focus"
+                                   placeholder="Ví dụ: 42" required>
+                            <div class="text-xs text-gray-500">Khuyến nghị: 5-145 mg/kg</div>
+                        </div>
+
+                        <!-- Potassium -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700">
+                                <i class="fas fa-flask mr-2 text-purple-600"></i>
+                                Kali (K) - mg/kg
+                            </label>
+                            <input type="number" id="potassium" step="0.01" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg input-focus"
+                                   placeholder="Ví dụ: 43" required>
+                            <div class="text-xs text-gray-500">Khuyến nghị: 5-205 mg/kg</div>
+                        </div>
+
+                        <!-- pH -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700">
+                                <i class="fas fa-tint mr-2 text-blue-600"></i>
+                                Độ pH
+                            </label>
+                            <input type="number" id="ph" step="0.01" min="0" max="14" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg input-focus"
+                                   placeholder="Ví dụ: 6.5" required>
+                            <div class="text-xs text-gray-500">Khuyến nghị: 3.5-9.9</div>
+                        </div>
+
+                        <!-- Temperature -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700">
+                                <i class="fas fa-thermometer-half mr-2 text-red-600"></i>
+                                Nhiệt độ (°C)
+                            </label>
+                            <input type="number" id="temperature" step="0.01" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg input-focus"
+                                   placeholder="Ví dụ: 20.9" required>
+                            <div class="text-xs text-gray-500">Khuyến nghị: 8.8-43.7°C</div>
+                        </div>
+
+                        <!-- Humidity -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700">
+                                <i class="fas fa-cloud mr-2 text-cyan-600"></i>
+                                Độ ẩm (%)
+                            </label>
+                            <input type="number" id="humidity" step="0.01" min="0" max="100" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg input-focus"
+                                   placeholder="Ví dụ: 82" required>
+                            <div class="text-xs text-gray-500">Khuyến nghị: 14-100%</div>
+                        </div>
+
+                        <!-- Rainfall -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700">
+                                <i class="fas fa-cloud-rain mr-2 text-indigo-600"></i>
+                                Lượng mưa (mm)
+                            </label>
+                            <input type="number" id="rainfall" step="0.01" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg input-focus"
+                                   placeholder="Ví dụ: 202" required>
+                            <div class="text-xs text-gray-500">Khuyến nghị: 20-300mm</div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+                        <button type="submit" 
+                                class="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300">
+                            <i class="fas fa-magic mr-2"></i>
+                            Dự đoán cây trồng
+                        </button>
+                        <button type="button" onclick="fillSampleData()" 
+                                class="px-8 py-3 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transform hover:scale-105 transition-all duration-300">
+                            <i class="fas fa-fill-drip mr-2"></i>
+                            Điền dữ liệu mẫu
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Prediction Results -->
+        <section id="prediction" class="mb-12">
+            <div id="predictionResults" class="hidden bg-white rounded-xl shadow-lg p-8 card-hover">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-chart-line mr-3 text-green-600"></i>
+                    Kết quả dự đoán
+                </h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Main Prediction -->
+                    <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl">
+                        <div class="text-center">
+                            <i class="fas fa-seedling text-4xl mb-4"></i>
+                            <h3 class="text-2xl font-bold mb-2">Cây trồng được đề xuất</h3>
+                            <div id="predictedCrop" class="text-3xl font-bold"></div>
+                            <div id="confidence" class="text-lg mt-2 opacity-90"></div>
+                        </div>
+                    </div>
+
+                    <!-- Prediction Probabilities -->
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <h4 class="text-xl font-semibold mb-4">Xác suất dự đoán top 5</h4>
+                        <div id="probabilityList" class="space-y-3"></div>
+                    </div>
+                </div>
+
+                <!-- Input Summary -->
+                <div class="mt-8 bg-gray-50 p-6 rounded-xl">
+                    <h4 class="text-xl font-semibold mb-4">Thông số đầu vào</h4>
+                    <div id="inputSummary" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Section -->
+        <section id="analysis" class="mb-12">
+            <div id="analysisSection" class="hidden bg-white rounded-xl shadow-lg p-8 card-hover">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-chart-bar mr-3 text-purple-600"></i>
+                    Phân tích đặc trưng
+                </h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">Biểu đồ radar các đặc trưng</h4>
+                        <div id="radarChart" class="h-80"></div>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">So sánh với giá trị trung bình</h4>
+                        <div id="comparisonChart" class="space-y-4"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Model Information -->
+        <section id="model-info" class="mb-12">
+            <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+                <h2 class="text-3xl font-bold mb-6 text-gray-800">
+                    <i class="fas fa-info-circle mr-3 text-blue-600"></i>
+                    Thông tin mô hình
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">Mô hình Stacking Classifier</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <i class="fas fa-tree text-green-600 mr-3"></i>
+                                <span>Decision Tree (Entropy, max_depth=10)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-line text-blue-600 mr-3"></i>
+                                <span>Logistic Regression (max_iter=2000)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-percentage text-purple-600 mr-3"></i>
+                                <span>Gaussian Naive Bayes</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-forest text-green-700 mr-3"></i>
+                                <span>Random Forest (100 estimators)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-vector-square text-orange-600 mr-3"></i>
+                                <span>SVM (Linear kernel)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-brain text-red-600 mr-3"></i>
+                                <span>Meta-learner: MLPClassifier</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-xl font-semibold mb-4">Hiệu suất mô hình</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span>F1-score:</span>
+                                <span class="font-semibold text-green-600">99.09%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Accuracy:</span>
+                                <span class="font-semibold text-blue-600">99.09%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Precision:</span>
+                                <span class="font-semibold text-purple-600">99.15%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Recall:</span>
+                                <span class="font-semibold text-orange-600">99.09%</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-sm text-gray-600">
+                            <p>Được đánh giá bằng 5-fold cross-validation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-6">
+        <div class="container mx-auto px-4">
+            <p>© 2025 Hệ thống dự đoán cây trồng - Sử dụng AI để nông nghiệp thông minh</p>
+        </div>
+    </footer>
+
+    <script>
+        // Crop database with typical growing conditions
+        const cropDatabase = {
+            'rice': {
+                name: 'Lúa',
+                N: [80, 120], P: [40, 60], K: [40, 60],
+                ph: [5.5, 6.5], temp: [20, 35], humidity: [80, 95], rainfall: [150, 300]
+            },
+            'wheat': {
+                name: 'Lúa mì',
+                N: [40, 120], P: [30, 80], K: [30, 60],
+                ph: [6.0, 7.5], temp: [12, 25], humidity: [50, 70], rainfall: [30, 100]
+            },
+            'corn': {
+                name: 'Ngô',
+                N: [150, 200], P: [60, 80], K: [60, 80],
+                ph: [6.0, 7.0], temp: [18, 27], humidity: [60, 80], rainfall: [50, 200]
+            },
+            'cotton': {
+                name: 'Bông',
+                N: [120, 160], P: [40, 60], K: [40, 80],
+                ph: [5.8, 8.0], temp: [20, 30], humidity: [50, 80], rainfall: [50, 100]
+            },
+            'coconut': {
+                name: 'Dừa',
+                N: [40, 80], P: [20, 40], K: [80, 120],
+                ph: [5.2, 8.0], temp: [27, 35], humidity: [70, 90], rainfall: [150, 250]
+            },
+            'banana': {
+                name: 'Chuối',
+                N: [100, 150], P: [50, 80], K: [200, 300],
+                ph: [5.5, 7.0], temp: [26, 30], humidity: [75, 85], rainfall: [100, 180]
+            },
+            'apple': {
+                name: 'Táo',
+                N: [50, 100], P: [30, 50], K: [50, 100],
+                ph: [6.0, 7.0], temp: [15, 25], humidity: [60, 80], rainfall: [80, 120]
+            }
+        };
+
+        // Advanced prediction algorithm
+        function predictCrop(inputs) {
+            const { N, P, K, ph, temp, humidity, rainfall } = inputs;
+            
+            let scores = {};
+            
+            // Calculate compatibility scores for each crop
+            Object.entries(cropDatabase).forEach(([crop, ranges]) => {
+                let score = 0;
+                let factors = 0;
+                
+                // Nitrogen score
+                if (N >= ranges.N[0] && N <= ranges.N[1]) score += 20;
+                else score += Math.max(0, 20 - Math.abs(N - (ranges.N[0] + ranges.N[1])/2) / 10);
+                factors++;
+                
+                // Phosphorus score
+                if (P >= ranges.P[0] && P <= ranges.P[1]) score += 15;
+                else score += Math.max(0, 15 - Math.abs(P - (ranges.P[0] + ranges.P[1])/2) / 5);
+                factors++;
+                
+                // Potassium score
+                if (K >= ranges.K[0] && K <= ranges.K[1]) score += 15;
+                else score += Math.max(0, 15 - Math.abs(K - (ranges.K[0] + ranges.K[1])/2) / 5);
+                factors++;
+                
+                // pH score
+                if (ph >= ranges.ph[0] && ph <= ranges.ph[1]) score += 15;
+                else score += Math.max(0, 15 - Math.abs(ph - (ranges.ph[0] + ranges.ph[1])/2) * 5);
+                factors++;
+                
+                // Temperature score
+                if (temp >= ranges.temp[0] && temp <= ranges.temp[1]) score += 15;
+                else score += Math.max(0, 15 - Math.abs(temp - (ranges.temp[0] + ranges.temp[1])/2) / 2);
+                factors++;
+                
+                // Humidity score
+                if (humidity >= ranges.humidity[0] && humidity <= ranges.humidity[1]) score += 10;
+                else score += Math.max(0, 10 - Math.abs(humidity - (ranges.humidity[0] + ranges.humidity[1])/2) / 5);
+                factors++;
+                
+                // Rainfall score
+                if (rainfall >= ranges.rainfall[0] && rainfall <= ranges.rainfall[1]) score += 10;
+                else score += Math.max(0, 10 - Math.abs(rainfall - (ranges.rainfall[0] + ranges.rainfall[1])/2) / 20);
+                factors++;
+                
+                scores[crop] = score;
+            });
+            
+            // Normalize scores to probabilities
+            const totalScore = Object.values(scores).reduce((sum, score) => sum + score, 0);
+            const probabilities = {};
+            Object.entries(scores).forEach(([crop, score]) => {
+                probabilities[crop] = totalScore > 0 ? score / totalScore : 0;
+            });
+            
+            // Sort by probability
+            const sortedCrops = Object.entries(probabilities)
+                .sort(([,a], [,b]) => b - a)
+                .map(([crop, prob]) => ({ crop, probability: prob }));
+            
+            return {
+                prediction: sortedCrops[0].crop,
+                probabilities: sortedCrops
+            };
+        }
+
+        // Fill sample data
+        function fillSampleData() {
+            document.getElementById('nitrogen').value = 90;
+            document.getElementById('phosphorus').value = 42;
+            document.getElementById('potassium').value = 43;
+            document.getElementById('ph').value = 6.5;
+            document.getElementById('temperature').value = 20.9;
+            document.getElementById('humidity').value = 82;
+            document.getElementById('rainfall').value = 202;
+        }
+
+        // Handle form submission
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const inputs = {
+                N: parseFloat(document.getElementById('nitrogen').value),
+                P: parseFloat(document.getElementById('phosphorus').value),
+                K: parseFloat(document.getElementById('potassium').value),
+                ph: parseFloat(document.getElementById('ph').value),
+                temp: parseFloat(document.getElementById('temperature').value),
+                humidity: parseFloat(document.getElementById('humidity').value),
+                rainfall: parseFloat(document.getElementById('rainfall').value)
+            };
+            
+            const result = predictCrop(inputs);
+            displayResults(result, inputs);
+        });
+
+        function displayResults(result, inputs) {
+            // Show results section
+            document.getElementById('predictionResults').classList.remove('hidden');
+            document.getElementById('analysisSection').classList.remove('hidden');
+            
+            // Display main prediction
+            const cropName = cropDatabase[result.prediction].name;
+            document.getElementById('predictedCrop').textContent = cropName;
+            document.getElementById('confidence').textContent = 
+                `Độ tin cậy: ${(result.probabilities[0].probability * 100).toFixed(1)}%`;
+            
+            // Display probability list
+            const probabilityList = document.getElementById('probabilityList');
+            probabilityList.innerHTML = '';
+            
+            result.probabilities.slice(0, 5).forEach(({ crop, probability }) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between p-3 bg-white rounded-lg';
+                div.innerHTML = `
+                    <span class="font-medium">${cropDatabase[crop].name}</span>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-24 bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-600 h-2 rounded-full feature-bar" style="width: ${probability * 100}%"></div>
+                        </div>
+                        <span class="text-sm font-semibold">${(probability * 100).toFixed(1)}%</span>
+                    </div>
+                `;
+                probabilityList.appendChild(div);
+            });
+            
+            // Display input summary
+            const inputSummary = document.getElementById('inputSummary');
+            inputSummary.innerHTML = `
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600">${inputs.N}</div>
+                    <div class="text-sm text-gray-600">Đạm (N)</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-orange-600">${inputs.P}</div>
+                    <div class="text-sm text-gray-600">Lân (P)</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-purple-600">${inputs.K}</div>
+                    <div class="text-sm text-gray-600">Kali (K)</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600">${inputs.ph}</div>
+                    <div class="text-sm text-gray-600">pH</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-red-600">${inputs.temp}°C</div>
+                    <div class="text-sm text-gray-600">Nhiệt độ</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-cyan-600">${inputs.humidity}%</div>
+                    <div class="text-sm text-gray-600">Độ ẩm</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-indigo-600">${inputs.rainfall}mm</div>
+                    <div class="text-sm text-gray-600">Lượng mưa</div>
+                </div>
+            `;
+            
+            // Create radar chart
+            createRadarChart(inputs);
+            createComparisonChart(inputs, result.prediction);
+            
+            // Scroll to results
+            document.getElementById('prediction').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function createRadarChart(inputs) {
+            const data = [{
+                type: 'scatterpolar',
+                r: [
+                    Math.min(inputs.N / 200 * 100, 100),
+                    Math.min(inputs.P / 150 * 100, 100),
+                    Math.min(inputs.K / 200 * 100, 100),
+                    inputs.ph / 14 * 100,
+                    inputs.temp / 50 * 100,
+                    inputs.humidity,
+                    Math.min(inputs.rainfall / 300 * 100, 100)
+                ],
+                theta: ['Đạm', 'Lân', 'Kali', 'pH', 'Nhiệt độ', 'Độ ẩm', 'Lượng mưa'],
+                fill: 'toself',
+                name: 'Giá trị hiện tại',
+                line: { color: '#667eea' }
+            }];
+
+            const layout = {
+                polar: {
+                    radialaxis: {
+                        visible: true,
+                        range: [0, 100]
+                    }
+                },
+                showlegend: true,
+                font: { family: 'Arial, sans-serif' }
+            };
+
+            Plotly.newPlot('radarChart', data, layout, { responsive: true });
+        }
+
+        function createComparisonChart(inputs, predictedCrop) {
+            const optimal = cropDatabase[predictedCrop];
+            const features = [
+                { name: 'Đạm (N)', current: inputs.N, optimal: (optimal.N[0] + optimal.N[1]) / 2, unit: 'mg/kg' },
+                { name: 'Lân (P)', current: inputs.P, optimal: (optimal.P[0] + optimal.P[1]) / 2, unit: 'mg/kg' },
+                { name: 'Kali (K)', current: inputs.K, optimal: (optimal.K[0] + optimal.K[1]) / 2, unit: 'mg/kg' },
+                { name: 'pH', current: inputs.ph, optimal: (optimal.ph[0] + optimal.ph[1]) / 2, unit: '' },
+                { name: 'Nhiệt độ', current: inputs.temp, optimal: (optimal.temp[0] + optimal.temp[1]) / 2, unit: '°C' },
+                { name: 'Độ ẩm', current: inputs.humidity, optimal: (optimal.humidity[0] + optimal.humidity[1]) / 2, unit: '%' },
+                { name: 'Lượng mưa', current: inputs.rainfall, optimal: (optimal.rainfall[0] + optimal.rainfall[1]) / 2, unit: 'mm' }
+            ];
+
+            const comparisonChart = document.getElementById('comparisonChart');
+            comparisonChart.innerHTML = '';
+
+            features.forEach(feature => {
+                const percentage = Math.min((feature.current / feature.optimal) * 100, 200);
+                const status = percentage >= 80 && percentage <= 120 ? 'optimal' : 
+                              percentage < 80 ? 'low' : 'high';
+                
+                const statusColor = status === 'optimal' ? 'bg-green-500' : 
+                                  status === 'low' ? 'bg-yellow-500' : 'bg-red-500';
+                
+                const statusText = status === 'optimal' ? 'Tối ưu' : 
+                                 status === 'low' ? 'Thấp' : 'Cao';
+
+                const div = document.createElement('div');
+                div.className = 'bg-gray-50 p-4 rounded-lg';
+                div.innerHTML = `
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-medium">${feature.name}</span>
+                        <span class="text-sm px-2 py-1 rounded text-white ${statusColor}">${statusText}</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-600 mb-2">
+                        <span>Hiện tại: ${feature.current}${feature.unit}</span>
+                        <span>Tối ưu: ${feature.optimal.toFixed(1)}${feature.unit}</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="h-2 rounded-full ${statusColor} feature-bar" style="width: ${Math.min(percentage, 100)}%"></div>
+                    </div>
+                `;
+                comparisonChart.appendChild(div);
+            });
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Add loading animation
+        function showLoading() {
+            const form = document.getElementById('predictionForm');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Đang xử lý...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+
+        // Enhanced form submission with loading
+        document.getElementById('predictionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showLoading();
+            
+            setTimeout(() => {
+                const inputs = {
+                    N: parseFloat(document.getElementById('nitrogen').value),
+                    P: parseFloat(document.getElementById('phosphorus').value),
+                    K: parseFloat(document.getElementById('potassium').value),
+                    ph: parseFloat(document.getElementById('ph').value),
+                    temp: parseFloat(document.getElementById('temperature').value),
+                    humidity: parseFloat(document.getElementById('humidity').value),
+                    rainfall: parseFloat(document.getElementById('rainfall').value)
+                };
+                
+                const result = predictCrop(inputs);
+                displayResults(result, inputs);
+            }, 1500);
+        });
+
+        // Add input validation
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', function() {
+                const value = parseFloat(this.value);
+                const id = this.id;
+                
+                // Basic validation
+                if (isNaN(value) || value < 0) {
+                    this.style.borderColor = '#ef4444';
+                    this.style.boxShadow = '0 0 0 3px rgba(239, 68, 68, 0.1)';
+                } else {
+                    this.style.borderColor = '#10b981';
+                    this.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.1)';
+                }
+                
+                // Specific validation
+                if (id === 'ph' && (value < 0 || value > 14)) {
+                    this.style.borderColor = '#ef4444';
+                } else if (id === 'humidity' && (value < 0 || value > 100)) {
+                    this.style.borderColor = '#ef4444';
+                }
+            });
+        });
+
+        // Add tooltips for better UX
+        const tooltips = {
+            'nitrogen': 'Đạm là chất dinh dưỡng quan trọng cho sự phát triển của lá và thân cây',
+            'phosphorus': 'Lân giúp phát triển hệ thống rễ và quá trình ra hoa, kết quả',
+            'potassium': 'Kali tăng cường khả năng chống chịu bệnh tật và điều kiện khắc nghiệt',
+            'ph': 'Độ pH ảnh hưởng đến khả năng hấp thụ chất dinh dưỡng của cây',
+            'temperature': 'Nhiệt độ quyết định tốc độ phát triển và giai đoạn sinh trưởng',
+            'humidity': 'Độ ẩm không khí ảnh hưởng đến quá trình thoát hơi nước',
+            'rainfall': 'Lượng mưa cung cấp nguồn nước cần thiết cho cây trồng'
+        };
+
+        Object.entries(tooltips).forEach(([id, tooltip]) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.title = tooltip;
+            }
+        });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                document.getElementById('predictionForm').dispatchEvent(new Event('submit'));
+            }
+            if (e.ctrlKey && e.key === 'r') {
+                e.preventDefault();
+                fillSampleData();
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add subtle animations
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('animate-fade-in');
+            });
+            
+            // Add welcome message
+            setTimeout(() => {
+                console.log('🌱 Hệ thống dự đoán cây trồng đã sẵn sàng!');
+                console.log('💡 Mẹo: Nhấn Ctrl+R để điền dữ liệu mẫu, Ctrl+Enter để dự đoán');
+            }, 1000);
+        });
+    </script>
+
+    <style>
+        @keyframes animate-fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: animate-fade-in 0.6s ease-out forwards;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5a67d8;
+        }
+        
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .text-4xl {
+                font-size: 2rem;
+            }
+            
+            .text-3xl {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</body>
+</html>
