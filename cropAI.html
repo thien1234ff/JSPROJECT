@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống dự đoán cây trồng thông minh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        .loading { display: none; }
+        .loading.active { display: inline-block; }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-green-500 to-green-700 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">Hệ thống dự đoán cây trồng thông minh</h1>
+            <p class="mt-2 text-lg">Dự đoán cây trồng bằng AI (Flask API)</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Form -->
+        <section class="bg-white p-6 rounded shadow">
+            <h2 class="text-2xl font-semibold mb-4 text-green-700">
+                <i class="fas fa-seedling mr-2"></i>Dự đoán cây trồng
+            </h2>
+            <form id="predictionForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="number" id="nitrogen" name="nitrogen" placeholder="Đạm (N)" class="p-2 border rounded w-full" required />
+                <input type="number" id="phosphorus" name="phosphorus" placeholder="Lân (P)" class="p-2 border rounded w-full" required />
+                <input type="number" id="potassium" name="potassium" placeholder="Kali (K)" class="p-2 border rounded w-full" required />
+                <input type="number" id="ph" name="ph" placeholder="pH" class="p-2 border rounded w-full" required />
+                <input type="number" id="temperature" name="temperature" placeholder="Nhiệt độ (°C)" class="p-2 border rounded w-full" required />
+                <input type="number" id="humidity" name="humidity" placeholder="Độ ẩm (%)" class="p-2 border rounded w-full" required />
+                <input type="number" id="rainfall" name="rainfall" placeholder="Lượng mưa (mm)" class="p-2 border rounded w-full" required />
+
+                <button type="submit" class="md:col-span-2 bg-green-600 text-white py-3 rounded hover:bg-green-700">
+                    <i class="fas fa-magic mr-2"></i> Dự đoán cây trồng
+                    <span class="loading ml-2"><i class="fas fa-spinner fa-spin"></i></span>
+                </button>
+            </form>
+        </section>
+
+        <!-- Kết quả -->
+        <section id="predictionResult" class="hidden mt-8">
+            <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded shadow">
+                <h3 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-star mr-2"></i>Kết quả dự đoán
+                </h3>
+                <p id="predictedCrop" class="text-3xl font-bold mb-4"></p>
+                <div class="w-full bg-white bg-opacity-30 rounded-full h-4">
+                    <div id="confidenceBar" class="bg-yellow-300 h-4 rounded-full" style="width: 0%"></div>
+                </div>
+                <p class="mt-2" id="confidenceText"></p>
+                <div class="mt-6">
+                    <h4 class="text-lg font-semibold mb-2">Xác suất các loại cây:</h4>
+                    <div id="probabilities" class="grid grid-cols-1 md:grid-cols-2 gap-2"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        document.getElementById("predictionForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+
+            const loading = document.querySelector(".loading");
+            const submitButton = document.querySelector("button[type='submit']");
+            loading.classList.add("active");
+            submitButton.disabled = true;
+
+            const inputs = {
+                N: parseFloat(document.getElementById("nitrogen").value),
+                P: parseFloat(document.getElementById("phosphorus").value),
+                K: parseFloat(document.getElementById("potassium").value),
+                ph: parseFloat(document.getElementById("ph").value),
+                temperature: parseFloat(document.getElementById("temperature").value),
+                humidity: parseFloat(document.getElementById("humidity").value),
+                rainfall: parseFloat(document.getElementById("rainfall").value)
+            };
+
+            try {
+                const res = await fetch("http://localhost:5000/predict", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(inputs)
+                });
+
+                const result = await res.json();
+
+                document.getElementById("predictionResult").classList.remove("hidden");
+
+                // Hiển thị cây được dự đoán
+                document.getElementById("predictedCrop").innerText = result.prediction.toUpperCase();
+
+                // Tìm xác suất cao nhất
+                const maxProb = Math.max(...Object.values(result.probabilities));
+                document.getElementById("confidenceBar").style.width = `${(maxProb * 100).toFixed(1)}%`;
+                document.getElementById("confidenceText").innerText = `Độ tin cậy: ${(maxProb * 100).toFixed(1)}%`;
+
+                // Hiển thị xác suất các loại cây
+                let html = "";
+                for (const [crop, prob] of Object.entries(result.probabilities)) {
+                    html += `
+                        <div class="bg-white bg-opacity-20 p-3 rounded">
+                            <div class="font-semibold">${crop.toUpperCase()}</div>
+                            <div class="text-sm">${(prob * 100).toFixed(2)}%</div>
+                            <div class="w-full bg-white bg-opacity-30 rounded-full h-2 mt-2">
+                                <div class="bg-yellow-300 h-2 rounded-full" style="width: ${(prob * 100).toFixed(1)}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+                document.getElementById("probabilities").innerHTML = html;
+
+                loading.classList.remove("active");
+                submitButton.disabled = false;
+                document.getElementById("predictionResult").scrollIntoView({ behavior: 'smooth' });
+
+            } catch (error) {
+                alert("Lỗi khi gọi API: " + error);
+                loading.classList.remove("active");
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+
+</body>
+</html>
