@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,7 +70,8 @@
             font-size: 0.9rem;
         }
 
-        select, input {
+        select,
+        input {
             padding: 12px 16px;
             border: 2px solid #e0e6ed;
             border-radius: 10px;
@@ -78,7 +80,8 @@
             background: white;
         }
 
-        select:focus, input:focus {
+        select:focus,
+        input:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -172,9 +175,17 @@
             font-weight: 600;
         }
 
-        .positive { color: #2ecc71; }
-        .negative { color: #e74c3c; }
-        .neutral { color: #f39c12; }
+        .positive {
+            color: #2ecc71;
+        }
+
+        .negative {
+            color: #e74c3c;
+        }
+
+        .neutral {
+            color: #f39c12;
+        }
 
         .chart-container {
             position: relative;
@@ -322,21 +333,22 @@
                 flex-direction: column;
                 align-items: stretch;
             }
-            
+
             .control-group {
                 width: 100%;
             }
-            
+
             .dashboard {
                 grid-template-columns: 1fr;
             }
-            
+
             .header h1 {
                 font-size: 2rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -353,6 +365,108 @@
                     <option value="coffee">Cà phê</option>
                     <option value="pepper">Tiêu</option>
                     <option value="rubber">Cao su</option>
+                    <option value="gao-st25">Gạo ST25</option>
+                    <option value="ca-chua-bi">Cà chua bi</option>
+                    <option value="xoai-cat-hoa-loc">Xoài cát Hòa Lộc</option>
+                    <option value="ca-phe-arabica">Cà phê Arabica</option>
+                    <option value="dua-hau-khong-hat">Dưa hấu không hạt</option>
+                    <option value="rau-muong">Rau muống</option>
+                    <option value="buoi-da-xanh">Bưởi da xanh</option>
+                    <option value="cai-thao">Cải thảo</option>
+                    <option value="chom-chom">Chôm chôm</option>
+                    <option value="hanh-tay">Hành tây</option>
+                    <option value="tao-fuji">Táo Fuji</option>
+                    <option value="khoai-lang">Khoai lang</option>
+                    <option value="dua-cay">Dứa Cây</option>
+                    <option value="bap-cai">Bắp cải</option>
+                    <option value="ot-chuong">Ớt chuông</option>
+                    <option value="chuoi-tieu">Chuối tiêu</option>
+                    <option value="cam-sanh">Cam sành</option>
+                    <option value="rau-bina">Rau bina</option>
+                    <option value="su-hao">Su hào</option>
+                    <option value="mang-cut">Măng cụt</option>
+                    <option value="du-du">Đu đủ</option>
+                    <option value="nam-huong">Nấm hương</option>
+                    <option value="le-han-quoc">Lê Hàn Quốc</option>
+                    <option value="dau-bap">Đậu bắp</option>
+                    <option value="vai-thieu">Vải thiều</option>
+                    <option value="khoai-tay">Khoai tây</option>
+                    <option value="nhan-long">Nhãn long</option>
+                    <option value="bi-do">Bí đỏ</option>
+                    <option value="sau-rieng">Sầu riêng</option>
+                    <option value="nho-xanh">Nho xanh</option>
+                    <option value="ca-tim">Cà tím</option>
+                    <option value="tao-gala">Táo gala</option>
+                    <option value="bi-ngoi">Bí ngồi</option>
+                    <option value="cha-la">Chà là</option>
+                    <option value="can-tay">Cần tây</option>
+                    <option value="nho-do">Nho đỏ</option>
+                    <option value="cu-den">Củ dền</option>
+                    <option value="thanh-long">Thanh long</option>
+                    <option value="rau-den">Rau dền</option>
+                    <option value="chanh-day">Chanh dây</option>
+                    <option value="sup-lo">Súp lơ</option>
+                    <option value="mit-thai">Mít thái</option>
+                    <option value="ot-hiem">Ớt hiểm</option>
+                    <option value="man-tim">Mận tím</option>
+                    <option value="dau-cove">Đậu cove</option>
+                    <option value="roi-thai">Roi thái</option>
+                    <option value="cai-be-xanh">Cải bẹ xanh</option>
+                    <option value="quyt-ngot">Quýt ngọt</option>
+                    <option value="muop-khia">Mướp khía</option>
+                    <option value="sapoche">Sapoche</option>
+                    <option value="rau-thom">Rau thơm</option>
+                    <option value="na-dai">Na dai</option>
+                    <option value="ca-rot">Cà rốt</option>
+                    <option value="cam-uc">Cam Úc</option>
+                    <option value="rau-xa-lach">Rau xà lách</option>
+                    <option value="oi-ta">Ổi ta</option>
+                    <option value="ngo-ngot">Ngô ngọt</option>
+                    <option value="dau-tay">Dâu tây</option>
+                    <option value="he-la">Hẹ lá</option>
+                    <option value="dua-xiem">Dừa xiêm</option>
+                    <option value="gia-do">Giá đỗ</option>
+                    <option value="chom-chom-pink">Chôm chôm pink</option>
+                    <option value="cu-cai-trang">Củ cải trắng</option>
+                    <option value="kiwi-xanh">Kiwi xanh</option>
+                    <option value="bau-dai">Bầu dài</option>
+                    <option value="mang-cau">Mãng cầu</option>
+                    <option value="cai-ngot">Cải ngọt</option>
+                    <option value="tao-ta">Táo ta</option>
+                    <option value="kho-qua">Khổ qua</option>
+                    <option value="dua-luoi">Dưa lưới</option>
+                    <option value="tia-to">Tía tô</option>
+                    <option value="chum-ruot">Chùm ruột</option>
+                    <option value="gao-tam-xoan">Gạo tám xoan</option>
+                    <option value="ca-chua-cherry">Cà chua cherry</option>
+                    <option value="luu-do">Lựu đỏ</option>
+                    <option value="dau-phong">Đậu phộng</option>
+                    <option value="hung-que">Húng quế</option>
+                    <option value="buoi-nam-roi">Bưởi năm roi</option>
+                    <option value="ca-phao">Cà pháo</option>
+                    <option value="chanh-tuoi">Chanh tươi</option>
+                    <option value="do-xanh">Đỗ xanh</option>
+                    <option value="mang-tay">Măng tây</option>
+                    <option value="dau-tam-den">Dâu tằm đen</option>
+                    <option value="gao-lut-do">Gạo lứt đỏ</option>
+                    <option value="cai-bo-xoi">Cải bó xôi</option>
+                    <option value="du-du-chin">Đu đủ chín</option>
+                    <option value="dau-den">Đậu đen</option>
+                    <option value="kinh-gioi">Kinh giới</option>
+                    <option value="chom-chom-do">Chôm chôm đỏ</option>
+                    <option value="cai-cuc">Cải cúc</option>
+                    <option value="bo-booth">Bơ booth</option>
+                    <option value="lua-mi">Lúa mì</option>
+                    <option value="ngo-gai">Ngò gai</option>
+                    <option value="cam-canh">Cam canh</option>
+                    <option value="yen-mach">Yến mạch</option>
+                    <option value="rau-ram">Rau ram</option>
+                    <option value="khoai-mon">Khoai môn</option>
+                    <option value="mit-thai-sieu-ngot">Mít Thái siêu ngọt</option>
+                    <option value="dau-tuong">Đậu tương</option>
+                    <option value="la-lot">Lá lốt</option>
+                    <option value="nho-tim">Nho tím</option>
+                    <option value="ca-chua-beef">Cà chua beef</option>
                 </select>
             </div>
             <div class="control-group">
@@ -451,19 +565,23 @@
             <div class="analysis-content">
                 <div class="analysis-item">
                     <h4>Xu hướng giá cả</h4>
-                    <p>Giá gạo đang có xu hướng tăng nhẹ do nhu cầu xuất khẩu tăng cao và điều kiện thời tiết thuận lợi cho việc bảo quản.</p>
+                    <p>Giá gạo đang có xu hướng tăng nhẹ do nhu cầu xuất khẩu tăng cao và điều kiện thời tiết thuận lợi
+                        cho việc bảo quản.</p>
                 </div>
                 <div class="analysis-item">
                     <h4>Yếu tố ảnh hưởng</h4>
-                    <p>Thời tiết, chính sách xuất khẩu, tỷ giá USD/VND, và mùa vụ là những yếu tố chính ảnh hưởng đến giá cả.</p>
+                    <p>Thời tiết, chính sách xuất khẩu, tỷ giá USD/VND, và mùa vụ là những yếu tố chính ảnh hưởng đến
+                        giá cả.</p>
                 </div>
                 <div class="analysis-item">
                     <h4>Khuyến nghị</h4>
-                    <p>Nên bán trong 2-3 tuần tới để tận dụng xu hướng tăng giá. Theo dõi chặt chẽ thông tin thời tiết và chính sách.</p>
+                    <p>Nên bán trong 2-3 tuần tới để tận dụng xu hướng tăng giá. Theo dõi chặt chẽ thông tin thời tiết
+                        và chính sách.</p>
                 </div>
                 <div class="analysis-item">
                     <h4>Rủi ro</h4>
-                    <p>Có thể có biến động mạnh nếu xuất hiện thời tiết bất thường hoặc thay đổi chính sách xuất khẩu đột ngột.</p>
+                    <p>Có thể có biến động mạnh nếu xuất hiện thời tiết bất thường hoặc thay đổi chính sách xuất khẩu
+                        đột ngột.</p>
                 </div>
             </div>
         </div>
@@ -477,18 +595,21 @@
                 <p><strong>Ngày báo cáo:</strong> <span id="reportDate"></span></p>
                 <p><strong>Sản phẩm:</strong> <span class="highlight" id="reportProduct">Gạo</span></p>
                 <p><strong>Khu vực:</strong> <span class="highlight" id="reportRegion">Miền Nam</span></p>
-                
+
                 <h4 style="margin-top: 20px; margin-bottom: 10px;">Tóm tắt thị trường:</h4>
-                <p>Thị trường gạo đang cho thấy những tín hiệu tích cực với mức tăng giá <span class="highlight">2.3%</span> so với tuần trước. Nhu cầu thị trường ở mức cao với khối lượng giao dịch đạt <span class="highlight">2,450 tấn</span>.</p>
-                
+                <p>Thị trường gạo đang cho thấy những tín hiệu tích cực với mức tăng giá <span
+                        class="highlight">2.3%</span> so với tuần trước. Nhu cầu thị trường ở mức cao với khối lượng
+                    giao dịch đạt <span class="highlight">2,450 tấn</span>.</p>
+
                 <h4 style="margin-top: 20px; margin-bottom: 10px;">Dự báo:</h4>
-                <p>Xu hướng tăng giá dự kiến sẽ tiếp tục trong 2-3 tuần tới với mức tăng dự báo <span class="highlight">5-8%</span>. Đây là thời điểm thuận lợi cho việc bán hàng.</p>
-                
+                <p>Xu hướng tăng giá dự kiến sẽ tiếp tục trong 2-3 tuần tới với mức tăng dự báo <span
+                        class="highlight">5-8%</span>. Đây là thời điểm thuận lợi cho việc bán hàng.</p>
+
                 <h4 style="margin-top: 20px; margin-bottom: 10px;">Khuyến nghị chiến lược:</h4>
                 <p>1. Tận dụng xu hướng tăng giá hiện tại<br>
-                2. Theo dõi chặt chẽ các yếu tố thời tiết<br>
-                3. Chuẩn bị kế hoạch bán hàng trong 2-3 tuần tới<br>
-                4. Đa dạng hóa kênh phân phối để tối ưu lợi nhuận</p>
+                    2. Theo dõi chặt chẽ các yếu tố thời tiết<br>
+                    3. Chuẩn bị kế hoạch bán hàng trong 2-3 tuần tới<br>
+                    4. Đa dạng hóa kênh phân phối để tối ưu lợi nhuận</p>
             </div>
         </div>
     </div>
@@ -560,6 +681,1332 @@
                 demandIndex: 58,
                 volatilityIndex: 32,
                 competitionIndex: 65
+            },
+            "gao-st25": {
+                currentPrice: 25000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 2300,
+                volumeChange: 5,
+                supplyIndex: 70,
+                demandIndex: 80,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "ca-chua-bi": {
+                currentPrice: 15000,
+                priceChange: 0.8,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1800,
+                volumeChange: 2,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 15,
+                competitionIndex: 60
+            },
+            "xoai-cat-hoa-loc": {
+                currentPrice: 45000,
+                priceChange: 2.0,
+                demand: 'Cao',
+                demandChange: 12,
+                forecast: 'Tăng nhẹ',
+                volume: 1200,
+                volumeChange: 8,
+                supplyIndex: 68,
+                demandIndex: 82,
+                volatilityIndex: 22,
+                competitionIndex: 70
+            },
+            "ca-phe-arabica": {
+                currentPrice: 180000,
+                priceChange: 3.5,
+                demand: 'Rất cao',
+                demandChange: 18,
+                forecast: 'Tăng mạnh',
+                volume: 3000,
+                volumeChange: 15,
+                supplyIndex: 60,
+                demandIndex: 90,
+                volatilityIndex: 30,
+                competitionIndex: 80
+            },
+            "dua-hau-khong-hat": {
+                currentPrice: 12000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 4,
+                supplyIndex: 80,
+                demandIndex: 65,
+                volatilityIndex: 18,
+                competitionIndex: 55
+            },
+            "rau-muong": {
+                currentPrice: 8000,
+                priceChange: 0.5,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2500,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 60,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "buoi-da-xanh": {
+                currentPrice: 35000,
+                priceChange: 1.8,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1500,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 78,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "cai-thao": {
+                currentPrice: 18000,
+                priceChange: 0.7,
+                demand: 'Trung bình',
+                demandChange: 4,
+                forecast: 'Ổn định',
+                volume: 1700,
+                volumeChange: 2,
+                supplyIndex: 75,
+                demandIndex: 70,
+                volatilityIndex: 12,
+                competitionIndex: 58
+            },
+            "chom-chom": {
+                currentPrice: 28000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 9,
+                forecast: 'Tăng nhẹ',
+                volume: 1300,
+                volumeChange: 5,
+                supplyIndex: 68,
+                demandIndex: 75,
+                volatilityIndex: 18,
+                competitionIndex: 62
+            },
+            "hanh-tay": {
+                currentPrice: 22000,
+                priceChange: 0.9,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1600,
+                volumeChange: 3,
+                supplyIndex: 78,
+                demandIndex: 65,
+                volatilityIndex: 15,
+                competitionIndex: 60
+            },
+            "tao-fuji": {
+                currentPrice: 65000,
+                priceChange: 2.2,
+                demand: 'Rất cao',
+                demandChange: 15,
+                forecast: 'Tăng mạnh',
+                volume: 1000,
+                volumeChange: 10,
+                supplyIndex: 60,
+                demandIndex: 85,
+                volatilityIndex: 25,
+                competitionIndex: 75
+            },
+            "khoai-lang": {
+                currentPrice: 12000,
+                priceChange: 0.6,
+                demand: 'Thấp',
+                demandChange: 2,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 80,
+                demandIndex: 62,
+                volatilityIndex: 12,
+                competitionIndex: 55
+            },
+            "dua-cay": {
+                currentPrice: 15000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 1800,
+                volumeChange: 4,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 16,
+                competitionIndex: 58
+            },
+            "bap-cai": {
+                currentPrice: 20000,
+                priceChange: 0.8,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1900,
+                volumeChange: 2,
+                supplyIndex: 78,
+                demandIndex: 70,
+                volatilityIndex: 14,
+                competitionIndex: 60
+            },
+            "ot-chuong": {
+                currentPrice: 35000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 70,
+                demandIndex: 80,
+                volatilityIndex: 18,
+                competitionIndex: 65
+            },
+            "chuoi-tieu": {
+                currentPrice: 18000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 2100,
+                volumeChange: 3,
+                supplyIndex: 80,
+                demandIndex: 65,
+                volatilityIndex: 15,
+                competitionIndex: 55
+            },
+            "cam-sanh": {
+                currentPrice: 30000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1600,
+                volumeChange: 7,
+                supplyIndex: 70,
+                demandIndex: 78,
+                volatilityIndex: 20,
+                competitionIndex: 63
+            },
+            "rau-bina": {
+                currentPrice: 15000,
+                priceChange: 0.7,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 1700,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 60,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "su-hao": {
+                currentPrice: 25000,
+                priceChange: 0.9,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1500,
+                volumeChange: 2,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 13,
+                competitionIndex: 58
+            },
+            "mang-cut": {
+                currentPrice: 45000,
+                priceChange: 2.0,
+                demand: 'Cao',
+                demandChange: 12,
+                forecast: 'Tăng nhẹ',
+                volume: 1100,
+                volumeChange: 8,
+                supplyIndex: 65,
+                demandIndex: 80,
+                volatilityIndex: 22,
+                competitionIndex: 70
+            },
+            "du-du": {
+                currentPrice: 20000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 1800,
+                volumeChange: 4,
+                supplyIndex: 78,
+                demandIndex: 65,
+                volatilityIndex: 15,
+                competitionIndex: 60
+            },
+            "nam-huong": {
+                currentPrice: 55000,
+                priceChange: 1.8,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1200,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 75,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "le-han-quoc": {
+                currentPrice: 70000,
+                priceChange: 2.5,
+                demand: 'Rất cao',
+                demandChange: 15,
+                forecast: 'Tăng mạnh',
+                volume: 900,
+                volumeChange: 10,
+                supplyIndex: 60,
+                demandIndex: 85,
+                volatilityIndex: 25,
+                competitionIndex: 75
+            },
+            "dau-bap": {
+                currentPrice: 25000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 72,
+                demandIndex: 78,
+                volatilityIndex: 18,
+                competitionIndex: 62
+            },
+            "vai-thieu": {
+                currentPrice: 40000,
+                priceChange: 1.7,
+                demand: 'Cao',
+                demandChange: 12,
+                forecast: 'Tăng nhẹ',
+                volume: 1300,
+                volumeChange: 7,
+                supplyIndex: 68,
+                demandIndex: 80,
+                volatilityIndex: 21,
+                competitionIndex: 68
+            },
+            "khoai-tay": {
+                currentPrice: 18000,
+                priceChange: 0.8,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1900,
+                volumeChange: 2,
+                supplyIndex: 78,
+                demandIndex: 70,
+                volatilityIndex: 14,
+                competitionIndex: 60
+            },
+            "nhan-long": {
+                currentPrice: 35000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1500,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 78,
+                volatilityIndex: 19,
+                competitionIndex: 65
+            },
+            "bi-do": {
+                currentPrice: 12000,
+                priceChange: 0.6,
+                demand: 'Thấp',
+                demandChange: 2,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 80,
+                demandIndex: 62,
+                volatilityIndex: 12,
+                competitionIndex: 55
+            },
+            "sau-rieng": {
+                currentPrice: 120000,
+                priceChange: 3.0,
+                demand: 'Rất cao',
+                demandChange: 20,
+                forecast: 'Tăng mạnh',
+                volume: 800,
+                volumeChange: 12,
+                supplyIndex: 55,
+                demandIndex: 90,
+                volatilityIndex: 28,
+                competitionIndex: 80
+            },
+            "nho-xanh": {
+                currentPrice: 85000,
+                priceChange: 2.8,
+                demand: 'Rất cao',
+                demandChange: 15,
+                forecast: 'Tăng mạnh',
+                volume: 1000,
+                volumeChange: 10,
+                supplyIndex: 60,
+                demandIndex: 88,
+                volatilityIndex: 25,
+                competitionIndex: 75
+            },
+            "ca-tim": {
+                currentPrice: 22000,
+                priceChange: 0.9,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1600,
+                volumeChange: 3,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 15,
+                competitionIndex: 58
+            },
+            "tao-gala": {
+                currentPrice: 60000,
+                priceChange: 2.0,
+                demand: 'Rất cao',
+                demandChange: 12,
+                forecast: 'Tăng mạnh',
+                volume: 1100,
+                volumeChange: 8,
+                supplyIndex: 65,
+                demandIndex: 85,
+                volatilityIndex: 23,
+                competitionIndex: 70
+            },
+            "bi-ngoi": {
+                currentPrice: 15000,
+                priceChange: 0.7,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 1700,
+                volumeChange: 1,
+                supplyIndex: 80,
+                demandIndex: 60,
+                volatilityIndex: 12,
+                competitionIndex: 55
+            },
+            "cha-la": {
+                currentPrice: 55000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1200,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 75,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "can-tay": {
+                currentPrice: 30000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 72,
+                demandIndex: 78,
+                volatilityIndex: 18,
+                competitionIndex: 62
+            },
+            "nho-do": {
+                currentPrice: 95000,
+                priceChange: 2.5,
+                demand: 'Rất cao',
+                demandChange: 15,
+                forecast: 'Tăng mạnh',
+                volume: 900,
+                volumeChange: 10,
+                supplyIndex: 60,
+                demandIndex: 88,
+                volatilityIndex: 25,
+                competitionIndex: 75
+            },
+            "cu-den": {
+                currentPrice: 8000,
+                priceChange: 0.5,
+                demand: 'Thấp',
+                demandChange: 2,
+                forecast: 'Ổn định',
+                volume: 2200,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 58,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "thanh-long": {
+                currentPrice: 25000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 1800,
+                volumeChange: 4,
+                supplyIndex: 78,
+                demandIndex: 70,
+                volatilityIndex: 15,
+                competitionIndex: 60
+            },
+            "rau-den": {
+                currentPrice: 12000,
+                priceChange: 0.6,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 80,
+                demandIndex: 62,
+                volatilityIndex: 12,
+                competitionIndex: 55
+            },
+            "chanh-day": {
+                currentPrice: 35000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1500,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 78,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "sup-lo": {
+                currentPrice: 28000,
+                priceChange: 0.9,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1700,
+                volumeChange: 2,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 14,
+                competitionIndex: 58
+            },
+            "mit-thai": {
+                currentPrice: 30000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 72,
+                demandIndex: 80,
+                volatilityIndex: 18,
+                competitionIndex: 62
+            },
+            "ot-hiem": {
+                currentPrice: 45000,
+                priceChange: 1.8,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1200,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 75,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "man-tim": {
+                currentPrice: 50000,
+                priceChange: 2.0,
+                demand: 'Cao',
+                demandChange: 12,
+                forecast: 'Tăng nhẹ',
+                volume: 1100,
+                volumeChange: 8,
+                supplyIndex: 65,
+                demandIndex: 82,
+                volatilityIndex: 22,
+                competitionIndex: 70
+            },
+            "dau-cove": {
+                currentPrice: 35000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 72,
+                demandIndex: 78,
+                volatilityIndex: 18,
+                competitionIndex: 62
+            },
+            "roi-thai": {
+                currentPrice: 25000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 1800,
+                volumeChange: 4,
+                supplyIndex: 78,
+                demandIndex: 65,
+                volatilityIndex: 15,
+                competitionIndex: 60
+            },
+            "cai-be-xanh": {
+                currentPrice: 18000,
+                priceChange: 0.7,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 60,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "quyt-ngot": {
+                currentPrice: 28000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1600,
+                volumeChange: 7,
+                supplyIndex: 70,
+                demandIndex: 78,
+                volatilityIndex: 19,
+                competitionIndex: 65
+            },
+            "muop-khia": {
+                currentPrice: 20000,
+                priceChange: 0.8,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1700,
+                volumeChange: 2,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 14,
+                competitionIndex: 58
+            },
+            "sapoche": {
+                currentPrice: 40000,
+                priceChange: 1.7,
+                demand: 'Cao',
+                demandChange: 12,
+                forecast: 'Tăng nhẹ',
+                volume: 1300,
+                volumeChange: 7,
+                supplyIndex: 68,
+                demandIndex: 80,
+                volatilityIndex: 21,
+                competitionIndex: 68
+            },
+            "rau-thom": {
+                currentPrice: 15000,
+                priceChange: 0.6,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2100,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 62,
+                volatilityIndex: 12,
+                competitionIndex: 55
+            },
+            "na-dai": {
+                currentPrice: 45000,
+                priceChange: 2.0,
+                demand: 'Cao',
+                demandChange: 12,
+                forecast: 'Tăng nhẹ',
+                volume: 1100,
+                volumeChange: 8,
+                supplyIndex: 65,
+                demandIndex: 82,
+                volatilityIndex: 22,
+                competitionIndex: 70
+            },
+            "ca-rot": {
+                currentPrice: 16000,
+                priceChange: 0.7,
+                demand: 'Trung bình',
+                demandChange: 4,
+                forecast: 'Ổn định',
+                volume: 1800,
+                volumeChange: 2,
+                supplyIndex: 78,
+                demandIndex: 70,
+                volatilityIndex: 15,
+                competitionIndex: 60
+            },
+            "cam-uc": {
+                currentPrice: 75000,
+                priceChange: 2.5,
+                demand: 'Rất cao',
+                demandChange: 15,
+                forecast: 'Tăng mạnh',
+                volume: 900,
+                volumeChange: 10,
+                supplyIndex: 60,
+                demandIndex: 88,
+                volatilityIndex: 25,
+                competitionIndex: 75
+            },
+            "rau-xa-lach": {
+                currentPrice: 22000,
+                priceChange: 0.9,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1600,
+                volumeChange: 3,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 15,
+                competitionIndex: 58
+            },
+            "oi-ta": {
+                currentPrice: 18000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 1900,
+                volumeChange: 4,
+                supplyIndex: 80,
+                demandIndex: 65,
+                volatilityIndex: 16,
+                competitionIndex: 60
+            },
+            "ngo-ngot": {
+                currentPrice: 25000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 72,
+                demandIndex: 78,
+                volatilityIndex: 18,
+                competitionIndex: 62
+            },
+            "dau-tay": {
+                currentPrice: 120000,
+                priceChange: 3.0,
+                demand: 'Rất cao',
+                demandChange: 20,
+                forecast: 'Tăng mạnh',
+                volume: 800,
+                volumeChange: 12,
+                supplyIndex: 55,
+                demandIndex: 90,
+                volatilityIndex: 28,
+                competitionIndex: 80
+            },
+            "he-la": {
+                currentPrice: 12000,
+                priceChange: 0.6,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 60,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "dua-xiem": {
+                currentPrice: 15000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 1800,
+                volumeChange: 4,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 16,
+                competitionIndex: 58
+            },
+            "gia-do": {
+                currentPrice: 8000,
+                priceChange: 0.5,
+                demand: 'Thấp',
+                demandChange: 2,
+                forecast: 'Ổn định',
+                volume: 2200,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 58,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "chom-chom-pink": {
+                currentPrice: 35000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1300,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 78,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "cu-cai-trang": {
+                currentPrice: 12000,
+                priceChange: 0.6,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 80,
+                demandIndex: 62,
+                volatilityIndex: 12,
+                competitionIndex: 55
+            },
+            "kiwi-xanh": {
+                currentPrice: 85000,
+                priceChange: 2.8,
+                demand: 'Rất cao',
+                demandChange: 15,
+                forecast: 'Tăng mạnh',
+                volume: 900,
+                volumeChange: 10,
+                supplyIndex: 60,
+                demandIndex: 88,
+                volatilityIndex: 25,
+                competitionIndex: 75
+            },
+            "bau-dai": {
+                currentPrice: 18000,
+                priceChange: 0.8,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1700,
+                volumeChange: 2,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 14,
+                competitionIndex: 58
+            },
+            "mang-cau": {
+                currentPrice: 50000,
+                priceChange: 2.0,
+                demand: 'Cao',
+                demandChange: 12,
+                forecast: 'Tăng nhẹ',
+                volume: 1100,
+                volumeChange: 8,
+                supplyIndex: 65,
+                demandIndex: 82,
+                volatilityIndex: 22,
+                competitionIndex: 70
+            },
+            "cai-ngot": {
+                currentPrice: 16000,
+                priceChange: 0.7,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 1900,
+                volumeChange: 1,
+                supplyIndex: 80,
+                demandIndex: 60,
+                volatilityIndex: 12,
+                competitionIndex: 55
+            },
+            "tao-ta": {
+                currentPrice: 35000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1500,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 78,
+                volatilityIndex: 19,
+                competitionIndex: 65
+            },
+            "kho-qua": {
+                currentPrice: 22000,
+                priceChange: 0.9,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1600,
+                volumeChange: 3,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 15,
+                competitionIndex: 58
+            },
+            "dua-luoi": {
+                currentPrice: 45000,
+                priceChange: 2.0,
+                demand: 'Cao',
+                demandChange: 12,
+                forecast: 'Tăng nhẹ',
+                volume: 1100,
+                volumeChange: 8,
+                supplyIndex: 65,
+                demandIndex: 80,
+                volatilityIndex: 22,
+                competitionIndex: 70
+            },
+            "tia-to": {
+                currentPrice: 15000,
+                priceChange: 0.6,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 60,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "chum-ruot": {
+                currentPrice: 30000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 72,
+                demandIndex: 78,
+                volatilityIndex: 18,
+                competitionIndex: 62
+            },
+            "gao-tam-xoan": {
+                currentPrice: 28000,
+                priceChange: 1.3,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 2200,
+                volumeChange: 5,
+                supplyIndex: 70,
+                demandIndex: 80,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "ca-chua-cherry": {
+                currentPrice: 20000,
+                priceChange: 0.8,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1700,
+                volumeChange: 2,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 15,
+                competitionIndex: 60
+            },
+            "luu-do": {
+                currentPrice: 65000,
+                priceChange: 2.2,
+                demand: 'Rất cao',
+                demandChange: 15,
+                forecast: 'Tăng mạnh',
+                volume: 1000,
+                volumeChange: 10,
+                supplyIndex: 60,
+                demandIndex: 85,
+                volatilityIndex: 25,
+                competitionIndex: 75
+            },
+            "dau-phong": {
+                currentPrice: 35000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1300,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 75,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "hung-que": {
+                currentPrice: 18000,
+                priceChange: 0.7,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 60,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "buoi-nam-roi": {
+                currentPrice: 40000,
+                priceChange: 1.7,
+                demand: 'Cao',
+                demandChange: 12,
+                forecast: 'Tăng nhẹ',
+                volume: 1300,
+                volumeChange: 7,
+                supplyIndex: 68,
+                demandIndex: 80,
+                volatilityIndex: 21,
+                competitionIndex: 68
+            },
+            "ca-phao": {
+                currentPrice: 25000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 1600,
+                volumeChange: 4,
+                supplyIndex: 78,
+                demandIndex: 65,
+                volatilityIndex: 15,
+                competitionIndex: 60
+            },
+            "chanh-tuoi": {
+                currentPrice: 15000,
+                priceChange: 0.8,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1900,
+                volumeChange: 2,
+                supplyIndex: 80,
+                demandIndex: 68,
+                volatilityIndex: 16,
+                competitionIndex: 58
+            },
+            "do-xanh": {
+                currentPrice: 30000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 72,
+                demandIndex: 78,
+                volatilityIndex: 18,
+                competitionIndex: 62
+            },
+            "mang-tay": {
+                currentPrice: 45000,
+                priceChange: 1.8,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1200,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 75,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "dau-tam-den": {
+                currentPrice: 150000,
+                priceChange: 3.5,
+                demand: 'Rất cao',
+                demandChange: 20,
+                forecast: 'Tăng mạnh',
+                volume: 700,
+                volumeChange: 12,
+                supplyIndex: 50,
+                demandIndex: 92,
+                volatilityIndex: 30,
+                competitionIndex: 85
+            },
+            "gao-lut-do": {
+                currentPrice: 35000,
+                priceChange: 1.3,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1500,
+                volumeChange: 5,
+                supplyIndex: 70,
+                demandIndex: 80,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "cai-bo-xoi": {
+                currentPrice: 14000,
+                priceChange: 0.6,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 60,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "du-du-chin": {
+                currentPrice: 22000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 1800,
+                volumeChange: 4,
+                supplyIndex: 78,
+                demandIndex: 65,
+                volatilityIndex: 15,
+                competitionIndex: 60
+            },
+            "dau-den": {
+                currentPrice: 32000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 72,
+                demandIndex: 78,
+                volatilityIndex: 18,
+                competitionIndex: 62
+            },
+            "kinh-gioi": {
+                currentPrice: 20000,
+                priceChange: 0.8,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 1700,
+                volumeChange: 1,
+                supplyIndex: 80,
+                demandIndex: 60,
+                volatilityIndex: 12,
+                competitionIndex: 55
+            },
+            "chom-chom-do": {
+                currentPrice: 32000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1300,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 78,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "cai-cuc": {
+                currentPrice: 16000,
+                priceChange: 0.7,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 1900,
+                volumeChange: 1,
+                supplyIndex: 80,
+                demandIndex: 62,
+                volatilityIndex: 12,
+                competitionIndex: 55
+            },
+            "bo-booth": {
+                currentPrice: 85000,
+                priceChange: 2.8,
+                demand: 'Rất cao',
+                demandChange: 15,
+                forecast: 'Tăng mạnh',
+                volume: 900,
+                volumeChange: 10,
+                supplyIndex: 60,
+                demandIndex: 88,
+                volatilityIndex: 25,
+                competitionIndex: 75
+            },
+            "lua-mi": {
+                currentPrice: 25000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 1800,
+                volumeChange: 4,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 16,
+                competitionIndex: 58
+            },
+            "ngo-gai": {
+                currentPrice: 12000,
+                priceChange: 0.6,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 60,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "cam-canh": {
+                currentPrice: 35000,
+                priceChange: 1.5,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1500,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 78,
+                volatilityIndex: 19,
+                competitionIndex: 65
+            },
+            "yen-mach": {
+                currentPrice: 40000,
+                priceChange: 1.7,
+                demand: 'Cao',
+                demandChange: 12,
+                forecast: 'Tăng nhẹ',
+                volume: 1300,
+                volumeChange: 7,
+                supplyIndex: 68,
+                demandIndex: 80,
+                volatilityIndex: 21,
+                competitionIndex: 68
+            },
+            "rau-ram": {
+                currentPrice: 14000,
+                priceChange: 0.6,
+                demand: 'Thấp',
+                demandChange: 3,
+                forecast: 'Ổn định',
+                volume: 2000,
+                volumeChange: 1,
+                supplyIndex: 85,
+                demandIndex: 60,
+                volatilityIndex: 10,
+                competitionIndex: 50
+            },
+            "khoai-mon": {
+                currentPrice: 20000,
+                priceChange: 0.8,
+                demand: 'Trung bình',
+                demandChange: 5,
+                forecast: 'Ổn định',
+                volume: 1700,
+                volumeChange: 2,
+                supplyIndex: 75,
+                demandIndex: 68,
+                volatilityIndex: 14,
+                competitionIndex: 58
+            },
+            "mit-thai-sieu-ngot": {
+                currentPrice: 38000,
+                priceChange: 1.6,
+                demand: 'Cao',
+                demandChange: 10,
+                forecast: 'Tăng nhẹ',
+                volume: 1200,
+                volumeChange: 6,
+                supplyIndex: 70,
+                demandIndex: 80,
+                volatilityIndex: 20,
+                competitionIndex: 65
+            },
+            "dau-tuong": {
+                currentPrice: 28000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 72,
+                demandIndex: 78,
+                volatilityIndex: 18,
+                competitionIndex: 62
+            },
+            "la-lot": {
+                currentPrice: 25000,
+                priceChange: 1.0,
+                demand: 'Trung bình',
+                demandChange: 6,
+                forecast: 'Ổn định',
+                volume: 1600,
+                volumeChange: 4,
+                supplyIndex: 78,
+                demandIndex: 65,
+                volatilityIndex: 15,
+                competitionIndex: 60
+            },
+            "nho-tim": {
+                currentPrice: 90000,
+                priceChange: 2.5,
+                demand: 'Rất cao',
+                demandChange: 15,
+                forecast: 'Tăng mạnh',
+                volume: 900,
+                volumeChange: 10,
+                supplyIndex: 60,
+                demandIndex: 88,
+                volatilityIndex: 25,
+                competitionIndex: 75
+            },
+            "ca-chua-beef": {
+                currentPrice: 30000,
+                priceChange: 1.2,
+                demand: 'Cao',
+                demandChange: 8,
+                forecast: 'Tăng nhẹ',
+                volume: 1400,
+                volumeChange: 5,
+                supplyIndex: 72,
+                demandIndex: 78,
+                volatilityIndex: 18,
+                competitionIndex: 62
             }
         };
 
@@ -601,7 +2048,7 @@
                                 color: 'rgba(0, 0, 0, 0.1)'
                             },
                             ticks: {
-                                callback: function(value) {
+                                callback: function (value) {
                                     return value.toLocaleString('vi-VN') + ' VNĐ';
                                 }
                             }
@@ -652,50 +2099,152 @@
             const product = document.getElementById('product').value;
             const region = document.getElementById('region').value;
             const timeframe = document.getElementById('timeframe').value;
-            
+
             const data = marketData[product];
-            
+
             // Cập nhật các metric
             document.getElementById('currentPrice').textContent = data.currentPrice.toLocaleString('vi-VN') + ' VNĐ/kg';
             document.getElementById('priceChange').textContent = `${data.priceChange > 0 ? '+' : ''}${data.priceChange}% từ tuần trước`;
             document.getElementById('priceChange').className = `metric-change ${data.priceChange > 0 ? 'positive' : 'negative'}`;
-            
+
             document.getElementById('demandLevel').textContent = data.demand;
             document.getElementById('demandChange').textContent = `${data.demandChange > 0 ? 'Tăng' : 'Giảm'} ${Math.abs(data.demandChange)}% so với tháng trước`;
             document.getElementById('demandChange').className = `metric-change ${data.demandChange > 0 ? 'positive' : 'negative'}`;
-            
+
             document.getElementById('forecast').textContent = data.forecast;
             document.getElementById('volume').textContent = data.volume.toLocaleString('vi-VN') + ' tấn';
             document.getElementById('volumeChange').textContent = `${data.volumeChange > 0 ? '+' : ''}${data.volumeChange}% so với tuần trước`;
             document.getElementById('volumeChange').className = `metric-change ${data.volumeChange > 0 ? 'positive' : 'negative'}`;
-            
+
             // Cập nhật chỉ số thị trường
             document.getElementById('supplyIndex').textContent = data.supplyIndex;
             document.getElementById('demandIndex').textContent = data.demandIndex;
             document.getElementById('volatilityIndex').textContent = data.volatilityIndex;
             document.getElementById('competitionIndex').textContent = data.competitionIndex;
-            
-            // Cập nhật báo cáo
+
+            //Cập nhật báo cáo
             const productNames = {
                 rice: 'Gạo',
                 corn: 'Ngô',
                 coffee: 'Cà phê',
                 pepper: 'Tiêu',
-                rubber: 'Cao su'
+                rubber: 'Cao su',
+                "gao-st25": 'Gạo ST25',
+                "ca-chua-bi": 'Cà chua bi',
+                "xoai-cat-hoa-loc": 'Xoài cát Hòa Lộc',
+                "ca-phe-arabica": 'Cà phê Arabica',
+                "dua-hau-khong-hat": 'Dưa hấu không hạt',
+                "rau-muong": 'Rau muống',
+                "buoi-da-xanh": 'Bưởi da xanh',
+                "cai-thao": 'Cải thảo',
+                "chom-chom": 'Chôm chôm',
+                "hanh-tay": 'Hành tây',
+                "tao-fuji": 'Táo Fuji',
+                "khoai-lang": 'Khoai lang',
+                "dua-cay": 'Dứa Cây',
+                "bap-cai": 'Bắp cải',
+                "ot-chuong": 'Ớt chuông',
+                "chuoi-tieu": 'Chuối tiêu',
+                "cam-sanh": 'Cam sành',
+                "rau-bina": 'Rau bina',
+                "su-hao": 'Su hào',
+                "mang-cut": 'Măng cụt',
+                "du-du": 'Đu đủ',
+                "nam-huong": 'Nấm hương',
+                "le-han-quoc": 'Lê Hàn Quốc',
+                "dau-bap": 'Đậu bắp',
+                "vai-thieu": 'Vải thiều',
+                "khoai-tay": 'Khoai tây',
+                "nhan-long": 'Nhãn long',
+                "bi-do": 'Bí đỏ',
+                "sau-rieng": 'Sầu riêng',
+                "nho-xanh": 'Nho xanh',
+                "ca-tim": 'Cà tím',
+                "tao-gala": 'Táo gala',
+                "bi-ngoi": 'Bí ngòi',
+                "cha-la": 'Chà là',
+                "can-tay": 'Cần tây',
+                "nho-do": 'Nho đỏ',
+                "cu-den": 'Củ dền',
+                "thanh-long": 'Thanh long',
+                "rau-den": 'Rau dền',
+                "chanh-day": 'Chanh dây',
+                "sup-lo": 'Súp lơ',
+                "mit-thai": 'Mít Thái',
+                "ot-hiem": 'Ớt hiểm',
+                "man-tim": 'Mận tím',
+                "dau-cove": 'Đậu cove',
+                "roi-thai": 'Roi Thái',
+                "cai-be-xanh": 'Cải bẹ xanh',
+                "quyt-ngot": 'Quýt ngọt',
+                "muop-khia": 'Mướp khía',
+                "sapoche": 'Sapoche',
+                "rau-thom": 'Rau thơm',
+                "na-dai": 'Na dai',
+                "ca-rot": 'Cà rốt',
+                "cam-uc": 'Cam Úc',
+                "rau-xa-lach": 'Rau xà lách',
+                "oi-ta": 'Ổi ta',
+                "ngo-ngot": 'Ngô ngọt',
+                "dau-tay": 'Dâu tây',
+                "he-la": 'Hẹ lá',
+                "dua-xiem": 'Dừa xiêm',
+                "gia-do": 'Giá đỗ',
+                "chom-chom-pink": 'Chôm chôm pink',
+                "cu-cai-trang": 'Củ cải trắng',
+                "kiwi-xanh": 'Kiwi xanh',
+                "bau-dai": 'Bầu dài',
+                "mang-cau": 'Mãng cầu',
+                "cai-ngot": 'Cải ngọt',
+                "tao-ta": 'Táo ta',
+                "kho-qua": 'Khổ qua',
+                "dua-luoi": 'Dưa lưới',
+                "tia-to": 'Tía tô',
+                "chum-ruot": 'Chùm ruột',
+                "gao-tam-xoan": 'Gạo tám xoan',
+                "ca-chua-cherry": 'Cà chua cherry',
+                "luu-do": 'Lựu đỏ',
+                "dau-phong": 'Đậu phộng',
+                "hung-que": 'Húng quế',
+                "buoi-nam-roi": 'Bưởi năm roi',
+                "ca-phao": 'Cà pháo',
+                "chanh-tuoi": 'Chanh tươi',
+                "do-xanh": 'Đỗ xanh',
+                "mang-tay": 'Măng tây',
+                "dau-tam-den": 'Dâu tằm đen',
+                "gao-lut-do": 'Gạo lứt đỏ',
+                "cai-bo-xoi": 'Cải bó xôi',
+                "du-du-chin": 'Đu đủ chín',
+                "dau-den": 'Đậu đen',
+                "kinh-gioi": 'Kinh giới',
+                "chom-chom-do": 'Chôm chôm đỏ',
+                "cai-cuc": 'Cải cúc',
+                "bo-booth": 'Bơ booth',
+                "lua-mi": 'Lúa mì',
+                "ngo-gai": 'Ngò gai',
+                "cam-canh": 'Cam canh',
+                "yen-mach": 'Yến mạch',
+                "rau-ram": 'Rau răm',
+                "khoai-mon": 'Khoai môn',
+                "mit-thai-sieu-ngot": 'Mít Thái siêu ngọt',
+                "dau-tuong": 'Đậu tương',
+                "la-lot": 'Lá lốt',
+                "nho-tim": 'Nho tím',
+                "ca-chua-beef": 'Cà chua beef'
             };
-            
+
             const regionNames = {
                 north: 'Miền Bắc',
                 central: 'Miền Trung',
                 south: 'Miền Nam'
             };
-            
+
             document.getElementById('reportProduct').textContent = productNames[product];
             document.getElementById('reportRegion').textContent = regionNames[region];
-            
+
             // Cập nhật biểu đồ giá
             updatePriceChart(data.currentPrice);
-            
+
             // Hiệu ứng loading
             document.querySelector('.container').style.opacity = '0.7';
             setTimeout(() => {
@@ -717,7 +2266,7 @@
             const reportContent = document.querySelector('.report-content').innerHTML;
             const product = document.getElementById('reportProduct').textContent;
             const region = document.getElementById('reportRegion').textContent;
-            
+
             const exportData = `
                 <h1>Báo cáo Phân tích Thị trường Nông sản</h1>
                 <p><strong>Sản phẩm:</strong> ${product}</p>
@@ -726,7 +2275,7 @@
                 <hr>
                 ${reportContent}
             `;
-            
+
             const blob = new Blob([exportData], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -734,7 +2283,7 @@
             a.download = `Bao_cao_phan_tich_${product}_${new Date().toISOString().split('T')[0]}.html`;
             a.click();
             URL.revokeObjectURL(url);
-            
+
             // Hiệu ứng thông báo
             const btn = event.target;
             const originalText = btn.textContent;
@@ -747,10 +2296,10 @@
         }
 
         // Khởi tạo
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initCharts();
             document.getElementById('reportDate').textContent = new Date().toLocaleDateString('vi-VN');
-            
+
             // Tự động cập nhật dữ liệu mỗi 30 giây
             setInterval(() => {
                 updateAnalysis();
@@ -758,4 +2307,5 @@
         });
     </script>
 </body>
+
 </html>
