@@ -645,6 +645,14 @@
               <label for="farm-email">Email</label>
               <input type="email" id="farm-email"/>
             </div>
+            <div class="form-group">
+              <label for="farm-latitude">Vĩ độ (latitude)</label>
+              <input type="number" id="farm-latitude" step="0.000001" />
+            </div>
+            <div class="form-group">
+              <label for="farm-longitude">Kinh độ (longitude)</label>
+              <input type="number" id="farm-longitude" step="0.000001" />
+            </div>
           </div>
           <div class="form-group">
             <label for="farm-status">Trạng thái</label>
@@ -1008,7 +1016,9 @@
         email: document.getElementById('farm-email').value.trim(),
         status: document.getElementById('farm-status').value,
         description: document.getElementById('farm-description').value.trim(),
-        updatedAt: serverTimestamp()
+        updatedAt: serverTimestamp(),
+        latitude: parseFloat(document.getElementById('farm-latitude').value) || null,
+        longitude: parseFloat(document.getElementById('farm-longitude').value) || null,
       };
 
       if (!farmData.name || !farmData.owner || !farmData.area || !farmData.location) {
@@ -1113,7 +1123,8 @@
           document.getElementById('farm-email').value = farm.email || '';
           document.getElementById('farm-status').value = farm.status || 'active';
           document.getElementById('farm-description').value = farm.description || '';
-          
+          document.getElementById('farm-latitude').value = farm.latitude || '';
+          document.getElementById('farm-longitude').value = farm.longitude || '';
           editingFarmId = id;
           document.getElementById('farm-btn-text').textContent = 'Cập nhật nông trại';
           document.getElementById('farm-form-section').style.display = 'block';
