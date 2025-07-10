@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Farm Management System</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: #333;
+      overflow-x: hidden;
+    }
+    
+    .container { 
+      max-width: 1400px; 
+      margin: auto; 
+      padding: 20px;
+      position: relative;
+    }
+    
+    .header { 
+      text-align: center; 
+      margin-bottom: 40px; 
+      color: white;
+      animation: fadeInDown 1s ease-out;
+    }
+    
+    .header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+    
+    .nav-tabs { 
+      display: flex; 
+      justify-content: center; 
+      margin-bottom: 30px; 
+      background: rgba(255,255,255,0.1); 
+      border-radius: 50px; 
+      padding: 5px; 
+      backdrop-filter: blur(10px);
+      animation: slideInUp 0.8s ease-out;
+    }
+    
+    .nav-tab { 
+      padding: 15px 30px; 
+      background: transparent; 
+      border: none; 
+      color: white; 
+      cursor: pointer; 
+      border-radius: 25px; 
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-tab::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .nav-tab:hover::before {
+      left: 100%;
+    }
+    
+    .nav-tab.active { 
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.05);
+    }
+    
+    .tab-content { 
+      display: none; 
+      background: white; 
+      padding: 40px; 
+      border-radius: 25px; 
+      margin-top: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .tab-content.active { display: block;}
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    
+    .stat-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    
+    .stat-card h3 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    
+    .stat-card p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+    
+    .form-section {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .form-section h3 {
+      color: #667eea;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    
+    .form-group { margin-bottom: 20px;}
+    
+    .form-group label { 
+      display: block; 
+      margin-bottom: 8px; 
+      font-weight: 600;
+      color: #555;
+    }
+    
+    .form-group input, 
+    .form-group textarea, 
+    .form-group select {
+      width: 100%; 
+      padding: 15px; 
+      border: 2px solid #e0e0e0; 
+      border-radius: 10px; 
+      font-size: 16px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .btn { 
+      padding: 15px 30px; 
+      border: none; 
+      border-radius: 10px; 
+      font-weight: 600; 
+      cursor: pointer; 
+      margin-right: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      transition: width 0.3s ease, height 0.3s ease;
+      transform: translate(-50%, -50%);
+    }
+    
+    .btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .btn-primary { 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-danger { 
+      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); 
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+    }
+    
+    .search-filter-section {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .search-filter-grid {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 15px;
+      align-items: end;
+    }
+    
+    .search-input {
+      position: relative;
+    }
+    
+    .search-input input {
+      padding-left: 45px;
+    }
+    
+    .search-input::before {
+      content: '🔍';
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    
+    .farm-list, .crop-list { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
+      gap: 25px; 
+      margin-top: 25px;
+    }
+    
+    .farm-card, .crop-card { 
+      background: white; 
+      padding: 25px; 
+      border-radius: 20px; 
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .farm-card::before,
+    .crop-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .farm-card:hover, .crop-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+    
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #333;
+    }
+    
+    .card-status {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .status-active {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-inactive {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .card-info {
+      margin-bottom: 20px;
+    }
+    
+    .card-info p {
+      margin-bottom: 8px;
+      color: #666;
+    }
+    
+    .card-info strong {
+      color: #333;
+    }
+    
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .card-actions .btn {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      margin-right: 0;
+    }
+    
+    .alert { 
+      margin: 20px 0; 
+      padding: 18px; 
+      border-radius: 12px;
+      border-left: 4px solid;
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    .alert-success { 
+      background: #d4edda; 
+      color: #155724;
+      border-left-color: #28a745;
+    }
+    
+    .alert-error { 
+      background: #f8d7da; 
+      color: #721c24;
+      border-left-color: #dc3545;
+    }
+    
+    .alert-info {
+      background: #cce7ff;
+      color: #004085;
+      border-left-color: #007bff;
+    }
+    
+    .loading { 
+      text-align: center; 
+      color: #667eea;
+      font-size: 1.1rem;
+      padding: 40px;
+    }
+    
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #667eea;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-left: 10px;
+    }
+    
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+    }
+    
+    .modal.active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    .modal-content {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: slideInUp 0.3s ease-out;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 15px 0;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: width 0.3s ease;
+    }
+    
+    .weather-widget {
+      background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    
+    .weather-widget h3 {
+      margin-bottom: 10px;
+    }
+    
+    .notifications {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1001;
+      max-width: 300px;
+    }
+    
+    .notification {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border-left: 4px solid #667eea;
+      animation: slideInRight 0.3s ease-out;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) { 
+      .nav-tabs {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .nav-tab {
+        width: 100%;
+        text-align: center;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .search-filter-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .farm-list, .crop-list {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .tab-content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🌾 Smart Farm Management System</h1>
+      <p>Quản lý nông trại và cây trồng thông minh</p>
+    </div>
+
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showTab('dashboard', event)">📊 Dashboard</button>
+      <button class="nav-tab" onclick="showTab('farms', event)">🏡 Nông trại</button>
+      <button class="nav-tab" onclick="showTab('crops', event)">🌱 Cây trồng</button>
+      <button class="nav-tab" onclick="showTab('analytics', event)">📈 Thống kê</button>
+    </div>
+
+    <!-- Dashboard Tab -->
+    <div id="dashboard" class="tab-content active">
+      <h2>Dashboard Tổng quan</h2>
+      
+      <div class="weather-widget">
+        <h3>🌤️ Thời tiết hôm nay</h3>
+        <p>Nhiệt độ: 28°C | Độ ẩm: 75% | Gió: 5 km/h</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3 id="total-farms">0</h3>
+          <p>Tổng số nông trại</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="total-crops">0</h3>
+          <p>Tổng số loại cây trồng</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="total-area">0</h3>
+          <p>Tổng diện tích (ha)</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="active-farms">0</h3>
+          <p>Nông trại đang hoạt động</p>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>🔔 Thông báo gần đây</h3>
+        <div id="recent-notifications">
+          <p>Chưa có thông báo mới</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Quản lý Nông trại -->
+    <div id="farms" class="tab-content">
+      <h2>Quản lý Nông trại</h2>
+      
+      <div class="search-filter-section">
+        <div class="search-filter-grid">
+          <div class="search-input">
+            <input type="text" id="farm-search" placeholder="Tìm kiếm nông trại..." onkeyup="searchFarms()">
+          </div>
+          <select id="farm-filter" onchange="filterFarms()">
+            <option value="">Tất cả trạng thái</option>
+            <option value="active">Đang hoạt động</option>
+            <option value="inactive">Ngưng hoạt động</option>
+          </select>
+          <button class="btn btn-primary" onclick="toggleFarmForm()">+ Thêm nông trại</button>
+        </div>
+      </div>
+
+      <div id="farm-form-section" class="form-section" style="display: none;">
+        <h3>Thông tin nông trại</h3>
+        <form id="farm-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="farm-name">Tên nông trại *</label>
+              <input type="text" id="farm-name" required/>
+            </div>
+            <div class="form-group">
+              <label for="farm-owner">Chủ nông trại *</label>
+              <input type="text" id="farm-owner" required/>
+            </div>
+            <div class="form-group">
+              <label for="farm-area">Diện tích (hecta) *</label>
+              <input type="number" id="farm-area" step="0.1" required/>
+            </div>
+            <div class="form-group">
+              <label for="farm-location">Địa điểm *</label>
+              <input type="text" id="farm-location" required/>
+            </div>
+            <div class="form-group">
+              <label for="farm-phone">Số điện thoại</label>
+              <input type="tel" id="farm-phone"/>
+            </div>
+            <div class="form-group">
+              <label for="farm-email">Email</label>
+              <input type="email" id="farm-email"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="farm-status">Trạng thái</label>
+            <select id="farm-status">
+              <option value="active">Đang hoạt động</option>
+              <option value="inactive">Ngưng hoạt động</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="farm-description">Mô tả</label>
+            <textarea id="farm-description" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" id="farm-btn-text">Tạo nông trại mới</button>
+          <button type="button" class="btn" onclick="cancelFarmEdit()">Hủy</button>
+        </form>
+      </div>
+
+      <div id="farm-message"></div>
+      <div id="farm-loading" class="loading" style="display:none;">Đang tải dữ liệu...</div>
+      <div id="farm-list" class="farm-list"></div>
+    </div>
+
+    <!-- Tab Quản lý Cây trồng -->
+    <div id="crops" class="tab-content">
+      <h2>Quản lý Cây trồng</h2>
+
+      <div class="search-filter-section">
+        <div class="search-filter-grid">
+          <div class="search-input">
+            <input type="text" id="crop-search" placeholder="Tìm kiếm cây trồng..." onkeyup="searchCrops()">
+          </div>
+          <select id="crop-type-filter" onchange="filterCrops()">
+            <option value="">Tất cả loại cây</option>
+            <option value="rau">Rau</option>
+            <option value="cu">Củ</option>
+            <option value="qua">Quả</option>
+            <option value="ngucoc">Ngũ cốc</option>
+            <option value="canhoa">Cây hoa</option>
+            <option value="khac">Khác</option>
+          </select>
+          <button class="btn btn-primary" onclick="toggleCropForm()">+ Thêm cây trồng</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="farm-selector">Chọn nông trại *</label>
+        <select id="farm-selector">
+          <option value="">-- Chọn nông trại --</option>
+        </select>
+      </div>
+
+      <div id="crop-form-section" class="form-section" style="display: none;">
+        <h3>Thông tin cây trồng</h3>
+        <form id="crop-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="crop-name">Tên cây trồng *</label>
+              <input type="text" id="crop-name" required/>
+            </div>
+            <div class="form-group">
+              <label for="crop-type">Loại cây *</label>
+              <select id="crop-type" required>
+                <option value="">Chọn loại cây</option>
+                <option value="rau">Rau</option>
+                <option value="cu">Củ</option>
+                <option value="qua">Quả</option>
+                <option value="ngucoc">Ngũ cốc</option>
+                <option value="canhoa">Cây hoa</option>
+                <option value="khac">Khác</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="crop-season">Mùa trồng *</label>
+              <select id="crop-season" required>
+                <option value="">Chọn mùa trồng</option>
+                <option value="xuan">Xuân</option>
+                <option value="ha">Hạ</option>
+                <option value="thu">Thu</option>
+                <option value="dong">Đông</option>
+                <option value="canam">Cả năm</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="crop-growth-time">Thời gian sinh trưởng (ngày)</label>
+              <input type="number" id="crop-growth-time" min="1"/>
+            </div>
+            <div class="form-group">
+              <label for="crop-planting-date">Ngày trồng</label>
+              <input type="date" id="crop-planting-date"/>
+            </div>
+            <div class="form-group">
+              <label for="crop-quantity">Số lượng/Diện tích</label>
+              <input type="number" id="crop-quantity" step="0.1"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="crop-description">Mô tả</label>
+            <textarea id="crop-description" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" id="crop-btn-text">Tạo cây trồng mới</button>
+          <button type="button" class="btn" onclick="cancelCropEdit()">Hủy</button>
+        </form>
+      </div>
+
+      <div id="crop-message"></div>
+      <div id="crop-loading" class="loading" style="display:none;">Đang tải dữ liệu...</div>
+      <div id="crop-list" class="crop-list"></div>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div id="analytics" class="tab-content">
+      <h2>Thống kê và Báo cáo</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3 id="avg-farm-area">0</h3>
+          <p>Diện tích trung bình (ha)</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="most-popular-crop">-</h3>
+          <p>Loại cây phổ biến nhất</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="crops-per-farm">0</h3>
+          <p>Số cây trồng/nông trại</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="seasonal-distribution">-</h3>
+          <p>Phân bố theo mùa</p>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>📊 Biểu đồ thống kê</h3>
+        <div id="charts-container">
+          <canvas id="crop-chart" width="400" height="200"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notifications Container -->
+  <div class="notifications" id="notifications-container"></div>
+
+  <!-- Modal for confirmations -->
+  <div id="confirmation-modal" class="modal">
+    <div class="modal-content">
+      <h3>Xác nhận</h3>
+      <p id="confirmation-message"></p>
+      <div style="margin-top: 20px;">
+        <button class="btn btn-danger" id="confirm-btn">Xác nhận</button>
+        <button class="btn" onclick="closeModal()">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase và Script logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      doc,
+      getDocs,
+      getDoc,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      orderBy,
+      query,
+      serverTimestamp,
+      where
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
+      authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
+      projectId: "nongnghiepxanh-f6689",
+      storageBucket: "nongnghiepxanh-f6689.appspot.com",
+      messagingSenderId: "846834085038",
+      appId: "1:846834085038:web:cfac519e025896626d113f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let editingFarmId = null;
+    let editingCropId = null;
+    let selectedFarmId = null;
+    let allFarms = [];
+    let allCrops = [];
+
+    // Global functions for tab management
+    window.showTab = (tabName, event) => {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+
+      switch(tabName) {
+        case 'dashboard':
+          loadDashboard();
+          break;
+        case 'farms':
+          loadFarms();
+          break;
+        case 'crops':
+          loadFarmSelector();
+          break;
+        case 'analytics':
+          loadAnalytics();
+          break;
+      }
+    };
+
+    // Notification system
+    function showNotification(message, type = 'info') {
+      const container = document.getElementById('notifications-container');
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span>${message}</span>
+          <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; font-size: 18px; cursor: pointer;">×</button>
+        </div>
+      `;
+      container.appendChild(notification);
+      
+      setTimeout(() => {
+        if (notification.parentElement) {
+          notification.remove();
+        }
+      }, 5000);
+    }
+
+    function showMessage(elementId, message, type = 'success') {
+      const div = document.getElementById(elementId);
+      div.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+      setTimeout(() => div.innerHTML = '', 4000);
+      
+      // Also show as notification
+      showNotification(message, type);
+    }
+
+    // Modal functions
+    window.closeModal = () => {
+      document.getElementById('confirmation-modal').classList.remove('active');
+    };
+
+    function showConfirmation(message, callback) {
+      document.getElementById('confirmation-message').textContent = message;
+      document.getElementById('confirm-btn').onclick = () => {
+        callback();
+        closeModal();
+      };
+      document.getElementById('confirmation-modal').classList.add('active');
+    }
+
+    // Toggle form functions
+    window.toggleFarmForm = () => {
+      const formSection = document.getElementById('farm-form-section');
+      formSection.style.display = formSection.style.display === 'none' ? 'block' : 'none';
+    };
+
+    window.toggleCropForm = () => {
+      const formSection = document.getElementById('crop-form-section');
+      formSection.style.display = formSection.style.display === 'none' ? 'block' : 'none';
+    };
+
+    // Search and filter functions
+    window.searchFarms = () => {
+      const searchTerm = document.getElementById('farm-search').value.toLowerCase();
+      const filteredFarms = allFarms.filter(farm => 
+        farm.name.toLowerCase().includes(searchTerm) ||
+        farm.owner.toLowerCase().includes(searchTerm) ||
+        farm.location.toLowerCase().includes(searchTerm)
+      );
+      displayFarms(filteredFarms);
+    };
+
+    window.filterFarms = () => {
+      const filterValue = document.getElementById('farm-filter').value;
+      const filteredFarms = filterValue ? 
+        allFarms.filter(farm => farm.status === filterValue) : 
+        allFarms;
+      displayFarms(filteredFarms);
+    };
+
+    window.searchCrops = () => {
+      const searchTerm = document.getElementById('crop-search').value.toLowerCase();
+      const filteredCrops = allCrops.filter(crop => 
+        crop.name.toLowerCase().includes(searchTerm) ||
+        crop.type.toLowerCase().includes(searchTerm)
+      );
+      displayCrops(filteredCrops);
+    };
+
+    window.filterCrops = () => {
+      const filterValue = document.getElementById('crop-type-filter').value;
+      const filteredCrops = filterValue ? 
+        allCrops.filter(crop => crop.type === filterValue) : 
+        allCrops;
+      displayCrops(filteredCrops);
+    };
+
+    // Dashboard functions
+    async function loadDashboard() {
+      try {
+        const farmsSnapshot = await getDocs(collection(db, 'farms'));
+        const totalFarms = farmsSnapshot.size;
+        const activeFarms = farmsSnapshot.docs.filter(doc => doc.data().status !== 'inactive').length;
+        
+        let totalArea = 0;
+        let totalCrops = 0;
+        
+        for (let farmDoc of farmsSnapshot.docs) {
+          const farmData = farmDoc.data();
+          totalArea += farmData.area || 0;
+          
+          const cropsSnapshot = await getDocs(collection(db, 'farms', farmDoc.id, 'crops'));
+          totalCrops += cropsSnapshot.size;
+        }
+
+        document.getElementById('total-farms').textContent = totalFarms;
+        document.getElementById('total-crops').textContent = totalCrops;
+        document.getElementById('total-area').textContent = totalArea.toFixed(1);
+        document.getElementById('active-farms').textContent = activeFarms;
+        
+        // Update recent notifications
+        updateRecentNotifications();
+      } catch (error) {
+        console.error('Error loading dashboard:', error);
+        showNotification('Lỗi khi tải dashboard', 'error');
+      }
+    }
+
+    function updateRecentNotifications() {
+      const notifications = document.getElementById('recent-notifications');
+      const currentDate = new Date().toLocaleDateString('vi-VN');
+      
+      notifications.innerHTML = `
+        <div class="alert alert-info">
+          <strong>🌟 Chào mừng!</strong> Hệ thống đã được nâng cấp với nhiều tính năng mới.
+        </div>
+        <div class="alert alert-success">
+          <strong>📅 ${currentDate}</strong> Hệ thống đang hoạt động bình thường.
+        </div>
+      `;
+    }
+
+    // Farm management
+    document.getElementById('farm-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const farmData = {
+        name: document.getElementById('farm-name').value.trim(),
+        owner: document.getElementById('farm-owner').value.trim(),
+        area: parseFloat(document.getElementById('farm-area').value),
+        location: document.getElementById('farm-location').value.trim(),
+        phone: document.getElementById('farm-phone').value.trim(),
+        email: document.getElementById('farm-email').value.trim(),
+        status: document.getElementById('farm-status').value,
+        description: document.getElementById('farm-description').value.trim(),
+        updatedAt: serverTimestamp()
+      };
+
+      if (!farmData.name || !farmData.owner || !farmData.area || !farmData.location) {
+        showMessage('farm-message', 'Vui lòng điền đầy đủ thông tin bắt buộc!', 'error');
+        return;
+      }
+
+      try {
+        if (editingFarmId) {
+          await updateDoc(doc(db, 'farms', editingFarmId), farmData);
+          showMessage('farm-message', 'Cập nhật nông trại thành công!');
+          editingFarmId = null;
+        } else {
+          farmData.createdAt = serverTimestamp();
+          await addDoc(collection(db, 'farms'), farmData);
+          showMessage('farm-message', 'Tạo nông trại mới thành công!');
+        }
+        
+        document.getElementById('farm-form').reset();
+        document.getElementById('farm-btn-text').textContent = 'Tạo nông trại mới';
+        document.getElementById('farm-form-section').style.display = 'none';
+        loadFarms();
+      } catch (error) {
+        console.error('Error saving farm:', error);
+        showMessage('farm-message', 'Lỗi khi lưu thông tin nông trại!', 'error');
+      }
+    });
+
+    async function loadFarms() {
+      document.getElementById('farm-loading').style.display = 'block';
+      try {
+        const q = query(collection(db, 'farms'), orderBy('createdAt', 'desc'));
+        const snapshot = await getDocs(q);
+        
+        allFarms = [];
+        snapshot.forEach(docSnap => {
+          const farmData = docSnap.data();
+          allFarms.push({
+            id: docSnap.id,
+            ...farmData
+          });
+        });
+        
+        displayFarms(allFarms);
+      } catch (error) {
+        console.error('Error loading farms:', error);
+        showMessage('farm-message', 'Lỗi khi tải danh sách nông trại!', 'error');
+      } finally {
+        document.getElementById('farm-loading').style.display = 'none';
+      }
+    }
+
+    function displayFarms(farms) {
+      const farmList = document.getElementById('farm-list');
+      farmList.innerHTML = '';
+      
+      if (farms.length === 0) {
+        farmList.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">Không tìm thấy nông trại nào.</p>';
+        return;
+      }
+
+      farms.forEach(farm => {
+        const div = document.createElement('div');
+        div.className = 'farm-card';
+        div.innerHTML = `
+          <div class="card-header">
+            <h3 class="card-title">🌾 ${farm.name}</h3>
+            <span class="card-status ${farm.status === 'active' ? 'status-active' : 'status-inactive'}">
+              ${farm.status === 'active' ? 'Hoạt động' : 'Ngưng hoạt động'}
+            </span>
+          </div>
+          <div class="card-info">
+            <p><strong>Chủ nông trại:</strong> ${farm.owner}</p>
+            <p><strong>Diện tích:</strong> ${farm.area} ha</p>
+            <p><strong>Địa điểm:</strong> ${farm.location}</p>
+            ${farm.phone ? `<p><strong>Điện thoại:</strong> ${farm.phone}</p>` : ''}
+            ${farm.email ? `<p><strong>Email:</strong> ${farm.email}</p>` : ''}
+            ${farm.description ? `<p><strong>Mô tả:</strong> ${farm.description}</p>` : ''}
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="editFarm('${farm.id}')">✏️ Sửa</button>
+            <button class="btn btn-success" onclick="viewFarmDetails('${farm.id}')">👁️ Xem</button>
+            <button class="btn btn-danger" onclick="deleteFarm('${farm.id}')">🗑️ Xóa</button>
+          </div>
+        `;
+        farmList.appendChild(div);
+      });
+    }
+
+    window.editFarm = async (id) => {
+      try {
+        const docRef = doc(db, 'farms', id);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+          const farm = docSnap.data();
+          document.getElementById('farm-name').value = farm.name || '';
+          document.getElementById('farm-owner').value = farm.owner || '';
+          document.getElementById('farm-area').value = farm.area || '';
+          document.getElementById('farm-location').value = farm.location || '';
+          document.getElementById('farm-phone').value = farm.phone || '';
+          document.getElementById('farm-email').value = farm.email || '';
+          document.getElementById('farm-status').value = farm.status || 'active';
+          document.getElementById('farm-description').value = farm.description || '';
+          
+          editingFarmId = id;
+          document.getElementById('farm-btn-text').textContent = 'Cập nhật nông trại';
+          document.getElementById('farm-form-section').style.display = 'block';
+          
+          // Scroll to form
+          document.getElementById('farm-form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+      } catch (error) {
+        console.error('Error loading farm for edit:', error);
+        showNotification('Lỗi khi tải thông tin nông trại!', 'error');
+      }
+    };
+
+    window.viewFarmDetails = async (id) => {
+      try {
+        const docRef = doc(db, 'farms', id);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+          const farm = docSnap.data();
+          const cropsSnapshot = await getDocs(collection(db, 'farms', id, 'crops'));
+          const cropsCount = cropsSnapshot.size;
+          
+          alert(`Chi tiết nông trại: ${farm.name}
+Chủ nông trại: ${farm.owner}
+Diện tích: ${farm.area} ha
+Địa điểm: ${farm.location}
+Số loại cây trồng: ${cropsCount}
+Trạng thái: ${farm.status === 'active' ? 'Đang hoạt động' : 'Ngưng hoạt động'}`);
+        }
+      } catch (error) {
+        console.error('Error loading farm details:', error);
+        showNotification('Lỗi khi tải chi tiết nông trại!', 'error');
+      }
+    };
+
+    window.deleteFarm = (id) => {
+      showConfirmation('Bạn có chắc chắn muốn xóa nông trại này? Tất cả cây trồng trong nông trại cũng sẽ bị xóa.', async () => {
+        try {
+          await deleteDoc(doc(db, 'farms', id));
+          showMessage('farm-message', 'Đã xóa nông trại thành công!');
+          loadFarms();
+        } catch (error) {
+          console.error('Error deleting farm:', error);
+          showMessage('farm-message', 'Lỗi khi xóa nông trại!', 'error');
+        }
+      });
+    };
+
+    window.cancelFarmEdit = () => {
+      editingFarmId = null;
+      document.getElementById('farm-form').reset();
+      document.getElementById('farm-btn-text').textContent = 'Tạo nông trại mới';
+      document.getElementById('farm-form-section').style.display = 'none';
+    };
+
+    // Farm selector for crops
+    async function loadFarmSelector() {
+      try {
+        const farmSelector = document.getElementById('farm-selector');
+        farmSelector.innerHTML = '<option value="">-- Chọn nông trại --</option>';
+        
+        const q = query(collection(db, 'farms'), orderBy('name'));
+        const snapshot = await getDocs(q);
+        
+        snapshot.forEach(docSnap => {
+          const farm = docSnap.data();
+          const option = document.createElement('option');
+          option.value = docSnap.id;
+          option.textContent = farm.name;
+          farmSelector.appendChild(option);
+        });
+        
+        farmSelector.addEventListener('change', (e) => {
+          selectedFarmId = e.target.value;
+          loadCrops();
+        });
+      } catch (error) {
+        console.error('Error loading farm selector:', error);
+        showNotification('Lỗi khi tải danh sách nông trại!', 'error');
+      }
+    }
+
+    // Crop management
+    document.getElementById('crop-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      if (!selectedFarmId) {
+        showMessage('crop-message', 'Vui lòng chọn nông trại trước!', 'error');
+        return;
+      }
+
+      const cropData = {
+        name: document.getElementById('crop-name').value.trim(),
+        type: document.getElementById('crop-type').value,
+        season: document.getElementById('crop-season').value,
+        growthTime: parseInt(document.getElementById('crop-growth-time').value) || null,
+        plantingDate: document.getElementById('crop-planting-date').value,
+        quantity: parseFloat(document.getElementById('crop-quantity').value) || null,
+        description: document.getElementById('crop-description').value.trim(),
+        updatedAt: serverTimestamp()
+      };
+
+      if (!cropData.name || !cropData.type || !cropData.season) {
+        showMessage('crop-message', 'Vui lòng điền đầy đủ thông tin bắt buộc!', 'error');
+        return;
+      }
+
+      try {
+        if (editingCropId) {
+          await updateDoc(doc(db, 'farms', selectedFarmId, 'crops', editingCropId), cropData);
+          showMessage('crop-message', 'Cập nhật cây trồng thành công!');
+          editingCropId = null;
+        } else {
+          cropData.createdAt = serverTimestamp();
+          await addDoc(collection(db, 'farms', selectedFarmId, 'crops'), cropData);
+          showMessage('crop-message', 'Tạo cây trồng mới thành công!');
+        }
+        
+        document.getElementById('crop-form').reset();
+        document.getElementById('crop-btn-text').textContent = 'Tạo cây trồng mới';
+        document.getElementById('crop-form-section').style.display = 'none';
+        loadCrops();
+      } catch (error) {
+        console.error('Error saving crop:', error);
+        showMessage('crop-message', 'Lỗi khi lưu thông tin cây trồng!', 'error');
+      }
+    });
+
+    async function loadCrops() {
+      const cropList = document.getElementById('crop-list');
+      cropList.innerHTML = '';
+      
+      if (!selectedFarmId) {
+        cropList.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">Chọn nông trại để xem cây trồng.</p>';
+        return;
+      }
+
+      document.getElementById('crop-loading').style.display = 'block';
+      
+      try {
+        const q = query(collection(db, 'farms', selectedFarmId, 'crops'), orderBy('createdAt', 'desc'));
+        const snapshot = await getDocs(q);
+        
+        allCrops = [];
+        snapshot.forEach(docSnap => {
+          const cropData = docSnap.data();
+          allCrops.push({
+            id: docSnap.id,
+            ...cropData
+          });
+        });
+        
+        displayCrops(allCrops);
+      } catch (error) {
+        console.error('Error loading crops:', error);
+        showMessage('crop-message', 'Lỗi khi tải danh sách cây trồng!', 'error');
+      } finally {
+        document.getElementById('crop-loading').style.display = 'none';
+      }
+    }
+
+    function displayCrops(crops) {
+      const cropList = document.getElementById('crop-list');
+      cropList.innerHTML = '';
+      
+      if (crops.length === 0) {
+        cropList.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">Chưa có cây trồng nào.</p>';
+        return;
+      }
+
+      crops.forEach(crop => {
+        const div = document.createElement('div');
+        div.className = 'crop-card';
+        
+        // Calculate progress if planting date is available
+        let progressHTML = '';
+        if (crop.plantingDate && crop.growthTime) {
+          const plantingDate = new Date(crop.plantingDate);
+          const currentDate = new Date();
+          const daysPassed = Math.floor((currentDate - plantingDate) / (1000 * 60 * 60 * 24));
+          const progress = Math.min(Math.max((daysPassed / crop.growthTime) * 100, 0), 100);
+          
+          progressHTML = `
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: ${progress}%"></div>
+            </div>
+            <p><strong>Tiến độ sinh trưởng:</strong> ${progress.toFixed(1)}% (${daysPassed}/${crop.growthTime} ngày)</p>
+          `;
+        }
+        
+        div.innerHTML = `
+          <div class="card-header">
+            <h3 class="card-title">🌱 ${crop.name}</h3>
+            <span class="card-status status-active">${getTypeDisplayName(crop.type)}</span>
+          </div>
+          <div class="card-info">
+            <p><strong>Loại cây:</strong> ${getTypeDisplayName(crop.type)}</p>
+            <p><strong>Mùa trồng:</strong> ${getSeasonDisplayName(crop.season)}</p>
+            ${crop.growthTime ? `<p><strong>Thời gian sinh trưởng:</strong> ${crop.growthTime} ngày</p>` : ''}
+            ${crop.plantingDate ? `<p><strong>Ngày trồng:</strong> ${new Date(crop.plantingDate).toLocaleDateString('vi-VN')}</p>` : ''}
+            ${crop.quantity ? `<p><strong>Số lượng/Diện tích:</strong> ${crop.quantity}</p>` : ''}
+            ${crop.description ? `<p><strong>Mô tả:</strong> ${crop.description}</p>` : ''}
+            ${progressHTML}
+          </div>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="editCrop('${crop.id}')">✏️ Sửa</button>
+            <button class="btn btn-success" onclick="viewCropDetails('${crop.id}')">👁️ Xem</button>
+            <button class="btn btn-danger" onclick="deleteCrop('${crop.id}')">🗑️ Xóa</button>
+          </div>
+        `;
+        cropList.appendChild(div);
+      });
+    }
+
+    function getTypeDisplayName(type) {
+      const types = {
+        'rau': 'Rau',
+        'cu': 'Củ',
+        'qua': 'Quả',
+        'ngucoc': 'Ngũ cốc',
+        'canhoa': 'Cây hoa',
+        'khac': 'Khác'
+      };
+      return types[type] || type;
+    }
+
+    function getSeasonDisplayName(season) {
+      const seasons = {
+        'xuan': 'Xuân',
+        'ha': 'Hạ',
+        'thu': 'Thu',
+        'dong': 'Đông',
+        'canam': 'Cả năm'
+      };
+      return seasons[season] || season;
+    }
+
+    window.editCrop = async (id) => {
+      try {
+        const docRef = doc(db, 'farms', selectedFarmId, 'crops', id);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+          const crop = docSnap.data();
+          document.getElementById('crop-name').value = crop.name || '';
+          document.getElementById('crop-type').value = crop.type || '';
+          document.getElementById('crop-season').value = crop.season || '';
+          document.getElementById('crop-growth-time').value = crop.growthTime || '';
+          document.getElementById('crop-planting-date').value = crop.plantingDate || '';
+          document.getElementById('crop-quantity').value = crop.quantity || '';
+          document.getElementById('crop-description').value = crop.description || '';
+          
+          editingCropId = id;
+          document.getElementById('crop-btn-text').textContent = 'Cập nhật cây trồng';
+          document.getElementById('crop-form-section').style.display = 'block';
+          
+          // Scroll to form
+          document.getElementById('crop-form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+      } catch (error) {
+        console.error('Error loading crop for edit:', error);
+        showNotification('Lỗi khi tải thông tin cây trồng!', 'error');
+      }
+    };
+
+    window.viewCropDetails = async (id) => {
+      try {
+        const docRef = doc(db, 'farms', selectedFarmId, 'crops', id);
+        const docSnap = await getDoc(docRef);
+        
+        if (docSnap.exists()) {
+          const crop = docSnap.data();
+          let details = `Chi tiết cây trồng: ${crop.name}
+Loại cây: ${getTypeDisplayName(crop.type)}
+Mùa trồng: ${getSeasonDisplayName(crop.season)}`;
+          
+          if (crop.growthTime) details += `\nThời gian sinh trưởng: ${crop.growthTime} ngày`;
+          if (crop.plantingDate) details += `\nNgày trồng: ${new Date(crop.plantingDate).toLocaleDateString('vi-VN')}`;
+          if (crop.quantity) details += `\nSố lượng: ${crop.quantity}`;
+          if (crop.description) details += `\nMô tả: ${crop.description}`;
+          
+          alert(details);
+        }
+      } catch (error) {
+        console.error('Error loading crop details:', error);
+        showNotification('Lỗi khi tải chi tiết cây trồng!', 'error');
+      }
+    };
+
+    window.deleteCrop = (id) => {
+      showConfirmation('Bạn có chắc chắn muốn xóa cây trồng này?', async () => {
+        try {
+          await deleteDoc(doc(db, 'farms', selectedFarmId, 'crops', id));
+          showMessage('crop-message', 'Đã xóa cây trồng thành công!');
+          loadCrops();
+        } catch (error) {
+          console.error('Error deleting crop:', error);
+          showMessage('crop-message', 'Lỗi khi xóa cây trồng!', 'error');
+        }
+      });
+    };
+
+    window.cancelCropEdit = () => {
+      editingCropId = null;
+      document.getElementById('crop-form').reset();
+      document.getElementById('crop-btn-text').textContent = 'Tạo cây trồng mới';
+      document.getElementById('crop-form-section').style.display = 'none';
+    };
+
+    // Analytics
+    async function loadAnalytics() {
+      try {
+        const farmsSnapshot = await getDocs(collection(db, 'farms'));
+        const totalFarms = farmsSnapshot.size;
+        let totalArea = 0;
+        let allCropsData = [];
+        
+        for (let farmDoc of farmsSnapshot.docs) {
+          const farmData = farmDoc.data();
+          totalArea += farmData.area || 0;
+          
+          const cropsSnapshot = await getDocs(collection(db, 'farms', farmDoc.id, 'crops'));
+          cropsSnapshot.forEach(cropDoc => {
+            allCropsData.push(cropDoc.data());
+          });
+        }
+        
+        // Calculate analytics
+        const avgFarmArea = totalFarms > 0 ? (totalArea / totalFarms).toFixed(1) : 0;
+        const cropsPerFarm = totalFarms > 0 ? (allCropsData.length / totalFarms).toFixed(1) : 0;
+        
+        // Most popular crop type
+        const cropTypeCounts = {};
+        allCropsData.forEach(crop => {
+          cropTypeCounts[crop.type] = (cropTypeCounts[crop.type] || 0) + 1;
+        });
+        
+        const mostPopularCrop = Object.keys(cropTypeCounts).reduce((a, b) => 
+          cropTypeCounts[a] > cropTypeCounts[b] ? a : b, 'Chưa có dữ liệu'
+        );
+        
+        // Seasonal distribution
+        const seasonCounts = {};
+        allCropsData.forEach(crop => {
+          seasonCounts[crop.season] = (seasonCounts[crop.season] || 0) + 1;
+        });
+        
+        const mostPopularSeason = Object.keys(seasonCounts).reduce((a, b) => 
+          seasonCounts[a] > seasonCounts[b] ? a : b, 'Chưa có dữ liệu'
+        );
+        
+        // Update UI
+        document.getElementById('avg-farm-area').textContent = avgFarmArea;
+        document.getElementById('most-popular-crop').textContent = getTypeDisplayName(mostPopularCrop);
+        document.getElementById('crops-per-farm').textContent = cropsPerFarm;
+        document.getElementById('seasonal-distribution').textContent = getSeasonDisplayName(mostPopularSeason);
+        
+      } catch (error) {
+        console.error('Error loading analytics:', error);
+        showNotification('Lỗi khi tải dữ liệu thống kê!', 'error');
+      }
+    }
+
+    // Initialize app
+    document.addEventListener('DOMContentLoaded', () => {
+      loadDashboard();
+      showNotification('Chào mừng bạn đến với Smart Farm Management System!', 'success');
+    });
+  </script>
+</body>
+</html>
