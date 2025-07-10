@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dự Báo Thời Tiết Nông Trại</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="icon" type="image/png" href="logo.png">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      color: #000000;
+    }
+    .header {
+      background: linear-gradient(135deg, #5a67d8 0%, #6b48cc 100%);
+      color: #ffffff;
+      padding: 15px;
+      border-radius: 15px 15px 0 0;
+      text-align: center;
+    }
+    .weather-item {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-left: 5px solid #a3bffa;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      
+    }
+    .weather-item i {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+    .alert {
+      color: #ff6b6b;
+      font-weight: bold;
+    }
+    #map {
+      height: 400px;
+      width: 100%;
+      max-width: 900px;
+      margin: 20px auto;
+    }
+    #forecast {
+      grid-template-columns: repeat(5, 1fr); 
+      /* color: #f9f9f9; */
+    }
+    .forecast-card {
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #a3bffa; 
+      border-radius: 5px;
+      text-align: center;
+    }
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
+  </style>
+</head>
+<body class="p-4">
+
+  <h1 class="text-3xl font-bold text-center mb-6 text-white">Dự Báo Thời Tiết Và Bản Đồ Nông Trại</h1>
+
+  <a href="index.html" class="text-white hover:underline mb-4 inline-block">Về Trang Chủ</a>
+
+  <div class="card mb-8">
+    <div class="header">
+      <h2 class="text-xl font-semibold">Chọn Nông Trại</h2>
+    </div>
+    <div class="p-4">
+      <select id="farmSelect" class="border p-2 w-full mb-2 text-black" style="color: black;">
+        <option value="">Chọn nông trại</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="weatherWidget" class="card">
+    <div class="header">
+      <h2 class="text-xl font-semibold">Thời Tiết Hiện Tại</h2>
+    </div>
+    <div id="weatherInfo" class="p-4">
+      <p class="weather-item"><i class="fas fa-map-marker-alt"></i><strong>Nông Trại:</strong> <span id="farmName"></span></p>
+      <p class="weather-item"><i class="fas fa-thermometer-half"></i><strong>Nhiệt Độ:</strong> <span id="temperature"></span> °C</p>
+      <p class="weather-item"><i class="fas fa-tint"></i><strong>Độ Ẩm:</strong> <span id="humidity"></span>%</p>
+      <p class="weather-item"><i class="fas fa-cloud-rain"></i><strong>Lượng Mưa:</strong> <span id="precipitation"></span> mm</p>
+      <p class="weather-item"><i class="fas fa-cloud"></i><strong>Mô Tả:</strong> <span id="description"></span></p>
+      <p class="weather-item"><i class="fas fa-exclamation-triangle"></i><strong>Cảnh Báo:</strong> <span id="alert" class="alert"></span></p>
+    </div>
+    <h2 class="text-xl font-semibold mt-4 mb-2 text-center">Dự báo thời tiết trong 5 ngày</h2>
+    <div id="forecast" class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4"></div>
+    <h2 class="text-xl font-semibold mt-4 mb-2 text-center">Bản đồ nông trại</h2>
+    <div id="map"></div>
+  </div>
+  <p id="weatherStatus" class="mt-2 text-red-500 text-center"></p>
+
+  <script>
+    console.log('Script bắt đầu chạy...');
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
+    authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
+    projectId: "nongnghiepxanh-f6689",
+    storageBucket: "nongnghiepxanh-f6689.firebasestorage.app",
+    messagingSenderId: "846834085038",
+    appId: "1:846834085038:web:cfac519e025896626d113f",
+    measurementId: "G-619BFYRKGT"
+  };
+    console.log('Firebase config:', firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const weatherApiKey = "63c479484c69f866a6681beca8025b49";
+    console.log('Weather API key:', weatherApiKey);
+
+    let map;
+
+    // Khởi tạo bản đồ với OpenStreetMap
+    map = L.map('map').setView([0, 0], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    async function loadFarms() {
+      console.log('Gọi loadFarms...');
+      const farmSelect = document.getElementById('farmSelect');
+      const weatherStatus = document.getElementById('weatherStatus');
+      try {
+        console.log('Lấy snapshot từ Firestore...');
+        const snapshot = await db.collection('farms').get();
+        console.log('Snapshot:', snapshot.size, 'tài liệu');
+        if (snapshot.empty) {
+          weatherStatus.textContent = 'Không tìm thấy nông trại trong Firestore. Vui lòng thêm dữ liệu.';
+          console.log('Collection farms trống.');
+          return;
+        }
+        snapshot.forEach(doc => {
+          const farm = doc.data();
+          console.log('Dữ liệu tài liệu:', doc.id, farm);
+          if (farm.name && farm.latitude && farm.longitude) {
+            const option = document.createElement('option');
+            option.value = JSON.stringify({ id: doc.id, lat: farm.latitude, lon: farm.longitude, name: farm.name });
+            option.textContent = farm.name;
+            farmSelect.appendChild(option);
+          } else {
+            console.log('Tài liệu không hợp lệ, bị bỏ qua:', farm);
+          }
+        });
+      } catch (error) {
+        weatherStatus.textContent = 'Lỗi khi tải danh sách nông trại: ' + error.message;
+        console.error('Lỗi loadFarms:', error);
+      }
+    }
+
+    async function fetchWeather(lat, lon, farmName) {
+      console.log('Gọi fetchWeather cho', farmName, 'at', lat, lon);
+      const weatherWidget = document.getElementById('weatherWidget');
+      const weatherStatus = document.getElementById('weatherStatus');
+      try {
+        const currentResponse = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=metric&lang=vi`
+        );
+        console.log('Current weather response status:', currentResponse.status);
+        if (!currentResponse.ok) throw new Error(`HTTP ${currentResponse.status}`);
+        const currentData = await currentResponse.json();
+        const forecastResponse = await fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=metric&lang=vi`
+        );
+        console.log('Forecast response status:', forecastResponse.status);
+        if (!forecastResponse.ok) throw new Error(`HTTP ${forecastResponse.status}`);
+        const forecastData = await forecastResponse.json();
+
+        document.getElementById('farmName').textContent = farmName;
+        document.getElementById('temperature').textContent = currentData.main.temp || 'N/A';
+        document.getElementById('humidity').textContent = currentData.main.humidity || 'N/A';
+        document.getElementById('precipitation').textContent = currentData.rain ? currentData.rain['1h'] || 0 : 0;
+        document.getElementById('description').textContent = currentData.weather[0]?.description || 'N/A';
+        document.getElementById('alert').textContent = currentData.alerts ? currentData.alerts[0]?.description : 'Không có cảnh báo';
+
+        const forecastContainer = document.getElementById('forecast');
+        forecastContainer.innerHTML = '';
+        const dailyData = forecastData.list.filter((item, index) => index % 8 === 0).slice(0, 5); // Dự báo 5 ngày
+        dailyData.forEach(day => {
+          const date = new Date(day.dt * 1000).toLocaleDateString('vi-VN', { weekday: 'short', day: 'numeric', month: 'numeric' });
+          const icon = getWeatherIcon(day.weather[0].main);
+          const card = document.createElement('div');
+          card.className = 'forecast-card text-center';
+          card.innerHTML = `
+            <p><strong>${date}</strong></p>
+            <p><i class="${icon}"></i></p>
+            <p>Nhiệt Độ: ${day.main.temp || 'N/A'} °C</p>
+            <p>Mưa: ${day.rain ? day.rain['3h'] || 0 : 0} mm</p>
+          `;
+          forecastContainer.appendChild(card);
+        });
+
+        // Hiển thị bản đồ
+        if (map) {
+          console.log('Cập nhật bản đồ với tọa độ:', lat, lon);
+          map.setView([parseFloat(lat), parseFloat(lon)], 13);
+          map.eachLayer(layer => {
+            if (layer instanceof L.Marker) map.removeLayer(layer);
+          });
+          L.marker([parseFloat(lat), parseFloat(lon)]).addTo(map)
+            .bindPopup(farmName)
+            .openPopup();
+        } else {
+          console.error('Bản đồ không được khởi tạo!');
+          map = L.map('map').setView([parseFloat(lat), parseFloat(lon)], 13);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          }).addTo(map);
+          L.marker([parseFloat(lat), parseFloat(lon)]).addTo(map)
+            .bindPopup(farmName)
+            .openPopup();
+        }
+
+        weatherWidget.classList.remove('hidden');
+        weatherStatus.textContent = '';
+      } catch (error) {
+        weatherStatus.textContent = 'Lỗi khi lấy dữ liệu thời tiết: ' + error.message;
+        console.error('Lỗi fetchWeather:', error);
+      }
+    }
+
+    document.getElementById('farmSelect').addEventListener('change', (e) => {
+      console.log('Thay đổi nông trại:', e.target.value);
+      const weatherWidget = document.getElementById('weatherWidget');
+      const weatherStatus = document.getElementById('weatherStatus');
+      if (e.target.value) {
+        const { lat, lon, name } = JSON.parse(e.target.value);
+        fetchWeather(lat, lon, name);
+      } else {
+        weatherWidget.classList.add('hidden');
+        weatherStatus.textContent = 'Vui lòng chọn một nông trại.';
+      }
+    });
+
+    loadFarms();
+    setInterval(() => {
+      console.log('Cập nhật định kỳ...');
+      const farmSelect = document.getElementById('farmSelect');
+      if (farmSelect.value) {
+        const { lat, lon, name } = JSON.parse(farmSelect.value);
+        fetchWeather(lat, lon, name);
+      }
+    }, 3600000);
+
+    function getWeatherIcon(weatherMain) {
+      console.log('Lấy icon cho:', weatherMain);
+      switch (weatherMain) {
+        case 'Clear': return 'fas fa-sun';
+        case 'Clouds': return 'fas fa-cloud';
+        case 'Rain': return 'fas fa-cloud-rain';
+        default: return 'fas fa-cloud';
+      }
+    }
+  </script>
+</body>
+</html>
