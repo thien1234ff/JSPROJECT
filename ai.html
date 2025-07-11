@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriBot - Trợ lý Nông nghiệp Thông minh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chatbot-container {
+            width: 100%;
+            max-width: 450px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="30" r="1.5" fill="white" opacity="0.1"/><circle cx="30" cy="80" r="1" fill="white" opacity="0.1"/><circle cx="70" cy="70" r="1" fill="white" opacity="0.1"/></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .bot-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #81C784 0%, #4CAF50 100%);
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .bot-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bot-status {
+            font-size: 14px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.bot {
+            text-align: left;
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message-content {
+            display: inline-block;
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+            position: relative;
+        }
+
+        .message.bot .message-content {
+            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+            color: #2E7D32;
+            border-bottom-left-radius: 6px;
+            margin-left: 0;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            border-bottom-right-radius: 6px;
+            margin-right: 0;
+        }
+
+        .timestamp {
+            font-size: 11px;
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+
+        .input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .message-input:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .send-button {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .send-button:active {
+            transform: scale(0.95);
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+            border-radius: 18px;
+            border-bottom-left-radius: 6px;
+            max-width: 80%;
+            margin-bottom: 15px;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
+            30% { opacity: 1; transform: scale(1); }
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .quick-action {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4CAF50;
+            color: #2E7D32;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action:hover {
+            background: #4CAF50;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .scrollbar-thin {
+            scrollbar-width: thin;
+            scrollbar-color: #4CAF50 #f0f0f0;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-track {
+            background: #f0f0f0;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background: #4CAF50;
+            border-radius: 3px;
+        }
+
+        .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+            background: #2E7D32;
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-container {
+                max-width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+            
+            .message-content {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot-container">
+        <div class="header">
+            <div class="bot-avatar">🌱</div>
+            <div class="bot-name">AgriBot</div>
+            <div class="bot-status">Trợ lý Nông nghiệp Thông minh</div>
+        </div>
+
+        <div class="chat-messages scrollbar-thin" id="chatMessages">
+            <div class="message bot">
+                <div class="message-content">
+                    Xin chào! Tôi là AgriBot, trợ lý nông nghiệp thông minh được hỗ trợ bởi AI. 🤖🌾
+                    <br><br>
+                    Tôi có thể giúp bạn về:
+                    <br>• Dự báo thời tiết và khí hậu
+                    <br>• Quản lý cây trồng và vật nuôi
+                    <br>• Giám sát cảm biến IoT
+                    <br>• Phân tích dữ liệu nông nghiệp
+                    <br>• Tư vấn kỹ thuật canh tác
+                    <br><br>
+                    <small>💡 Hiện tại đang sử dụng chế độ Local. Để kích hoạt AI, vui lòng cấu hình API key.</small>
+                </div>
+                <div class="timestamp">10:30 AM</div>
+                <div class="quick-actions">
+                    <div class="quick-action" onclick="sendQuickMessage('Dự báo thời tiết hôm nay')">🌤️ Thời tiết</div>
+                    <div class="quick-action" onclick="sendQuickMessage('Kiểm tra cảm biến')">📊 Cảm biến</div>
+                    <div class="quick-action" onclick="sendQuickMessage('Tư vấn cây trồng')">🌱 Tư vấn</div>
+                    <div class="quick-action" onclick="sendQuickMessage('Báo cáo sản xuất')">📋 Báo cáo</div>
+                    <div class="quick-action" onclick="toggleAIMode()">🤖 Chế độ AI</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <span style="margin-left: 10px; font-size: 12px; color: #4CAF50;">AgriBot đang soạn tin...</span>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <input type="text" class="message-input" id="messageInput" placeholder="Nhập câu hỏi của bạn..." onkeypress="handleKeyPress(event)">
+            <button class="send-button" onclick="sendMessage()">
+                <span>➤</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        // Cấu hình AI Model
+        const AI_CONFIG = {
+            // Hoặc sử dụng local model với Ollama
+            ollamaApiUrl: 'http://localhost:11500/api/chat',
+            // Chế độ hiện tại: 'huggingface', 'ollama', 'openai', 'local'
+            mode: 'ollama', // Bắt đầu với local responses, có thể chuyển sang AI
+            // System prompt cho nông nghiệp thông minh
+            systemPrompt: `Bạn là AgriBot, một trợ lý AI chuyên về nông nghiệp thông minh. 
+            Bạn có kiến thức sâu về:
+            - Canh tác thông minh và IoT nông nghiệp
+            - Dự báo thời tiết và khí hậu
+            - Quản lý cây trồng, vật nuôi
+            - Phân tích dữ liệu nông nghiệp
+            - Tư vấn kỹ thuật canh tác
+            - Hệ thống tưới tiêu tự động
+            - Giám sát cảm biến (độ ẩm, nhiệt độ, pH, ánh sáng)
+            
+            Hãy trả lời một cách thân thiện, chuyên nghiệp và hữu ích bằng tiếng Việt.
+            Sử dụng emoji phù hợp để làm cho câu trả lời sinh động hơn.`
+        };
+
+        // Fallback responses khi không thể kết nối AI
+        const fallbackResponses = {
+            'thời tiết': [
+                'Hôm nay trời nắng nhẹ, nhiệt độ 25-30°C, độ ẩm 70%. Thích hợp cho việc tưới nước vào sáng sớm. 🌤️',
+                'Dự báo có mưa nhẹ chiều nay, bạn nên che chắn cho cây non. Nhiệt độ giảm xuống 22-26°C. 🌧️'
+            ],
+            'cảm biến': [
+                '📊 Trạng thái cảm biến hiện tại:\n• Độ ẩm đất: 65% - Tốt\n• Nhiệt độ: 28°C - Bình thường\n• pH đất: 6.5 - Lý tưởng\n• Ánh sáng: 85% - Đủ sáng',
+                '⚠️ Cảnh báo: Độ ẩm đất khu vực A giảm xuống 30%. Khuyến nghị tưới nước ngay. Cảm biến nhiệt độ hoạt động bình thường.'
+            ],
+            'tư vấn': [
+                '🌱 Dựa vào dữ liệu hiện tại, tôi khuyên bạn:\n• Tưới nước vào 6h sáng và 5h chiều\n• Bón phân hữu cơ tuần tới\n• Kiểm tra sâu bệnh định kỳ',
+                '🌾 Thời điểm này thích hợp trồng rau màu. Nên chọn giống chịu nhiệt và chuẩn bị hệ thống tưới nhỏ giọt.'
+            ],
+            'báo cáo': [
+                '📋 Báo cáo tuần này:\n• Sản lượng dự kiến: 1.2 tấn\n• Tăng trưởng: +15% so với tuần trước\n• Chi phí: 2.5 triệu VND\n• Lợi nhuận ước tính: 8.5 triệu VND',
+                '📈 Hiệu suất canh tác tháng này tăng 20% nhờ hệ thống tưới tự động. Khuyến nghị mở rộng quy mô sản xuất.'
+            ],
+            'default': [
+                'Xin lỗi, tôi chưa hiểu rõ câu hỏi của bạn. Bạn có thể hỏi về thời tiết, cảm biến, tư vấn kỹ thuật hay báo cáo sản xuất không? 🤔',
+                'Tôi có thể giúp bạn về các vấn đề nông nghiệp thông minh. Hãy thử hỏi về dự báo thời tiết, trạng thái cảm biến, hoặc tư vấn canh tác nhé! 🌱'
+            ]
+        };
+
+        function getCurrentTime() {
+            const now = new Date();
+            return now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function addMessage(content, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            
+            messageDiv.innerHTML = `
+                <div class="message-content">${content}</div>
+                <div class="timestamp">${getCurrentTime()}</div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'block';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
+
+        // Hàm gọi AI API
+        async function callAIAPI(message) {
+            try {
+                let response;
+                
+                switch (AI_CONFIG.mode) {
+                    case 'huggingface':
+                        response = await callHuggingFaceAPI(message);
+                        break;
+                    case 'ollama':
+                        response = await callOllamaAPI(message);
+                        break;
+                    case 'openai':
+                        response = await callOpenAIAPI(message);
+                        break;
+                    case 'local':
+                    default:
+                        response = getFallbackResponse(message);
+                        break;
+                }
+                
+                return response;
+            } catch (error) {
+                console.error('AI API Error:', error);
+                return getFallbackResponse(message);
+            }
+        }
+
+        // Hugging Face API (Miễn phí)
+        async function callHuggingFaceAPI(message) {
+            const response = await fetch(AI_CONFIG.huggingFaceApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Thêm API key nếu có: 'Authorization': 'Bearer YOUR_HF_TOKEN'
+                },
+                body: JSON.stringify({
+                    inputs: `${AI_CONFIG.systemPrompt}\n\nNgười dùng: ${message}\nAgriBot:`,
+                    parameters: {
+                        max_new_tokens: 200,
+                        temperature: 0.7,
+                        return_full_text: false
+                    }
+                })
+            });
+            
+            const data = await response.json();
+            return data[0]?.generated_text || getFallbackResponse(message);
+        }
+
+        // Ollama API (Local, miễn phí)
+        async function callOllamaAPI(message) {
+          const response = await fetch(AI_CONFIG.ollamaApiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              model: "mistral", // hoặc llama3, phi3... tuỳ model bạn chạy
+              messages: [
+                  {
+                      role: "system",
+                      content: AI_CONFIG.systemPrompt,
+                  },
+                  {
+                      role: "user",
+                      content: message,
+                  }
+              ],
+              stream: false
+            }),
+          });
+
+          const data = await response.json();
+
+          // Trích nội dung trả lời
+          return data.message?.content || getFallbackResponse(message);
+        }
+
+
+        // OpenAI API (hoặc API tương thích)
+        async function callOpenAIAPI(message) {
+            const response = await fetch(AI_CONFIG.openAIApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer YOUR_API_KEY' // Thay bằng API key thực
+                },
+                body: JSON.stringify({
+                    model: 'gpt-3.5-turbo',
+                    messages: [
+                        { role: 'system', content: AI_CONFIG.systemPrompt },
+                        { role: 'user', content: message }
+                    ],
+                    max_tokens: 200,
+                    temperature: 0.7
+                })
+            });
+            
+            const data = await response.json();
+            return data.choices[0]?.message?.content || getFallbackResponse(message);
+        }
+
+        // Fallback responses khi AI không khả dụng
+        function getFallbackResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('thời tiết') || lowerMessage.includes('thoi tiet')) {
+                return fallbackResponses['thời tiết'][Math.floor(Math.random() * fallbackResponses['thời tiết'].length)];
+            } else if (lowerMessage.includes('cảm biến') || lowerMessage.includes('cam bien') || lowerMessage.includes('sensor')) {
+                return fallbackResponses['cảm biến'][Math.floor(Math.random() * fallbackResponses['cảm biến'].length)];
+            } else if (lowerMessage.includes('tư vấn') || lowerMessage.includes('tu van') || lowerMessage.includes('cây trồng')) {
+                return fallbackResponses['tư vấn'][Math.floor(Math.random() * fallbackResponses['tư vấn'].length)];
+            } else if (lowerMessage.includes('báo cáo') || lowerMessage.includes('bao cao') || lowerMessage.includes('sản xuất')) {
+                return fallbackResponses['báo cáo'][Math.floor(Math.random() * fallbackResponses['báo cáo'].length)];
+            } else {
+                return fallbackResponses['default'][Math.floor(Math.random() * fallbackResponses['default'].length)];
+            }
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, true);
+            messageInput.value = '';
+
+            showTypingIndicator();
+            
+            // Gọi AI API
+            callAIAPI(message).then(response => {
+                hideTypingIndicator();
+                addMessage(response);
+            }).catch(error => {
+                console.error('Error:', error);
+                hideTypingIndicator();
+                addMessage('Xin lỗi, tôi đang gặp sự cố kỹ thuật. Vui lòng thử lại sau. 🔧');
+            });
+        }
+
+        function sendQuickMessage(message) {
+            messageInput.value = message;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        // Auto-focus input
+        messageInput.focus();
+    </script>
+</body>
+</html>
