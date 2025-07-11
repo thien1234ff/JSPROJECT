@@ -506,7 +506,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
           author: this.currentUser.displayName || this.currentUser.email,
           authorId: this.currentUser.uid,
           authorAvatar: this.currentUser.photoURL || "https://randomuser.me/api/portraits/lego/1.jpg",
-          createdAt: serverTimestamp(),
           likes: 0,
           likedBy: []
         };
