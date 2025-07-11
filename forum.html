@@ -27,6 +27,13 @@
         .avatar:hover {
             transform: scale(1.1);
         }
+        .comment-enter {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body class="gradient-bg min-h-screen">
@@ -35,14 +42,13 @@
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <i class="fas fa-leaf text-2xl"></i>
-                <h1 class="text-2xl font-bold">Nông Nghiệp Thông Minh</h1>
+                <h1 class="text-2xl font-bold">Nông Nghiệp Thông minh</h1>
             </div>
             <nav class="hidden md:flex space-x-6">
                 <a href="index.html" class="hover:text-green-200 transition">Trang chủ</a>
                 <a href="#" class="hover:text-green-200 transition">Diễn đàn</a>
                 <a href="#" class="hover:text-green-200 transition">Kiến thức</a>
                 <a href="#" class="hover:text-green-200 transition">Cộng đồng</a>
-                <!-- Thêm vào phần header -->
                 <span id="userName" class="ml-4 text-white font-semibold hidden"></span>
                 <button id="logoutBtn" class="ml-4 bg-red-600 px-4 py-2 rounded hover:bg-red-700 text-white hidden">
                     Đăng xuất
@@ -107,83 +113,8 @@
                 </div>
 
                 <!-- Post List -->
-                <div class="space-y-6">
-                    <!-- Post 1 -->
-                    <article class="post-card bg-white rounded-xl shadow-md p-6 transition duration-300">
-                        <div class="flex items-start mb-4">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="avatar w-12 h-12 rounded-full mr-4 border-2 border-green-200">
-                            <div>
-                                <h4 class="font-bold text-lg text-green-800">Kinh nghiệm trồng lúa hữu cơ đạt năng suất cao</h4>
-                                <div class="flex items-center text-sm text-gray-500 mt-1">
-                                    <span class="mr-3">Bởi <a href="#" class="text-green-600 hover:underline">Nguyễn Văn A</a></span>
-                                    <span class="mr-3"><i class="far fa-clock mr-1"></i> 2 giờ trước</span>
-                                    <span><i class="far fa-comment mr-1"></i> 15 bình luận</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-700 mb-4">
-                            Chia sẻ với bà con phương pháp trồng lúa hữu cơ mà tôi đã áp dụng thành công trong 3 năm qua, năng suất đạt 8 tấn/ha, giảm 30% chi phí đầu vào so với canh tác truyền thống...
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <div class="flex space-x-2">
-                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Lúa</span>
-                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Hữu cơ</span>
-                            </div>
-                            <button class="text-green-600 hover:text-green-800 font-medium">Đọc tiếp →</button>
-                        </div>
-                    </article>
-
-                    <!-- Post 2 -->
-                    <article class="post-card bg-white rounded-xl shadow-md p-6 transition duration-300">
-                        <div class="flex items-start mb-4">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="avatar w-12 h-12 rounded-full mr-4 border-2 border-green-200">
-                            <div>
-                                <h4 class="font-bold text-lg text-green-800">Giải pháp tưới nhỏ giọt tự động cho vườn cây ăn trái</h4>
-                                <div class="flex items-center text-sm text-gray-500 mt-1">
-                                    <span class="mr-3">Bởi <a href="#" class="text-green-600 hover:underline">Trần Thị B</a></span>
-                                    <span class="mr-3"><i class="far fa-clock mr-1"></i> 5 giờ trước</span>
-                                    <span><i class="far fa-comment mr-1"></i> 8 bình luận</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-700 mb-4">
-                            Sau 2 năm nghiên cứu và thử nghiệm, tôi đã xây dựng thành công hệ thống tưới nhỏ giọt tự động với chi phí chỉ 15 triệu đồng cho 1ha vườn cây ăn trái. Hệ thống giúp tiết kiệm 50% lượng nước và giảm công lao động...
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <div class="flex space-x-2">
-                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Cây ăn quả</span>
-                                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Tưới tiêu</span>
-                                <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Tự động hóa</span>
-                            </div>
-                            <button class="text-green-600 hover:text-green-800 font-medium">Đọc tiếp →</button>
-                        </div>
-                    </article>
-
-                    <!-- Post 3 -->
-                    <article class="post-card bg-white rounded-xl shadow-md p-6 transition duration-300">
-                        <div class="flex items-start mb-4">
-                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User" class="avatar w-12 h-12 rounded-full mr-4 border-2 border-green-200">
-                            <div>
-                                <h4 class="font-bold text-lg text-green-800">Cách phòng trừ sâu bệnh trên rau màu không dùng thuốc hóa học</h4>
-                                <div class="flex items-center text-sm text-gray-500 mt-1">
-                                    <span class="mr-3">Bởi <a href="#" class="text-green-600 hover:underline">Lê Văn C</a></span>
-                                    <span class="mr-3"><i class="far fa-clock mr-1"></i> 1 ngày trước</span>
-                                    <span><i class="far fa-comment mr-1"></i> 23 bình luận</span>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-gray-700 mb-4">
-                            Xin chia sẻ với bà con các biện pháp phòng trừ sâu bệnh bằng chế phẩm sinh học tự chế từ tỏi, ớt, gừng và rượu. Phương pháp này tôi đã áp dụng 5 năm nay, hiệu quả đạt 80-90%, an toàn cho người sử dụng và môi trường...
-                        </p>
-                        <div class="flex justify-between items-center">
-                            <div class="flex space-x-2">
-                                <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Rau màu</span>
-                                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Hữu cơ</span>
-                                <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">Sâu bệnh</span>
-                            </div>
-                            <button class="text-green-600 hover:text-green-800 font-medium">Đọc tiếp →</button>
-                        </div>
-                    </article>
+                <div id="postsContainer" class="space-y-6">
+                    <!-- Posts will be loaded dynamically -->
                 </div>
 
                 <!-- Pagination -->
@@ -353,6 +284,64 @@
         </div>
     </div>
 
+    <!-- Post Detail Modal (for comments) -->
+    <div id="postDetailModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="postDetailTitle" class="text-2xl font-bold text-green-800"></h3>
+                    <button id="closeDetailModalBtn" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                
+                <div class="flex items-start mb-4">
+                    <img id="postDetailAvatar" src="https://randomuser.me/api/portraits/lego/1.jpg" alt="User" 
+                         class="w-12 h-12 rounded-full mr-4 border-2 border-green-200">
+                    <div>
+                        <div class="flex items-center text-sm text-gray-500 mt-1">
+                            <span class="mr-3">Bởi <span id="postDetailAuthor" class="text-green-600"></span></span>
+                            <span><i class="far fa-clock mr-1"></i> <span id="postDetailTime"></span></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="postDetailContent" class="text-gray-700 mb-6 border-b border-gray-200 pb-6"></div>
+                
+                <!-- Comments Section -->
+                <div class="mb-6">
+                    <h4 class="text-xl font-semibold text-green-800 mb-4">
+                        <i class="far fa-comments mr-2"></i> Bình luận 
+                        <span id="commentsCount" class="text-gray-500 text-base">(0)</span>
+                    </h4>
+                    
+                    <!-- Comment Form -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                        <div class="flex items-start mb-4">
+                            <img id="commentUserAvatar" src="https://randomuser.me/api/portraits/lego/1.jpg" alt="User" 
+                                 class="w-10 h-10 rounded-full mr-3 border-2 border-green-200">
+                            <div class="flex-grow">
+                                <textarea id="commentContent" rows="3" 
+                                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" 
+                                          placeholder="Viết bình luận của bạn..."></textarea>
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <button id="postCommentBtn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition" type="submit">
+                                Đăng bình luận
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Comments List -->
+                    <div id="commentsContainer" class="space-y-4">
+                        <!-- Comments will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-green-800 text-white py-8">
         <div class="container mx-auto px-4">
@@ -403,13 +392,13 @@
                 </div>
             </div>
             <div class="border-t border-green-700 mt-8 pt-6 text-center text-green-300">
-                <p>© 2023 Nông Nghiệp Thông Minh. Tất cả quyền được bảo lưu.</p>
+                <p>© 2025 Nông Nghiệp Thông Minh. Tất cả quyền được bảo lưu.</p>
             </div>
         </div>
     </footer>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import {
     getFirestore,
     collection,
@@ -417,15 +406,17 @@
     getDocs,
     serverTimestamp,
     orderBy,
-    query
+    query,
+    doc,
+    getDoc,
+    updateDoc,
+    arrayUnion
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
   import {
     getAuth,
     onAuthStateChanged,
     signOut
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
   const firebaseConfig = {
     apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
     authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
@@ -434,41 +425,420 @@
     messagingSenderId: "846834085038",
     appId: "1:846834085038:web:cfac519e025896626d113f"
   };
-
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
   const auth = getAuth();
   let currentUser = null;
-
+  let currentPostId = null;
+  // Tạo instance của CommentSystem
+  class CommentSystem {
+    constructor(db, auth) {
+      this.db = db;
+      this.auth = auth;
+      this.currentUser = null;
+      this.currentPostId = null;
+      this.isSubmitting = false;
+      
+      // Bind events
+      this.bindEvents();
+    }
+    bindEvents() {
+      // Event listener cho nút đăng bình luận
+      document.getElementById("postCommentBtn").addEventListener("click", () => {
+        this.handleCommentSubmit();
+      });
+      // Event listener cho Enter key trong textarea
+      document.getElementById("commentContent").addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+          e.preventDefault();
+          this.handleCommentSubmit();
+        }
+      });
+      // Auto-resize textarea
+      document.getElementById("commentContent").addEventListener("input", (e) => {
+        this.autoResizeTextarea(e.target);
+      });
+    }
+    autoResizeTextarea(textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
+    }
+    async handleCommentSubmit() {
+      // Kiểm tra đang submit
+      if (this.isSubmitting) {
+        return;
+      }
+      // Kiểm tra đăng nhập
+      if (!this.currentUser) {
+        this.showErrorMessage("Vui lòng đăng nhập trước khi bình luận!");
+        return;
+      }
+      // Lấy nội dung bình luận
+      const commentTextarea = document.getElementById("commentContent");
+      const commentContent = commentTextarea.value.trim();
+      // Validate nội dung
+      if (!commentContent) {
+        this.showErrorMessage("Vui lòng nhập nội dung bình luận!");
+        commentTextarea.focus();
+        return;
+      }
+      if (commentContent.length < 5) {
+        this.showErrorMessage("Bình luận phải có ít nhất 5 ký tự!");
+        commentTextarea.focus();
+        return;
+      }
+      if (commentContent.length > 1000) {
+        this.showErrorMessage("Bình luận không được quá 1000 ký tự!");
+        commentTextarea.focus();
+        return;
+      }
+      // Bắt đầu submit
+      this.isSubmitting = true;
+      const submitBtn = document.getElementById("postCommentBtn");
+      const originalBtnText = submitBtn.textContent;
+      try {
+        // Hiển thị loading state
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Đang đăng...';
+        // Tạo dữ liệu bình luận
+        const commentData = {
+          content: this.sanitizeContent(commentContent),
+          author: this.currentUser.displayName || this.currentUser.email,
+          authorId: this.currentUser.uid,
+          authorAvatar: this.currentUser.photoURL || "https://randomuser.me/api/portraits/lego/1.jpg",
+          createdAt: serverTimestamp(),
+          likes: 0,
+          likedBy: []
+        };
+        // Lưu bình luận vào Firestore
+        await this.saveComment(commentData);
+        // Hiển thị thông báo thành công
+        this.showSuccessMessage("Bình luận đã được đăng!");
+        // Reset form
+        commentTextarea.value = "";
+        commentTextarea.style.height = "auto";
+        // Cập nhật UI
+        await this.refreshComments();
+        this.updatePostCardCommentsCount();
+      } catch (error) {
+        console.error("Error posting comment:", error);
+        this.showErrorMessage("Lỗi khi đăng bình luận: " + error.message);
+      } finally {
+        // Khôi phục button state
+        this.isSubmitting = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    }
+    sanitizeContent(content) {
+      // Loại bỏ HTML tags và script
+      const div = document.createElement("div");
+      div.textContent = content;
+      return div.innerHTML.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+    }
+    async saveComment(commentData) {
+      const postRef = doc(this.db, "posts", this.currentPostId);
+      
+      // Lấy thông tin post hiện tại
+      const postSnap = await getDoc(postRef);
+      if (!postSnap.exists()) {
+        throw new Error("Bài viết không tồn tại!");
+      }
+      const currentPost = postSnap.data();
+      const currentComments = currentPost.comments || [];
+      
+      // Thêm bình luận mới
+      const updatedComments = [...currentComments, commentData];
+      
+      // Cập nhật post với bình luận mới
+      await updateDoc(postRef, {
+        comments: updatedComments,
+        commentsCount: updatedComments.length,
+        lastActivity: serverTimestamp()
+      });
+    }
+    async refreshComments() {
+      const commentsContainer = document.getElementById("commentsContainer");
+      
+      // Hiển thị loading
+      commentsContainer.innerHTML = `
+        <div class="text-center py-4">
+          <i class="fas fa-spinner fa-spin text-green-600 text-xl"></i>
+          <p class="text-gray-500 mt-2">Đang tải bình luận...</p>
+        </div>
+      `;
+      try {
+        const postRef = doc(this.db, "posts", this.currentPostId);
+        const postSnap = await getDoc(postRef);
+        
+        if (postSnap.exists()) {
+          const post = postSnap.data();
+          const comments = post.comments || [];
+          
+          // Cập nhật số lượng bình luận
+          document.getElementById("commentsCount").textContent = `(${comments.length})`;
+          
+          if (comments.length === 0) {
+            commentsContainer.innerHTML = `
+              <div class="text-center py-8">
+                <i class="far fa-comments text-gray-400 text-4xl mb-4"></i>
+                <p class="text-gray-500">Chưa có bình luận nào.</p>
+                <p class="text-gray-400 text-sm">Hãy là người đầu tiên bình luận!</p>
+              </div>
+            `;
+            return;
+          }
+          
+          // Sắp xếp bình luận theo thời gian (mới nhất trước)
+          comments.sort((a, b) => {
+            if (a.createdAt && b.createdAt) {
+              return b.createdAt.toDate() - a.createdAt.toDate();
+            }
+            return 0;
+          });
+          
+          // Render bình luận
+          commentsContainer.innerHTML = "";
+          comments.forEach((comment, index) => {
+            const commentHtml = this.createCommentHtml(comment, index);
+            commentsContainer.insertAdjacentHTML("beforeend", commentHtml);
+          });
+          
+          // Animate new comments
+          const newComments = commentsContainer.querySelectorAll(".comment-item");
+          newComments.forEach((comment, index) => {
+            setTimeout(() => {
+              comment.classList.add("animate-fadeIn");
+            }, index * 100);
+          });
+          
+        } else {
+          throw new Error("Bài viết không tồn tại!");
+        }
+      } catch (error) {
+        console.error("Error loading comments:", error);
+        commentsContainer.innerHTML = `
+          <div class="text-center py-4">
+            <i class="fas fa-exclamation-triangle text-red-500 text-xl mb-2"></i>
+            <p class="text-red-500">Lỗi khi tải bình luận!</p>
+            <button onclick="commentSystem.refreshComments()" class="text-green-600 hover:text-green-800 text-sm mt-2">
+              Thử lại
+            </button>
+          </div>
+        `;
+      }
+    }
+    createCommentHtml(comment, index) {
+      // Format thời gian
+      let commentTime = "Vừa xong";
+      if (comment.createdAt && comment.createdAt.toDate) {
+        commentTime = this.formatTimeAgo(comment.createdAt.toDate());
+      }
+      // Kiểm tra xem có phải comment của user hiện tại không
+      const isOwner = this.currentUser && comment.authorId === this.currentUser.uid;
+      
+      return `
+        <div class="comment-item bg-white rounded-lg p-4 border border-gray-200 shadow-sm opacity-0 transition-all duration-300" 
+             data-comment-index="${index}">
+          <div class="flex items-start space-x-3">
+            <img src="${comment.authorAvatar}" alt="User Avatar" 
+                 class="w-10 h-10 rounded-full border-2 border-green-200 flex-shrink-0">
+            <div class="flex-grow min-w-0">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                  <h5 class="font-semibold text-green-700 text-sm">${comment.author}</h5>
+                  ${isOwner ? '<span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">Bạn</span>' : ''}
+                </div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-gray-500 text-xs">${commentTime}</span>
+                  ${isOwner ? `
+                    <button onclick="commentSystem.deleteComment(${index})" 
+                            class="text-red-500 hover:text-red-700 text-xs">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  ` : ''}
+                </div>
+              </div>
+              <div class="mt-2 text-gray-700 text-sm leading-relaxed">
+                ${this.formatCommentContent(comment.content)}
+              </div>
+              <div class="mt-3 flex items-center space-x-4">
+                <button onclick="commentSystem.toggleLike(${index})" 
+                        class="flex items-center space-x-1 text-gray-500 hover:text-green-600 text-xs">
+                  <i class="far fa-thumbs-up"></i>
+                  <span>${comment.likes || 0}</span>
+                </button>
+                <button onclick="commentSystem.replyToComment(${index})" 
+                        class="text-gray-500 hover:text-green-600 text-xs">
+                  <i class="far fa-reply"></i> Trả lời
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    formatCommentContent(content) {
+      // Chuyển đổi URLs thành links
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      let formattedContent = content.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">$1</a>');
+      
+      // Chuyển đổi line breaks thành <br>
+      formattedContent = formattedContent.replace(/\n/g, '<br>');
+      
+      return formattedContent;
+    }
+    formatTimeAgo(date) {
+      const now = new Date();
+      const diffInSeconds = Math.floor((now - date) / 1000);
+      
+      if (diffInSeconds < 60) {
+        return "Vừa xong";
+      } else if (diffInSeconds < 3600) {
+        const minutes = Math.floor(diffInSeconds / 60);
+        return `${minutes} phút trước`;
+      } else if (diffInSeconds < 86400) {
+        const hours = Math.floor(diffInSeconds / 3600);
+        return `${hours} giờ trước`;
+      } else if (diffInSeconds < 2592000) {
+        const days = Math.floor(diffInSeconds / 86400);
+        return `${days} ngày trước`;
+      } else {
+        return date.toLocaleDateString('vi-VN');
+      }
+    }
+    updatePostCardCommentsCount() {
+      const commentCountSpan = document.querySelector(`.post-card[data-id="${this.currentPostId}"] .comment-count`);
+      if (commentCountSpan) {
+        this.getPostCommentsCount().then(count => {
+          commentCountSpan.textContent = count;
+        });
+      }
+    }
+    async getPostCommentsCount() {
+      try {
+        const postRef = doc(this.db, "posts", this.currentPostId);
+        const postSnap = await getDoc(postRef);
+        if (postSnap.exists()) {
+          return postSnap.data().commentsCount || 0;
+        }
+        return 0;
+      } catch (error) {
+        console.error("Error getting comments count:", error);
+        return 0;
+      }
+    }
+    // Phương thức khác
+    setCurrentUser(user) {
+      this.currentUser = user;
+      if (user) {
+        document.getElementById("commentUserAvatar").src = 
+          user.photoURL || "https://randomuser.me/api/portraits/lego/1.jpg";
+      }
+    }
+    setCurrentPostId(postId) {
+      this.currentPostId = postId;
+    }
+    showSuccessMessage(message) {
+      this.showToast(message, "success");
+    }
+    showErrorMessage(message) {
+      this.showToast(message, "error");
+    }
+    showToast(message, type = "info") {
+      const toast = document.createElement("div");
+      const bgColor = type === "success" ? "bg-green-500" : type === "error" ? "bg-red-500" : "bg-blue-500";
+      const icon = type === "success" ? "fa-check-circle" : type === "error" ? "fa-exclamation-circle" : "fa-info-circle";
+      
+      toast.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300`;
+      toast.innerHTML = `<i class="fas ${icon} mr-2"></i>${message}`;
+      
+      document.body.appendChild(toast);
+      
+      // Animate in
+      setTimeout(() => {
+        toast.classList.remove("translate-x-full");
+      }, 100);
+      
+      // Animate out and remove
+      setTimeout(() => {
+        toast.classList.add("translate-x-full");
+        setTimeout(() => {
+          toast.remove();
+        }, 300);
+      }, 3000);
+    }
+    // Các phương thức khác (deleteComment, toggleLike, replyToComment) có thể thêm sau
+  }
+  // CSS cho animations
+  const style = document.createElement('style');
+  style.textContent = `
+    .animate-fadeIn {
+      animation: fadeIn 0.3s ease-in-out forwards;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .comment-item:hover {
+      border-color: #10b981;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.1);
+    }
+    
+    #commentContent {
+      resize: none;
+      transition: height 0.2s ease;
+    }
+  `;
+  document.head.appendChild(style);
+  // Khởi tạo comment system
+  const commentSystem = new CommentSystem(db, auth);
   // Theo dõi trạng thái đăng nhập
   onAuthStateChanged(auth, (user) => {
     if (user) {
       currentUser = user;
+      // Cập nhật cho commentSystem
+      commentSystem.setCurrentUser(user);
+      
       document.getElementById("userName").textContent =
         `Xin chào, ${user.displayName || user.email}`;
       document.getElementById("userName").classList.remove("hidden");
       document.getElementById("logoutBtn").classList.remove("hidden");
+      
+      // Set avatar for comment form
+      document.getElementById("commentUserAvatar").src = 
+        user.photoURL || "https://randomuser.me/api/portraits/lego/1.jpg";
     } else {
       currentUser = null;
+      commentSystem.setCurrentUser(null);
       alert("Bạn chưa đăng nhập! Vui lòng đăng nhập trước.");
       window.location.href = "index.html";
     }
   });
-
   // Logout
   document.getElementById("logoutBtn").addEventListener("click", async () => {
     await signOut(auth);
     alert("Đã đăng xuất.");
     window.location.href = "index.html";
   });
-
   // Modal logic
   const newPostBtn = document.getElementById("newPostBtn");
   const newPostModal = document.getElementById("newPostModal");
   const closeModalBtn = document.getElementById("closeModalBtn");
   const cancelPostBtn = document.getElementById("cancelPostBtn");
   const postForm = document.getElementById("postForm");
-
+  // Post detail modal
+  const postDetailModal = document.getElementById("postDetailModal");
+  const closeDetailModalBtn = document.getElementById("closeDetailModalBtn");
+  
   newPostBtn.addEventListener("click", () => {
     if (!currentUser) {
       alert("Vui lòng đăng nhập trước khi đăng bài!");
@@ -477,72 +847,82 @@
     newPostModal.classList.remove("hidden");
     document.body.style.overflow = "hidden";
   });
-
-  closeModalBtn.addEventListener("click", closeModal);
-  cancelPostBtn.addEventListener("click", closeModal);
+  closeModalBtn.addEventListener("click", closeNewPostModal);
+  cancelPostBtn.addEventListener("click", closeNewPostModal);
   newPostModal.addEventListener("click", (e) => {
     if (e.target === newPostModal) {
-      closeModal();
+      closeNewPostModal();
     }
   });
-
-  function closeModal() {
+  function closeNewPostModal() {
     newPostModal.classList.add("hidden");
     document.body.style.overflow = "auto";
     postForm.reset();
   }
-
+  // Close post detail modal
+  closeDetailModalBtn.addEventListener("click", () => {
+    postDetailModal.classList.add("hidden");
+    document.body.style.overflow = "auto";
+  });
+  
+  postDetailModal.addEventListener("click", (e) => {
+    if (e.target === postDetailModal) {
+      postDetailModal.classList.add("hidden");
+      document.body.style.overflow = "auto";
+    }
+  });
   postForm.addEventListener("submit", async (e) => {
     e.preventDefault();
-
     const title = document.getElementById("postTitle").value.trim();
     const category = document.getElementById("postCategory").value;
     const content = document.getElementById("postContent").value.trim();
-
     if (!title || !category || !content) {
       alert("Vui lòng điền đầy đủ thông tin!");
       return;
     }
-
     const postData = {
       title,
       category,
       content,
       createdAt: serverTimestamp(),
       author: currentUser.displayName || currentUser.email,
-      comments: 0
+      comments: [],
+      commentsCount: 0
     };
-
     try {
       await addDoc(collection(db, "posts"), postData);
       alert("Bài viết đã được lưu!");
-      closeModal();
+      closeNewPostModal();
       loadPosts();
     } catch (error) {
       console.error(error);
       alert("Lỗi khi lưu bài viết!");
     }
   });
-
   async function loadPosts() {
-    const postsContainer = document.querySelector(".space-y-6");
+    const postsContainer = document.getElementById("postsContainer");
     postsContainer.innerHTML = "";
-
     const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
     const snapshot = await getDocs(q);
-
     if (snapshot.empty) {
       postsContainer.innerHTML = "<p class='text-gray-600'>Chưa có bài viết nào.</p>";
     } else {
       snapshot.forEach((docSnap) => {
         const post = docSnap.data();
-        const postHtml = createPostCard(post);
+        const postHtml = createPostCard(post, docSnap.id);
         postsContainer.insertAdjacentHTML("beforeend", postHtml);
+        
+        // Add event listener to the "Read more" button
+        const readMoreBtn = document.querySelector(`.post-card[data-id="${docSnap.id}"] .read-more-btn`);
+        if (readMoreBtn) {
+          readMoreBtn.addEventListener("click", () => {
+            openPostDetail(docSnap.id);
+          });
+        }
       });
     }
   }
-
-  function createPostCard(post) {
+  function createPostCard(post, id) {
     const categoryColorMap = {
       "lúa": "green",
       "cây ăn quả": "blue",
@@ -552,19 +932,33 @@
       "tưới tiêu": "indigo",
       "khác": "gray"
     };
-
     const color = categoryColorMap[post.category] || "gray";
-
+    
+    // Format the date
+    let postTime = "Mới đăng";
+    if (post.createdAt && post.createdAt.toDate) {
+      const postDate = post.createdAt.toDate();
+      const now = new Date();
+      const diffHours = Math.floor((now - postDate) / (1000 * 60 * 60));
+      
+      if (diffHours < 1) {
+        postTime = "Vài phút trước";
+      } else if (diffHours < 24) {
+        postTime = `${diffHours} giờ trước`;
+      } else {
+        postTime = `${Math.floor(diffHours / 24)} ngày trước`;
+      }
+    }
     return `
-      <article class="post-card bg-white rounded-xl shadow-md p-6 transition duration-300">
+      <article class="post-card bg-white rounded-xl shadow-md p-6 transition duration-300" data-id="${id}">
         <div class="flex items-start mb-4">
           <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="User" class="avatar w-12 h-12 rounded-full mr-4 border-2 border-green-200">
           <div>
             <h4 class="font-bold text-lg text-green-800">${post.title}</h4>
             <div class="flex items-center text-sm text-gray-500 mt-1">
               <span class="mr-3">Bởi <a href="#" class="text-green-600 hover:underline">${post.author}</a></span>
-              <span class="mr-3"><i class="far fa-clock mr-1"></i> Mới đăng</span>
-              <span><i class="far fa-comment mr-1"></i> ${post.comments} bình luận</span>
+              <span class="mr-3"><i class="far fa-clock mr-1"></i> ${postTime}</span>
+              <span><i class="far fa-comment mr-1"></i> <span class="comment-count">${post.commentsCount || 0}</span> bình luận</span>
             </div>
           </div>
         </div>
@@ -573,12 +967,62 @@
           <div class="flex space-x-2">
             <span class="bg-${color}-100 text-${color}-800 px-3 py-1 rounded-full text-sm">${post.category}</span>
           </div>
-          <button class="text-green-600 hover:text-green-800 font-medium">Đọc tiếp →</button>
+          <button class="read-more-btn text-green-600 hover:text-green-800 font-medium">Đọc tiếp →</button>
         </div>
       </article>
     `;
   }
-
+  async function openPostDetail(postId) {
+    currentPostId = postId;
+    // Cập nhật cho commentSystem
+    commentSystem.setCurrentPostId(postId);
+    
+    try {
+      const postRef = doc(db, "posts", postId);
+      const postSnap = await getDoc(postRef);
+      
+      if (postSnap.exists()) {
+        const post = postSnap.data();
+        
+        // Update modal content
+        document.getElementById("postDetailTitle").textContent = post.title;
+        document.getElementById("postDetailAuthor").textContent = post.author;
+        document.getElementById("postDetailContent").textContent = post.content;
+        
+        // Format the date
+        let postTime = "Mới đăng";
+        if (post.createdAt && post.createdAt.toDate) {
+          const postDate = post.createdAt.toDate();
+          const now = new Date();
+          const diffHours = Math.floor((now - postDate) / (1000 * 60 * 60));
+          
+          if (diffHours < 1) {
+            postTime = "Vài phút trước";
+          } else if (diffHours < 24) {
+            postTime = `${diffHours} giờ trước`;
+          } else {
+            postTime = `${Math.floor(diffHours / 24)} ngày trước`;
+          }
+        }
+        document.getElementById("postDetailTime").textContent = postTime;
+        
+        // Update comments count
+        document.getElementById("commentsCount").textContent = `(${post.commentsCount || 0})`;
+        
+        // Load comments bằng commentSystem
+        commentSystem.refreshComments();
+        
+        // Open modal
+        postDetailModal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      } else {
+        alert("Bài viết không tồn tại!");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Lỗi khi tải bài viết!");
+    }
+  }
   document.addEventListener("DOMContentLoaded", loadPosts);
 </script>
 </body>
