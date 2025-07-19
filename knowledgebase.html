@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cơ sở tri thức Nông nghiệp thông minh (Firebase)</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles & Reset */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #28a745; /* Green for agriculture theme */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        header .header-content {
+            display: flex;
+            justify-content: space-between; /* Đẩy các phần tử đầu và cuối ra hai bên */
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex-wrap: wrap; /* Cho phép các phần tử xuống dòng trên màn hình nhỏ */
+            gap: 15px; /* Khoảng cách giữa các phần tử */
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 1px;
+            flex-grow: 1; /* Cho phép tiêu đề chiếm không gian còn lại */
+            min-width: 250px; /* Đảm bảo tiêu đề không quá nhỏ */
+            text-align: center; /* Căn giữa văn bản tiêu đề trong không gian của nó */
+        }
+
+        header p {
+            margin-top: 10px;
+            width: 100%; /* Phụ đề chiếm toàn bộ chiều rộng */
+        }
+
+        /* Home Button */
+        .home-button {
+            background-color: #1e7e34; /* Darker green */
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-flex; /* Để căn chỉnh icon */
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* order: 1; - Bỏ order ở đây vì justify-content đã xử lý vị trí trên desktop */
+        }
+
+        .home-button:hover {
+            background-color: #155724; /* Even darker green */
+            transform: translateY(-2px);
+        }
+
+        /* Auth Status Area */
+        #auth-status {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Khoảng cách nhỏ hơn cho giao diện gọn gàng */
+            /* order: 3; - Bỏ order ở đây vì justify-content đã xử lý vị trí trên desktop */
+            white-space: nowrap; /* Giữ các nút/văn bản trên một dòng */
+        }
+
+        /* Common Button Styles for Auth */
+        .auth-button {
+            padding: 8px 15px; /* Padding nhỏ hơn cho giao diện gọn gàng */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9em; /* Cỡ chữ nhỏ hơn */
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .auth-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Specific Auth Button Colors */
+        #login-redirect-button {
+            background-color: #007bff; /* Primary Blue */
+            color: white;
+        }
+        #login-redirect-button:hover {
+            background-color: #0056b3;
+        }
+
+        #logout-button {
+            background-color: #dc3545; /* Danger Red */
+            color: white;
+        }
+        #logout-button:hover {
+            background-color: #c82333;
+        }
+
+        /* User Display */
+        #user-display {
+            color: white;
+            font-size: 0.9em; /* Cỡ chữ nhỏ hơn */
+            font-weight: 500;
+            padding: 6px 10px; /* Padding nhỏ hơn */
+            background-color: rgba(0, 0, 0, 0.2); /* Nền hơi trong suốt */
+            border-radius: 5px;
+        }
+
+        /* Controls Section (Search & Categories) - Existing styles */
+        .controls {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #28a745;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .category-button {
+            background-color: #e9ecef; /* Light gray */
+            color: #555;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap; /* Prevent wrapping for long category names */
+        }
+
+        .category-button:hover {
+            background-color: #d0d7dd;
+            transform: translateY(-2px);
+        }
+
+        .category-button.active {
+            background-color: #28a745; /* Active green */
+            color: white;
+            box-shadow: 0 2px 5px rgba(40, 167, 69, 0.3);
+        }
+
+        /* Articles Grid - Existing styles */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .article-card {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .article-card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+            color: #28a745; /* Green title */
+        }
+
+        .article-card p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Allow paragraph to take available space */
+        }
+
+        .article-card .read-more {
+            display: inline-block;
+            color: #007bff; /* Blue for links */
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .article-card .read-more:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Footer - Existing styles */
+        footer {
+            background-color: #343a40; /* Dark gray */
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 0.9em;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+                order: 2; /* Tiêu đề ở giữa trên màn hình nhỏ */
+                width: 100%;
+            }
+
+            header .header-content {
+                flex-direction: column; /* Xếp chồng các phần tử */
+                align-items: center;
+                text-align: center;
+            }
+            .home-button {
+                width: 100%;
+                justify-content: center;
+                order: 1; /* Nút Trang chủ ở trên cùng */
+            }
+            #auth-status {
+                width: 100%;
+                justify-content: center;
+                order: 3; /* Khu vực Auth ở dưới cùng */
+            }
+
+            .controls {
+                padding: 15px;
+            }
+
+            .search-bar input {
+                padding: 10px 12px;
+            }
+
+            .categories {
+                justify-content: flex-start; /* Căn danh mục sang trái trên màn hình nhỏ */
+            }
+
+            .category-button {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+
+            .articles-grid {
+                grid-template-columns: 1fr; /* Một cột trên màn hình nhỏ */
+            }
+
+            .article-card {
+                padding: 20px;
+            }
+
+            .article-card h3 {
+                font-size: 1.4em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+
+            header {
+                padding: 20px 15px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <a href="index.html" class="home-button">
+                    <i class="fas fa-home"></i> Trang chủ
+                </a>
+                <h1>Cơ sở tri thức Nông nghiệp thông minh</h1>
+                <div id="auth-status">
+                    <!-- Nút Đăng nhập khi chưa đăng nhập -->
+                    <button id="login-redirect-button" class="auth-button" style="display: none;">
+                        <i class="fas fa-sign-in-alt"></i> Đăng nhập
+                    </button>
+                    <!-- Hiển thị tên người dùng và nút Đăng xuất khi đã đăng nhập -->
+                    <span id="user-display" style="display: none;"></span>
+                    <button id="logout-button" class="auth-button" style="display: none;">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
+                </div>
+            </div>
+            <p style="margin-top: 10px;">Tìm kiếm thông tin hữu ích về cây trồng, sâu bệnh, đất đai và kỹ thuật canh tác.</p>
+        </header>
+
+        <main>
+            <section class="controls">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Tìm kiếm bài viết...">
+                </div>
+                <div class="categories">
+                    <button class="category-button active" data-category="all">Tất cả</button>
+                    <button class="category-button" data-category="cay-trong">Cây trồng</button>
+                    <button class="category-button" data-category="sau-benh">Sâu bệnh</button>
+                    <button class="category-button" data-category="dat-dai">Đất đai</button>
+                    <button class="category-button" data-category="ky-thuat">Kỹ thuật</button>
+                </div>
+            </section>
+
+            <section id="articles-container" class="articles-grid">
+                <!-- Articles will be dynamically loaded here by JavaScript -->
+                <p style="text-align: center; grid-column: 1 / -1; color: #666;">Đang tải bài viết...</p>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Dự án Nông nghiệp thông minh. Mọi quyền được bảo lưu.</p>
+        </footer>
+    </div>
+
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+        getFirestore,
+        collection,
+        addDoc,
+        serverTimestamp,
+        orderBy,
+        query,
+        onSnapshot
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import {
+        getAuth,
+        onAuthStateChanged,
+        signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
+        authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
+        projectId: "nongnghiepxanh-f6689",
+        storageBucket: "nongnghiepxanh-f6689.appspot.com",
+        messagingSenderId: "846834085038",
+        appId: "1:846834085038:web:cfac519e025896626d113f"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Lấy tham chiếu đến các phần tử UI liên quan đến Auth
+    const loginRedirectButton = document.getElementById('login-redirect-button');
+    const logoutButton = document.getElementById('logout-button');
+    const userDisplay = document.getElementById('user-display');
+
+    // Hàm cập nhật UI dựa trên trạng thái đăng nhập
+    function updateAuthUI(user) {
+        if (user) {
+            // Người dùng đã đăng nhập
+            userDisplay.textContent = `Xin chào, ${user.displayName || user.email}`;
+            userDisplay.style.display = 'inline';
+            logoutButton.style.display = 'inline-flex'; // Sử dụng inline-flex cho nút có icon
+            loginRedirectButton.style.display = 'none'; // Ẩn nút đăng nhập
+        } else {
+            // Người dùng chưa đăng nhập
+            userDisplay.style.display = 'none';
+            logoutButton.style.display = 'none';
+            loginRedirectButton.style.display = 'inline-flex'; // Hiển thị nút đăng nhập
+        }
+    }
+
+    // Xử lý chuyển hướng đến trang đăng nhập/đăng ký của bạn
+    function handleLoginRedirect() {
+        // THAY THẾ '/your-login-page.html' BẰNG URL THỰC TẾ CỦA TRANG ĐĂNG NHẬP/ĐĂNG KÝ CỦA BẠN
+        window.location.href = "login.html";
+    }
+
+    // Xử lý đăng xuất
+    async function handleLogout() {
+        try {
+            await signOut(auth);
+            alert('Đăng xuất thành công!');
+        } catch (error) {
+            console.error("Lỗi đăng xuất:", error);
+            alert(`Đăng xuất thất bại: ${error.message}`);
+        }
+    }
+
+    // Gắn sự kiện cho các nút
+    loginRedirectButton.addEventListener('click', handleLoginRedirect);
+    logoutButton.addEventListener('click', handleLogout);
+
+    // Lắng nghe trạng thái đăng nhập thay đổi
+    onAuthStateChanged(auth, (user) => {
+        updateAuthUI(user);
+    });
+
+    const articlesContainer = document.getElementById('articles-container');
+    const searchInput = document.getElementById('search-input');
+    const categoryButtons = document.querySelectorAll('.category-button');
+
+    let allKnowledgeArticles = [];
+
+    function displayArticles(articlesToDisplay) {
+        articlesContainer.innerHTML = '';
+
+        if (articlesToDisplay.length === 0) {
+            articlesContainer.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: #666;">Không tìm thấy bài viết nào phù hợp.</p>';
+            return;
+        }
+
+        articlesToDisplay.forEach(article => {
+            const articleCard = document.createElement('div');
+            articleCard.classList.add('article-card');
+
+            articleCard.innerHTML = `
+                <h3>${article.title}</h3>
+                <p>${article.excerpt}</p>
+                <a href="#" class="read-more" data-id="${article.id}">Đọc thêm</a>
+            `;
+            articlesContainer.appendChild(articleCard);
+        });
+
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const articleId = event.target.dataset.id;
+                const fullArticle = allKnowledgeArticles.find(a => a.id === articleId);
+                if (fullArticle) {
+                    alert(`Tiêu đề: ${fullArticle.title}\n\nNội dung chi tiết:\n${fullArticle.content}`);
+                }
+            });
+        });
+    }
+
+    function applyFiltersAndDisplay() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const activeCategory = document.querySelector('.category-button.active').dataset.category;
+
+        let filteredArticles = allKnowledgeArticles;
+
+        if (activeCategory !== 'all') {
+            filteredArticles = filteredArticles.filter(article => article.category === activeCategory);
+        }
+
+        filteredArticles = filteredArticles.filter(article =>
+            article.title.toLowerCase().includes(searchTerm) ||
+            article.excerpt.toLowerCase().includes(searchTerm) ||
+            (article.content && article.content.toLowerCase().includes(searchTerm))
+        );
+
+        displayArticles(filteredArticles);
+    }
+
+    function fetchArticlesFromFirestore() {
+        const articlesRef = collection(db, 'articles');
+        const q = query(articlesRef, orderBy('date', 'desc'));
+
+        onSnapshot(q, (snapshot) => {
+            const articles = [];
+            snapshot.forEach(doc => {
+                const date = doc.data().date ? new Date(doc.data().date.toDate()).toLocaleDateString('vi-VN') : 'N/A';
+                articles.push({ id: doc.id, ...doc.data(), date: date });
+            });
+            allKnowledgeArticles = articles;
+            applyFiltersAndDisplay();
+        }, (error) => {
+            console.error("Lỗi khi tải tài liệu từ Firestore: ", error);
+            articlesContainer.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: red;">Lỗi khi tải bài viết. Vui lòng kiểm tra kết nối hoặc cấu hình Firebase.</p>';
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchArticlesFromFirestore();
+    });
+
+    searchInput.addEventListener('input', applyFiltersAndDisplay);
+
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            applyFiltersAndDisplay();
+        });
+    });
+
+    function addSampleArticlesToFirestore() {
+        const sampleArticles = [
+            {
+                title: 'Kỹ thuật trồng lúa nước hiệu quả',
+                excerpt: 'Tìm hiểu các bước cơ bản và nâng cao để đạt năng suất cao trong canh tác lúa nước, từ chọn giống đến thu hoạch.',
+                category: 'cay-trong',
+                content: 'Lúa nước là cây lương thực chính ở Việt Nam. Để trồng lúa nước hiệu quả, cần chú ý các yếu tố như chọn giống phù hợp với điều kiện thổ nhưỡng và khí hậu, chuẩn bị đất kỹ lưỡng, gieo cấy đúng thời vụ, bón phân cân đối, quản lý nước hợp lý và phòng trừ sâu bệnh kịp thời. Việc áp dụng các tiến bộ khoa học kỹ thuật như SRI (System of Rice Intensification) cũng góp phần tăng năng suất và giảm chi phí.',
+                date: serverTimestamp()
+            },
+            {
+                title: 'Nhận biết và phòng trừ rầy nâu hại lúa',
+                excerpt: 'Rầy nâu là một trong những dịch hại nguy hiểm nhất đối với cây lúa. Bài viết này giúp bạn nhận biết và có biện pháp phòng trừ hiệu quả.',
+                category: 'sau-benh',
+                content: 'Rầy nâu (Nilaparvata lugens) gây hại bằng cách chích hút nhựa cây lúa, làm cây vàng úa, khô héo và chết (hiện tượng "cháy rầy"). Chúng cũng là vật trung gian truyền virus gây bệnh vàng lùn, lùn xoắn lá. Để phòng trừ, cần thường xuyên thăm đồng, sử dụng giống kháng rầy, bảo vệ thiên địch, và chỉ phun thuốc khi mật độ rầy cao vượt ngưỡng cho phép, ưu tiên các loại thuốc sinh học.',
+                date: serverTimestamp()
+            },
+            {
+                title: 'Cải tạo đất bạc màu cho cây ăn quả',
+                excerpt: 'Đất bạc màu là thách thức lớn trong nông nghiệp. Khám phá các phương pháp cải tạo đất để tăng độ phì nhiêu và năng suất cây trồng.',
+                category: 'dat-dai',
+                content: 'Đất bạc màu thường thiếu dinh dưỡng, độ pH không cân bằng và cấu trúc kém. Để cải tạo, có thể áp dụng các biện pháp như bón phân hữu cơ (phân chuồng, phân xanh, compost), trồng cây họ đậu để cố định đạm, sử dụng vôi để điều chỉnh pH, và áp dụng các kỹ thuật canh tác bảo tồn như che phủ đất, luân canh cây trồng. Việc này giúp tăng cường vi sinh vật đất và cải thiện khả năng giữ nước, dinh dưỡng.',
+                date: serverTimestamp()
+            },
+            {
+                title: 'Ứng dụng IoT trong giám sát nông trại',
+                excerpt: 'Công nghệ IoT (Internet of Things) đang cách mạng hóa nông nghiệp, giúp nông dân giám sát và quản lý nông trại từ xa.',
+                category: 'ky-thuat',
+                content: 'IoT trong nông nghiệp thông minh bao gồm việc sử dụng các cảm biến để thu thập dữ liệu về độ ẩm đất, nhiệt độ, độ pH, ánh sáng, và tình trạng cây trồng. Dữ liệu này được truyền về hệ thống trung tâm, cho phép nông dân theo dõi điều kiện môi trường, phát hiện sớm sâu bệnh, và đưa ra quyết định tưới tiêu, bón phân chính xác hơn. Điều này giúp tối ưu hóa tài nguyên và tăng hiệu quả sản xuất.',
+                date: serverTimestamp()
+            },
+            {
+                title: 'Phòng bệnh thán thư trên cây xoài',
+                excerpt: 'Bệnh thán thư gây thiệt hại đáng kể cho cây xoài. Tìm hiểu cách nhận biết và các biện pháp phòng ngừa, điều trị hiệu quả.',
+                category: 'sau-benh',
+                content: 'Bệnh thán thư trên xoài do nấm Colletotrichum gloeosporioides gây ra, biểu hiện bằng các đốm đen trên lá, hoa, quả. Bệnh làm rụng hoa, quả non, giảm năng suất và chất lượng. Để phòng trừ, cần vệ sinh vườn, cắt tỉa cành tạo thông thoáng, bón phân cân đối, và phun thuốc phòng ngừa vào các giai đoạn mẫn cảm của cây (trước ra hoa, đậu quả). Sử dụng các loại thuốc gốc đồng hoặc thuốc trừ nấm chuyên dụng.',
+                date: serverTimestamp()
+            },
+            {
+                title: 'Kỹ thuật tưới nhỏ giọt cho cây rau màu',
+                excerpt: 'Tưới nhỏ giọt là phương pháp tưới tiết kiệm nước và hiệu quả, đặc biệt phù hợp cho các loại rau màu giá trị cao.',
+                category: 'ky-thuat',
+                content: 'Tưới nhỏ giọt cung cấp nước trực tiếp đến vùng rễ cây, giảm thiểu thất thoát do bay hơi và chảy tràn. Phương pháp này giúp tiết kiệm nước, phân bón, và giảm sự phát triển của cỏ dại. Để lắp đặt hệ thống tưới nhỏ giọt, cần xác định nguồn nước, chọn loại ống và đầu nhỏ giọt phù hợp, tính toán áp lực và lưu lượng nước. Đây là kỹ thuật lý tưởng cho canh tác trong nhà kính hoặc trên diện tích nhỏ.',
+                date: serverTimestamp()
+            },
+            {
+                title: 'Quản lý dinh dưỡng cho cây cà phê',
+                excerpt: 'Dinh dưỡng đóng vai trò quan trọng trong năng suất và chất lượng hạt cà phê. Bài viết hướng dẫn quản lý dinh dưỡng hiệu quả.',
+                category: 'cay-trong',
+                content: 'Cây cà phê cần một lượng lớn dinh dưỡng để phát triển và cho năng suất cao. Việc bón phân cần dựa trên kết quả phân tích đất và nhu cầu của cây theo từng giai đoạn sinh trưởng. Các nguyên tố đa lượng (N, P, K) và vi lượng (Bo, Kẽm, Sắt...) đều quan trọng. Bón phân cân đối, chia làm nhiều lần trong năm và kết hợp với phân hữu cơ sẽ giúp cây cà phê khỏe mạnh, tăng khả năng chống chịu sâu bệnh và cho chất lượng hạt tốt.',
+                date: serverTimestamp()
+            },
+            {
+                title: 'Phân tích độ pH của đất và ý nghĩa',
+                excerpt: 'Độ pH của đất ảnh hưởng trực tiếp đến khả năng hấp thụ dinh dưỡng của cây. Hiểu về pH giúp bạn điều chỉnh đất phù hợp.',
+                category: 'dat-dai',
+                content: 'Độ pH là thước đo độ chua hoặc kiềm của đất. Hầu hết các cây trồng phát triển tốt trong khoảng pH từ 6.0 đến 7.0. Đất quá chua (pH thấp) hoặc quá kiềm (pH cao) có thể làm giảm khả năng hấp thụ một số chất dinh dưỡng thiết yếu. Để điều chỉnh pH, có thể sử dụng vôi (để tăng pH) hoặc lưu huỳnh, phân hữu cơ (để giảm pH). Việc phân tích đất định kỳ là rất quan trọng để duy trì pH tối ưu.',
+                date: serverTimestamp()
+            }
+        ];
+
+        sampleArticles.forEach(article => {
+            addDoc(collection(db, "articles"), article)
+                .then((docRef) => {
+                    console.log("Tài liệu đã được ghi với ID: ", docRef.id);
+                })
+                .catch((error) => {
+                    console.error("Lỗi khi thêm tài liệu: ", error);
+                });
+        });
+    }
+    // BỎ COMMENT DÒNG DƯỚI ĐÂY VÀ CHẠY TRANG MỘT LẦN ĐỂ THÊM DỮ LIỆU MẪU VÀO FIRESTORE CỦA BẠN.
+    // SAU KHI DỮ LIỆU ĐÃ ĐƯỢC THÊM, HÃY COMMENT LẠI DÒNG NÀY ĐỂ TRÁNH THÊM TRÙNG LẶP.
+    // addSampleArticlesToFirestore();
+</script>
+</body>
+</html>
