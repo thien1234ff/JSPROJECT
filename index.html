@@ -1,58 +1,286 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trang Chủ - Smart Agriculture</title>
-  <link rel="icon" type="image/png" href="logo.png">
-  <link rel="stylesheet" href="index.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trang Chủ - Smart Agriculture</title>
+<link rel="icon" type="image/png" href="/placeholder.svg?height=32&width=32">
+<link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <header>
-    <div class="logo">SMART AGRICULTURE</div>
-    <nav>
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#" id="profileLink">Profile</a></li>
-        <li><a href="#" id="logoutLink">Logout</a></li>
-      </ul>
-    </nav>
-  </header>
+<!-- 1. Header (Phần đầu trang) -->
+<header>
+  <div class="logo">
+    <img src="/placeholder.svg?height=24&width=24" alt="Logo" class="logo-icon">
+    SMART AGRICULTURE
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#home">Trang chủ</a></li>
+      <li><a href="#about">Giới thiệu hệ thống</a></li>
+      <li><a href="#features">Tính năng / Module</a></li>
+      <li><a href="#products">Sản phẩm</a></li> <!-- New link for products -->
+      <li><a href="#knowledge">Tin tức / Hướng dẫn</a></li>
+      <li><a href="#contact">Liên hệ</a></li>
+      <li><a href="#" id="profileLink">Đăng nhập / Đăng ký</a></li>
+      <li><a href="#" id="logoutLink" style="display: none;">Đăng xuất</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <main>
-    <section class="system-features">
-      <h2>Chức năng hệ thống</h2>
-      <div class="features-grid">
-        <div class="feature-card">1. Login / Logout</div>
-        <div class="feature-card"><a href="Register.html">2. Register</a></div>
-        <div class="feature-card"><a href="profile.html">3. Profile Mgmt</a></div>
-        <div class="feature-card">4. Role & Permission</div>
-        <div class="feature-card"><a href="product.html">5. Product CRUD</a></div>
-        <div class="feature-card"><a href="payment.html">6. Show Product</a></div>
-        <div class="feature-card"><a href="payment.html">7. Shopping Cart</a></div>
-        <div class="feature-card"><a href="Farmmanagement.html">8. Farm Mgmt</a></div>
-        <div class="feature-card"><a href="crop-prediction.html">9. Crop Prediction</a></div>
-        <div class="feature-card"><a href="map.html">10. Weather Forecast</a></div>
-        <div class="feature-card">11. IoT Sensor Integration</div>
-        <div class="feature-card"><a href="marketanalysis.html">12. Market Analysis</a></div>
-        <div class="feature-card"><a href="map.html">13. Map Integration</a></div>
-        <div class="feature-card"><a href="forum.html">14. Community Forum</a></div>
-        <div class="feature-card"><a href="knowledgebase.html">15. Knowledge Base</a></div>
-        <div class="feature-card">16. Feedback / Comment</div>
-        <div class="feature-card">17. Search Item</div>
-        <div class="feature-card">18. Index Page</div>
-        <div class="feature-card">19. Report Page</div>
-        <div class="feature-card"><a href="ai.html">20. Chatbot Support</a></div>
-        <div class="feature-card"><a href="cropAI.html">21. Crop with AI</a></div>
+<main>
+  <!-- 2. Hero Section (Khu vực ấn tượng đầu trang) -->
+  <section id="home" class="hero-section">
+    <img src="/placeholder.svg?height=600&width=1200" alt="Smart Agriculture Background" class="hero-background">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Chuyển đổi số nông nghiệp – Tối ưu hóa canh tác</h1>
+      <div class="hero-cta">
+        <a href="#" class="button primary">Bắt đầu ngay</a>
+        <a href="#features" class="button outline">Xem tính năng</a>
+        <a href="register.html" class="button outline">Đăng ký</a>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
-  <footer>
-    <p>© 2025 Smart Agriculture. All rights reserved.</p>
-  </footer>
+  <!-- 3. Giới Thiệu Hệ Thống (About Section) -->
+  <section id="about" class="about-section">
+    <h2>Giới Thiệu Hệ Thống</h2>
+    <div class="about-content">
+      <p>Hệ thống Nông nghiệp Thông minh của chúng tôi được thiết kế để hỗ trợ nông dân trong mọi khía cạnh của quản lý mùa vụ. Từ dự báo thời tiết chính xác, phân tích đất đai chi tiết, đến quản lý thiết bị IoT và tối ưu hóa năng suất, chúng tôi mang đến giải pháp toàn diện để nâng cao hiệu quả canh tác.</p>
+      <p>Với công nghệ tiên tiến, chúng tôi giúp bạn đưa ra quyết định thông minh hơn, giảm thiểu rủi ro và tối đa hóa lợi nhuận.</p>
+      <div class="video-placeholder">
+        <img src="/placeholder.svg?height=400&width=700" alt="Video giới thiệu hệ thống" class="video-thumbnail">
+        <div class="play-button">▶</div>
+      </div>
+    </div>
+  </section>
 
-  <script type="module">
+  <!-- 4. Danh Sách Tính Năng Chính (Core Features) -->
+  <section id="features" class="core-features-section">
+    <h2>Danh Sách Tính Năng Chính</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Dự đoán năng suất</h3>
+        <p>Sử dụng AI để dự báo năng suất cây trồng, giúp bạn lập kế hoạch hiệu quả hơn.</p>
+        <a href="crop-prediction.html" class="button outline-primary">Xem chi tiết</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌦️</div>
+        <h3>Dự báo thời tiết</h3>
+        <p>Cung cấp thông tin thời tiết chính xác, cảnh báo sớm các điều kiện bất lợi.</p>
+        <a href="map.html" class="button outline-primary">Xem chi tiết</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛒</div>
+        <h3>Hiển thị sản phẩm</h3> <!-- Changed title -->
+        <p>Xem và khám phá các sản phẩm nông nghiệp thông minh của chúng tôi.</p> <!-- Updated description -->
+        <a href="payment.html" class="button outline-primary">Xem chi tiết</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧑‍🌾</div>
+        <h3>Quản lý nông trại</h3>
+        <p>Công cụ toàn diện để quản lý đất đai, cây trồng, và tài nguyên nông trại.</p>
+        <a href="Farmmanagement.html" class="button outline-primary">Xem chi tiết</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Phân tích cảm biến IoT</h3>
+        <p>Thu thập và phân tích dữ liệu từ cảm biến để tối ưu hóa môi trường canh tác.</p>
+        <a href="#" class="button outline-primary">Xem chi tiết</a>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>Hỗ trợ Chatbot</h3>
+        <p>Trợ lý ảo 24/7 giải đáp thắc mắc và cung cấp lời khuyên nông nghiệp.</p>
+        <a href="ai.html" class="button outline-primary">Xem chi tiết</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- New: Sản phẩm Nổi bật (Featured Products Section) -->
+  <section id="products" class="products-section">
+    <h2>Sản phẩm Nổi bật</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="/placeholder.svg?height=200&width=200" alt="Cảm biến độ ẩm đất" class="product-image">
+        <h3 class="product-name">Cảm biến độ ẩm đất thông minh</h3>
+        <p class="product-price">500.000 VNĐ</p>
+        <button class="button primary add-to-cart">Thêm vào giỏ hàng</button>
+      </div>
+      <div class="product-card">
+        <img src="/placeholder.svg?height=200&width=200" alt="Drone nông nghiệp" class="product-image">
+        <h3 class="product-name">Drone nông nghiệp phun thuốc</h3>
+        <p class="product-price">25.000.000 VNĐ</p>
+        <button class="button primary add-to-cart">Thêm vào giỏ hàng</button>
+      </div>
+      <div class="product-card">
+        <img src="/placeholder.svg?height=200&width=200" alt="Hệ thống tưới tự động" class="product-image">
+        <h3 class="product-name">Hệ thống tưới tự động IoT</h3>
+        <p class="product-price">12.000.000 VNĐ</p>
+        <button class="button primary add-to-cart">Thêm vào giỏ hàng</button>
+      </div>
+      <div class="product-card">
+        <img src="/placeholder.svg?height=200&width=200" alt="Bộ kit kiểm tra đất" class="product-image">
+        <h3 class="product-name">Bộ kit kiểm tra đất nhanh</h3>
+        <p class="product-price">800.000 VNĐ</p>
+        <button class="button primary add-to-cart">Thêm vào giỏ hàng</button>
+      </div>
+    </div>
+    <a href="products.html" class="button primary large view-all-products">Xem tất cả sản phẩm</a>
+  </section>
+
+  <!-- 5. Dữ liệu tổng quan (Dashboard Preview hoặc KPI) -->
+  <section class="dashboard-preview-section">
+    <h2>Dữ liệu tổng quan</h2>
+    <p class="dashboard-message">Đăng nhập để xem các số liệu và cảnh báo nông nghiệp cá nhân của bạn.</p>
+    <!-- Nếu có JS, phần này sẽ hiển thị dữ liệu khi đã đăng nhập -->
+    <div class="kpi-grid" style="display: none;">
+      <div class="kpi-card">
+        <h3>Mùa vụ đang theo dõi</h3>
+        <p class="kpi-value">12</p>
+        <p class="kpi-desc">Tổng số mùa vụ</p>
+      </div>
+      <div class="kpi-card">
+        <h3>Cảnh báo thời tiết</h3>
+        <p class="kpi-value">2</p>
+        <p class="kpi-desc">Cảnh báo hôm nay (mưa lớn, gió mạnh)</p>
+      </div>
+      <div class="kpi-card">
+        <h3>Trạng thái thiết bị IoT</h3>
+        <p class="kpi-value">Hoạt động</p>
+        <p class="kpi-desc">Tất cả 8 thiết bị</p>
+      </div>
+      <div class="kpi-card">
+        <h3>Độ ẩm đất trung bình</h3>
+        <p class="kpi-value">65%</p>
+        <p class="kpi-desc">Đảm bảo cho cây trồng</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Tin tức / Hướng dẫn (Knowledge Section) -->
+  <section id="knowledge" class="knowledge-section">
+    <h2>Tin tức / Hướng dẫn</h2>
+    <div class="articles-grid">
+      <div class="article-card">
+        <h3>5 kỹ thuật châm bón tiết kiệm nước</h3>
+        <p>Tìm hiểu các phương pháp tưới tiêu hiệu quả giúp giảm lượng nước tiêu thụ mà vẫn đảm bảo năng suất.</p>
+        <a href="#" class="button link">Đọc thêm</a>
+      </div>
+      <div class="article-card">
+        <h3>Phân tích sâu bệnh qua ảnh từ drone</h3>
+        <p>Khám phá cách công nghệ drone giúp phát hiện sớm sâu bệnh và đưa ra giải pháp kịp thời.</p>
+        <a href="#" class="button link">Đọc thêm</a>
+      </div>
+      <div class="article-card">
+        <h3>Tối ưu hóa dinh dưỡng đất với cảm biến IoT</h3>
+        <p>Ứng dụng cảm biến IoT để theo dõi và điều chỉnh dinh dưỡng đất, nâng cao chất lượng cây trồng.</p>
+        <a href="#" class="button link">Đọc thêm</a>
+      </div>
+    </div>
+    <a href="#" class="button primary large">Xem tất cả bài viết</a>
+  </section>
+
+  <!-- 8. Liên hệ / Đăng ký tư vấn -->
+  <section id="contact" class="contact-section">
+    <h2>Liên hệ / Đăng ký tư vấn</h2>
+    <div class="contact-grid">
+      <div class="contact-form-container">
+        <h3>Đăng ký nhận hỗ trợ</h3>
+        <form class="contact-form">
+          <label for="name">Họ và tên</label>
+          <input type="text" id="name" placeholder="Nguyễn Văn A">
+
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="email@example.com">
+
+          <label for="phone">Số điện thoại</label>
+          <input type="tel" id="phone" placeholder="0901234567">
+
+          <label for="message">Nội dung tin nhắn</label>
+          <textarea id="message" placeholder="Bạn cần tư vấn về vấn đề gì?" rows="5"></textarea>
+
+          <button type="submit" class="button primary full-width">Gửi yêu cầu</button>
+        </form>
+      </div>
+
+      <div class="contact-info-container">
+        <h3>Thông tin liên hệ</h3>
+        <div class="contact-details">
+          <p><span>📧</span> contact@smartagriculture.com</p>
+          <p><span>📞</span> +84 123 456 789</p>
+          <p>Địa chỉ: Tầng 1, Tòa nhà ABC, Đường XYZ, Quận 1, TP. Hồ Chí Minh</p>
+        </div>
+        <div class="social-media">
+          <h3>Mạng xã hội</h3>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook">📘</a>
+            <a href="#" aria-label="Twitter">🐦</a>
+            <a href="#" aria-label="LinkedIn">💼</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- 7. Giao diện Chatbot (Icon ở góc dưới phải) -->
+<div class="chatbot-button">
+  💬
+</div>
+<div class="chatbot-popup" style="display: none;">
+  <div class="chatbot-header">
+    <h3>Trợ lý AI Nông nghiệp</h3>
+    <button class="close-chatbot">X</button>
+  </div>
+  <div class="chatbot-body">
+    <p>Chào bạn! Tôi có thể giúp gì cho bạn hôm nay?</p>
+    <p class="small-text">(Đây là giao diện chatbot mẫu. Chức năng thực tế sẽ được tích hợp sau.)</p>
+  </div>
+  <div class="chatbot-footer">
+    <input type="text" placeholder="Nhập tin nhắn của bạn...">
+  </div>
+</div>
+
+<!-- 9. Footer (Chân trang) -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-section about-project">
+      <div class="logo">
+        <img src="/placeholder.svg?height=24&width=24" alt="Logo" class="logo-icon">
+        SMART AGRICULTURE
+      </div>
+      <p>Giải pháp nông nghiệp thông minh hàng đầu, giúp tối ưu hóa canh tác và nâng cao năng suất cho nông dân Việt Nam.</p>
+    </div>
+
+    <div class="footer-section quick-links">
+      <h3>Liên kết nhanh</h3>
+      <ul>
+        <li><a href="#home">Trang chủ</a></li>
+        <li><a href="#about">Giới thiệu</a></li>
+        <li><a href="#features">Tính năng</a></li>
+        <li><a href="#products">Sản phẩm</a></li>
+        <li><a href="#knowledge">Tin tức</a></li>
+        <li><a href="#contact">Liên hệ</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section policies">
+      <h3>Chính sách</h3>
+      <ul>
+        <li><a href="#">Chính sách quyền riêng tư</a></li>
+        <li><a href="#">Điều khoản dịch vụ</a></li>
+        <li><a href="#">Chính sách hoàn tiền</a></li>
+      </ul>
+      <p class="copyright">© 2025 Smart Agriculture. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Firebase Script -->
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
   import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -87,10 +315,12 @@
             profileLink.textContent = "Admin Panel";
           } else {
             profileLink.href = "profile.html";
-            profileLink.textContent = "Profile";
+            profileLink.textContent = "Tài khoản";
           }
         } else {
           console.log("Không tìm thấy dữ liệu role của user.");
+          profileLink.href = "profile.html";
+          profileLink.textContent = "Tài khoản";
         }
         logoutLink.style.display = 'block';
       } catch (error) {
@@ -99,17 +329,32 @@
     } else {
       logoutLink.style.display = 'none';
       profileLink.href = 'login.html';
-      profileLink.textContent = 'Login';
+      profileLink.textContent = 'Đăng nhập / Đăng ký';
     }
   });
 
-  document.getElementById('logoutLink').addEventListener('click', () => {
+  document.getElementById('logoutLink').addEventListener('click', (event) => {
+    event.preventDefault();
     signOut(auth).then(() => {
       location.reload();
     }).catch((error) => {
       console.error('Đăng xuất thất bại:', error.message);
     });
   });
+
+  // Basic JavaScript for chatbot toggle
+  const chatbotButton = document.querySelector('.chatbot-button');
+  const chatbotPopup = document.querySelector('.chatbot-popup');
+  const closeChatbot = document.querySelector('.close-chatbot');
+
+  if (chatbotButton && chatbotPopup && closeChatbot) {
+    chatbotButton.addEventListener('click', () => {
+      chatbotPopup.style.display = chatbotPopup.style.display === 'none' ? 'flex' : 'none';
+    });
+    closeChatbot.addEventListener('click', () => {
+      chatbotPopup.style.display = 'none';
+    });
+  }
 </script>
 </body>
 </html>
