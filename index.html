@@ -1,360 +1,390 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trang Chủ - Smart Agriculture</title>
-<link rel="icon" type="image/png" href="/placeholder.svg?height=32&width=32">
-<link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Chủ - Smart Agriculture</title>
+  <link rel="icon" type="image/png" href="/placeholder.svg?height=32&width=32">
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="image/png" href="logo.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 </head>
 <body>
-<!-- 1. Header (Phần đầu trang) -->
-<header>
-  <div class="logo">
-    <img src="/placeholder.svg?height=24&width=24" alt="Logo" class="logo-icon">
-    SMART AGRICULTURE
-  </div>
-  <nav>
-    <ul>
-      <li><a href="#home">Trang chủ</a></li>
-      <li><a href="#about">Giới thiệu hệ thống</a></li>
-      <li><a href="#features">Tính năng / Module</a></li>
-      <li><a href="#products">Sản phẩm</a></li> <!-- New link for products -->
-      <li><a href="#knowledge">Tin tức / Hướng dẫn</a></li>
-      <li><a href="#contact">Liên hệ</a></li>
-      <li><a href="#" id="profileLink">Đăng nhập / Đăng ký</a></li>
-      <li><a href="#" id="logoutLink" style="display: none;">Đăng xuất</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main>
-  <!-- 2. Hero Section (Khu vực ấn tượng đầu trang) -->
-  <section id="home" class="hero-section">
-    <img src="/placeholder.svg?height=600&width=1200" alt="Smart Agriculture Background" class="hero-background">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1>Chuyển đổi số nông nghiệp – Tối ưu hóa canh tác</h1>
-      <div class="hero-cta">
-        <a href="#" class="button primary">Bắt đầu ngay</a>
-        <a href="#features" class="button outline">Xem tính năng</a>
-        <a href="register.html" class="button outline">Đăng ký</a>
-      </div>
+  <!-- 1. Header (Phần đầu trang) -->
+  <header>
+    <div class="logo">
+      <img src="/JSPROJECT/logo.png" alt="Logo" class="logo-icon">
+      SMART AGRICULTURE
     </div>
-  </section>
+    <nav>
+      <ul>
+        <li><a href="#home">Trang chủ</a></li>
+        <li><a href="#features">Tính năng / Module</a></li>
+        <li><a href="forum.html">Diễn đàn</a></li>
+        <li><a href="payment.html">Sản phẩm</a></li>
+        <li><a href="knowledgebase.html">Tin tức / Hướng dẫn</a></li>
+        <li><a href="#contact">Liên hệ</a></li>
+        <!-- Tách nút Đăng nhập / Đăng ký -->
+        <li><a href="login.html" id="loginLink">Đăng nhập</a></li>
+        <li><a href="register.html" id="registerLink">Đăng ký</a></li>
+        <li><a href="#" id="profileLink" style="display: none;">Tài khoản</a></li> <!-- Sẽ hiển thị khi đăng nhập -->
+        <li><a href="#" id="logoutLink" style="display: none;">Đăng xuất</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- 3. Giới Thiệu Hệ Thống (About Section) -->
-  <section id="about" class="about-section">
-    <h2>Giới Thiệu Hệ Thống</h2>
-    <div class="about-content">
-      <p>Hệ thống Nông nghiệp Thông minh của chúng tôi được thiết kế để hỗ trợ nông dân trong mọi khía cạnh của quản lý mùa vụ. Từ dự báo thời tiết chính xác, phân tích đất đai chi tiết, đến quản lý thiết bị IoT và tối ưu hóa năng suất, chúng tôi mang đến giải pháp toàn diện để nâng cao hiệu quả canh tác.</p>
-      <p>Với công nghệ tiên tiến, chúng tôi giúp bạn đưa ra quyết định thông minh hơn, giảm thiểu rủi ro và tối đa hóa lợi nhuận.</p>
-      <div class="video-placeholder">
-        <img src="/placeholder.svg?height=400&width=700" alt="Video giới thiệu hệ thống" class="video-thumbnail">
-        <div class="play-button">▶</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. Danh Sách Tính Năng Chính (Core Features) -->
-  <section id="features" class="core-features-section">
-    <h2>Danh Sách Tính Năng Chính</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">📈</div>
-        <h3>Dự đoán năng suất</h3>
-        <p>Sử dụng AI để dự báo năng suất cây trồng, giúp bạn lập kế hoạch hiệu quả hơn.</p>
-        <a href="crop-prediction.html" class="button outline-primary">Xem chi tiết</a>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌦️</div>
-        <h3>Dự báo thời tiết</h3>
-        <p>Cung cấp thông tin thời tiết chính xác, cảnh báo sớm các điều kiện bất lợi.</p>
-        <a href="map.html" class="button outline-primary">Xem chi tiết</a>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🛒</div>
-        <h3>Hiển thị sản phẩm</h3> <!-- Changed title -->
-        <p>Xem và khám phá các sản phẩm nông nghiệp thông minh của chúng tôi.</p> <!-- Updated description -->
-        <a href="payment.html" class="button outline-primary">Xem chi tiết</a>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🧑‍🌾</div>
-        <h3>Quản lý nông trại</h3>
-        <p>Công cụ toàn diện để quản lý đất đai, cây trồng, và tài nguyên nông trại.</p>
-        <a href="Farmmanagement.html" class="button outline-primary">Xem chi tiết</a>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <h3>Phân tích cảm biến IoT</h3>
-        <p>Thu thập và phân tích dữ liệu từ cảm biến để tối ưu hóa môi trường canh tác.</p>
-        <a href="#" class="button outline-primary">Xem chi tiết</a>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">💬</div>
-        <h3>Hỗ trợ Chatbot</h3>
-        <p>Trợ lý ảo 24/7 giải đáp thắc mắc và cung cấp lời khuyên nông nghiệp.</p>
-        <a href="ai.html" class="button outline-primary">Xem chi tiết</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- New: Sản phẩm Nổi bật (Featured Products Section) -->
-  <section id="products" class="products-section">
-    <h2>Sản phẩm Nổi bật</h2>
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="/placeholder.svg?height=200&width=200" alt="Cảm biến độ ẩm đất" class="product-image">
-        <h3 class="product-name">Cảm biến độ ẩm đất thông minh</h3>
-        <p class="product-price">500.000 VNĐ</p>
-        <button class="button primary add-to-cart">Thêm vào giỏ hàng</button>
-      </div>
-      <div class="product-card">
-        <img src="/placeholder.svg?height=200&width=200" alt="Drone nông nghiệp" class="product-image">
-        <h3 class="product-name">Drone nông nghiệp phun thuốc</h3>
-        <p class="product-price">25.000.000 VNĐ</p>
-        <button class="button primary add-to-cart">Thêm vào giỏ hàng</button>
-      </div>
-      <div class="product-card">
-        <img src="/placeholder.svg?height=200&width=200" alt="Hệ thống tưới tự động" class="product-image">
-        <h3 class="product-name">Hệ thống tưới tự động IoT</h3>
-        <p class="product-price">12.000.000 VNĐ</p>
-        <button class="button primary add-to-cart">Thêm vào giỏ hàng</button>
-      </div>
-      <div class="product-card">
-        <img src="/placeholder.svg?height=200&width=200" alt="Bộ kit kiểm tra đất" class="product-image">
-        <h3 class="product-name">Bộ kit kiểm tra đất nhanh</h3>
-        <p class="product-price">800.000 VNĐ</p>
-        <button class="button primary add-to-cart">Thêm vào giỏ hàng</button>
-      </div>
-    </div>
-    <a href="products.html" class="button primary large view-all-products">Xem tất cả sản phẩm</a>
-  </section>
-
-  <!-- 5. Dữ liệu tổng quan (Dashboard Preview hoặc KPI) -->
-  <section class="dashboard-preview-section">
-    <h2>Dữ liệu tổng quan</h2>
-    <p class="dashboard-message">Đăng nhập để xem các số liệu và cảnh báo nông nghiệp cá nhân của bạn.</p>
-    <!-- Nếu có JS, phần này sẽ hiển thị dữ liệu khi đã đăng nhập -->
-    <div class="kpi-grid" style="display: none;">
-      <div class="kpi-card">
-        <h3>Mùa vụ đang theo dõi</h3>
-        <p class="kpi-value">12</p>
-        <p class="kpi-desc">Tổng số mùa vụ</p>
-      </div>
-      <div class="kpi-card">
-        <h3>Cảnh báo thời tiết</h3>
-        <p class="kpi-value">2</p>
-        <p class="kpi-desc">Cảnh báo hôm nay (mưa lớn, gió mạnh)</p>
-      </div>
-      <div class="kpi-card">
-        <h3>Trạng thái thiết bị IoT</h3>
-        <p class="kpi-value">Hoạt động</p>
-        <p class="kpi-desc">Tất cả 8 thiết bị</p>
-      </div>
-      <div class="kpi-card">
-        <h3>Độ ẩm đất trung bình</h3>
-        <p class="kpi-value">65%</p>
-        <p class="kpi-desc">Đảm bảo cho cây trồng</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. Tin tức / Hướng dẫn (Knowledge Section) -->
-  <section id="knowledge" class="knowledge-section">
-    <h2>Tin tức / Hướng dẫn</h2>
-    <div class="articles-grid">
-      <div class="article-card">
-        <h3>5 kỹ thuật châm bón tiết kiệm nước</h3>
-        <p>Tìm hiểu các phương pháp tưới tiêu hiệu quả giúp giảm lượng nước tiêu thụ mà vẫn đảm bảo năng suất.</p>
-        <a href="#" class="button link">Đọc thêm</a>
-      </div>
-      <div class="article-card">
-        <h3>Phân tích sâu bệnh qua ảnh từ drone</h3>
-        <p>Khám phá cách công nghệ drone giúp phát hiện sớm sâu bệnh và đưa ra giải pháp kịp thời.</p>
-        <a href="#" class="button link">Đọc thêm</a>
-      </div>
-      <div class="article-card">
-        <h3>Tối ưu hóa dinh dưỡng đất với cảm biến IoT</h3>
-        <p>Ứng dụng cảm biến IoT để theo dõi và điều chỉnh dinh dưỡng đất, nâng cao chất lượng cây trồng.</p>
-        <a href="#" class="button link">Đọc thêm</a>
-      </div>
-    </div>
-    <a href="#" class="button primary large">Xem tất cả bài viết</a>
-  </section>
-
-  <!-- 8. Liên hệ / Đăng ký tư vấn -->
-  <section id="contact" class="contact-section">
-    <h2>Liên hệ / Đăng ký tư vấn</h2>
-    <div class="contact-grid">
-      <div class="contact-form-container">
-        <h3>Đăng ký nhận hỗ trợ</h3>
-        <form class="contact-form">
-          <label for="name">Họ và tên</label>
-          <input type="text" id="name" placeholder="Nguyễn Văn A">
-
-          <label for="email">Email</label>
-          <input type="email" id="email" placeholder="email@example.com">
-
-          <label for="phone">Số điện thoại</label>
-          <input type="tel" id="phone" placeholder="0901234567">
-
-          <label for="message">Nội dung tin nhắn</label>
-          <textarea id="message" placeholder="Bạn cần tư vấn về vấn đề gì?" rows="5"></textarea>
-
-          <button type="submit" class="button primary full-width">Gửi yêu cầu</button>
-        </form>
-      </div>
-
-      <div class="contact-info-container">
-        <h3>Thông tin liên hệ</h3>
-        <div class="contact-details">
-          <p><span>📧</span> contact@smartagriculture.com</p>
-          <p><span>📞</span> +84 123 456 789</p>
-          <p>Địa chỉ: Tầng 1, Tòa nhà ABC, Đường XYZ, Quận 1, TP. Hồ Chí Minh</p>
+  <main>
+    <!-- 2. Hero Section (Khu vực ấn tượng đầu trang) -->
+    <section id="home" class="hero-section">
+      <video autoplay muted loop playsinline class="hero-background">
+        <source src="/JSPROJECT/hero-video.mp4" type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ video nền.
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Chuyển đổi số nông nghiệp – Tối ưu hóa canh tác</h1>
+        <div class="hero-cta">
+          <a href="#features" class="button primary">Bắt đầu ngay</a>
         </div>
-        <div class="social-media">
-          <h3>Mạng xã hội</h3>
-          <div class="social-icons">
-            <a href="#" aria-label="Facebook">📘</a>
-            <a href="#" aria-label="Twitter">🐦</a>
-            <a href="#" aria-label="LinkedIn">💼</a>
+      </div>
+    </section>
+    <!-- 3. Danh Sách Tính Năng Chính (Core Features) -->
+    <section id="features" class="core-features-section">
+      <h2>Danh Sách Tính Năng Chính</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h3>Dự đoán năng suất</h3>
+          <p>Sử dụng AI để dự báo năng suất cây trồng, giúp bạn lập kế hoạch hiệu quả hơn.</p>
+          <a href="crop-prediction.html" class="button outline-primary">Xem chi tiết</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌦️</div>
+          <h3>Dự báo thời tiết</h3>
+          <p>Cung cấp thông tin thời tiết chính xác, cảnh báo sớm các điều kiện bất lợi.</p>
+          <a href="map.html" class="button outline-primary">Xem chi tiết</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧑‍🌾</div>
+          <h3>Quản lý nông trại</h3>
+          <p>Công cụ toàn diện để quản lý đất đai, cây trồng, và tài nguyên nông trại.</p>
+          <a href="Farmmanagement.html" class="button outline-primary">Xem chi tiết</a>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>Hỗ trợ Chatbot</h3>
+          <p>Trợ lý ảo 24/7 giải đáp thắc mắc và cung cấp lời khuyên nông nghiệp.</p>
+          <a href="ai.html" class="button outline-primary">Xem chi tiết</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Sản phẩm Nổi bật (Featured Products Section) -->
+    <section id="products" class="products-section">
+      <h2>Sản phẩm Nổi bật</h2>
+      <div class="product-grid">
+        <!-- Products will be loaded here from Firestore -->
+        <p id="loadingProducts" style="text-align: center; color: #666;">Đang tải sản phẩm...</p>
+        <p id="noProducts" style="text-align: center; color: #666; display: none;">Không có sản phẩm nào để hiển thị.</p>
+        <p id="productError" style="text-align: center; color: red; display: none;">Lỗi khi tải sản phẩm. Vui lòng thử lại sau.</p>
+      </div>
+      <a href="payment.html" class="button primary large view-all-products">Xem tất cả sản phẩm</a>
+    </section>
+    <!-- 5. Tin tức / Hướng dẫn (Knowledge Section) -->
+    <section id="knowledge" class="knowledge-section">
+      <h2>Tin tức / Hướng dẫn</h2>
+      <div class="articles-grid">
+        <!-- Articles will be loaded here from Firestore -->
+        <p id="loadingArticles" style="text-align: center; color: #666;">Đang tải bài viết...</p>
+        <p id="noArticles" style="text-align: center; color: #666; display: none;">Không có bài viết nào để hiển thị.</p>
+        <p id="articleError" style="text-align: center; color: red; display: none;">Lỗi khi tải bài viết. Vui lòng thử lại sau.</p>
+      </div>
+      <a href="knowledgebase.html" class="button primary large">Xem tất cả bài viết</a> <!-- Updated href -->
+    </section>
+
+    <!-- 6. Liên hệ / Đăng ký tư vấn -->
+    <section id="contact" class="contact-section">
+      <h2>Liên hệ / Đăng ký tư vấn</h2>
+      <div class="contact-grid">
+        <div class="contact-form-container">
+          <h3>Đăng ký nhận hỗ trợ</h3>
+          <form class="contact-form" id="consultation-form">
+            <label for="name">Họ và tên</label>
+            <input type="text" id="name" placeholder="Nguyễn Văn A">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="email@example.com">
+
+            <label for="phone">Số điện thoại</label>
+            <input type="tel" id="phone" placeholder="0901234567">
+
+            <label for="message">Nội dung tin nhắn</label>
+            <textarea id="message" placeholder="Bạn cần tư vấn về vấn đề gì?" rows="5"></textarea>
+
+            <button type="submit" class="button primary full-width">Gửi yêu cầu</button>
+          </form>
+        </div>
+
+        <div class="contact-info-container">
+          <h3>Thông tin liên hệ</h3>
+          <div class="contact-details">
+            <p><span>📧</span> vominhquan17102004@gmail.com</p>
+            <p><span>📞</span> +84 76 265 7225</p>
+            <p>Địa chỉ: Tầng 81, Tòa nhà LandMark,  Quận 1, TP. Hồ Chí Minh</p>
+          </div>
+          <div class="social-media">
+            <h3>Mạng xã hội</h3>
+            <div class="social-icons">
+              <a href="https://www.facebook.com/thien.777h" class="social-icon"><i class="bi bi-facebook"></i></a>
+              <a href="https://www.instagram.com/sunyidd/" aria-label="Twitter"><i class="bi bi-instagram"></i></a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
+  </main>
 
-<!-- 7. Giao diện Chatbot (Icon ở góc dưới phải) -->
-<div class="chatbot-button">
-  💬
-</div>
-<div class="chatbot-popup" style="display: none;">
-  <div class="chatbot-header">
-    <h3>Trợ lý AI Nông nghiệp</h3>
-    <button class="close-chatbot">X</button>
-  </div>
-  <div class="chatbot-body">
-    <p>Chào bạn! Tôi có thể giúp gì cho bạn hôm nay?</p>
-    <p class="small-text">(Đây là giao diện chatbot mẫu. Chức năng thực tế sẽ được tích hợp sau.)</p>
-  </div>
-  <div class="chatbot-footer">
-    <input type="text" placeholder="Nhập tin nhắn của bạn...">
-  </div>
-</div>
-
-<!-- 9. Footer (Chân trang) -->
-<footer>
-  <div class="footer-content">
-    <div class="footer-section about-project">
-      <div class="logo">
-        <img src="/placeholder.svg?height=24&width=24" alt="Logo" class="logo-icon">
-        SMART AGRICULTURE
+  <!-- 7. Footer (Chân trang) -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section about-project">
+        <div class="logo">
+          <img src="/JSPROJECT/logo.png" alt="Logo" class="logo-icon">
+          SMART AGRICULTURE
+        </div>
+        <p>Giải pháp nông nghiệp thông minh hàng đầu, giúp tối ưu hóa canh tác và nâng cao năng suất cho nông dân Việt Nam.</p>
       </div>
-      <p>Giải pháp nông nghiệp thông minh hàng đầu, giúp tối ưu hóa canh tác và nâng cao năng suất cho nông dân Việt Nam.</p>
+
+      <div class="footer-section quick-links">
+        <h3>Liên kết nhanh</h3>
+        <ul>
+          <li><a href="#home">Trang chủ</a></li>
+          <li><a href="#about">Giới thiệu</a></li>
+          <li><a href="#features">Tính năng</a></li>
+          <li><a href="#products">Sản phẩm</a></li>
+          <li><a href="#knowledge">Tin tức</a></li>
+          <li><a href="#contact">Liên hệ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section policies">
+        <h3>Chính sách</h3>
+        <ul>
+          <li><a href="#">Chính sách quyền riêng tư</a></li>
+          <li><a href="#">Điều khoản dịch vụ</a></li>
+          <li><a href="#">Chính sách hoàn tiền</a></li>
+        </ul>
+        <p class="copyright">© 2025 Smart Agriculture. All rights reserved.</p>
+      </div>
     </div>
+  </footer>
 
-    <div class="footer-section quick-links">
-      <h3>Liên kết nhanh</h3>
-      <ul>
-        <li><a href="#home">Trang chủ</a></li>
-        <li><a href="#about">Giới thiệu</a></li>
-        <li><a href="#features">Tính năng</a></li>
-        <li><a href="#products">Sản phẩm</a></li>
-        <li><a href="#knowledge">Tin tức</a></li>
-        <li><a href="#contact">Liên hệ</a></li>
-      </ul>
-    </div>
+  <!-- Firebase Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+      getFirestore, doc, getDoc,
+      collection, query, getDocs, limit, orderBy, addDoc, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    <div class="footer-section policies">
-      <h3>Chính sách</h3>
-      <ul>
-        <li><a href="#">Chính sách quyền riêng tư</a></li>
-        <li><a href="#">Điều khoản dịch vụ</a></li>
-        <li><a href="#">Chính sách hoàn tiền</a></li>
-      </ul>
-      <p class="copyright">© 2025 Smart Agriculture. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
+      authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
+      projectId: "nongnghiepxanh-f6689",
+      storageBucket: "nongnghiepxanh-f6689.firebasestorage.app",
+      messagingSenderId: "846834085038",
+      appId: "1:846834085038:web:cfac519e025896626d113f",
+      measurementId: "G-619BFYRKGT"
+    };
 
-<!-- Firebase Script -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyA6WyGsOeOlct2BcOeQSZ6ogo2aGUa_MyQ",
-    authDomain: "nongnghiepxanh-f6689.firebaseapp.com",
-    projectId: "nongnghiepxanh-f6689",
-    storageBucket: "nongnghiepxanh-f6689.firebasestorage.app",
-    messagingSenderId: "846834085038",
-    appId: "1:846834085038:web:cfac519e025896626d113f",
-    measurementId: "G-619BFYRKGT"
-  };
+    onAuthStateChanged(auth, async (user) => {
+      const logoutLink = document.getElementById('logoutLink');
+      const profileLink = document.getElementById('profileLink');
+      const loginLink = document.getElementById('loginLink');
+      const registerLink = document.getElementById('registerLink');
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+      if (user) {
+        // User is logged in
+        loginLink.style.display = 'none';
+        registerLink.style.display = 'none';
+        profileLink.style.display = 'block'; // Show profile link
 
-  onAuthStateChanged(auth, async (user) => {
-    const logoutLink = document.getElementById('logoutLink');
-    const profileLink = document.getElementById('profileLink');
+        try {
+          const userDoc = await getDoc(doc(db, "users", user.uid));
+          if (userDoc.exists()) {
+            const role = userDoc.data().role;
+            console.log("ROLE CỦA USER:", role);
 
-    if (user) {
-      try {
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        if (userDoc.exists()) {
-          const role = userDoc.data().role;
-          console.log("ROLE CỦA USER:", role);
-
-          if (role === "admin") {
-            profileLink.href = "admin-dashboard.html";
-            profileLink.textContent = "Admin Panel";
+            if (role === "admin") {
+              profileLink.href = "admin-dashboard.html";
+              profileLink.textContent = "Admin Panel";
+            } else {
+              profileLink.href = "profile.html";
+              profileLink.textContent = "Tài khoản";
+            }
           } else {
+            console.log("Không tìm thấy dữ liệu role của user.");
             profileLink.href = "profile.html";
             profileLink.textContent = "Tài khoản";
           }
-        } else {
-          console.log("Không tìm thấy dữ liệu role của user.");
-          profileLink.href = "profile.html";
-          profileLink.textContent = "Tài khoản";
+          logoutLink.style.display = 'block';
+        } catch (error) {
+          console.error("Lỗi khi lấy role:", error);
         }
-        logoutLink.style.display = 'block';
-      } catch (error) {
-        console.error("Lỗi khi lấy role:", error);
+      } else {
+        // User is logged out
+        loginLink.style.display = 'block';
+        registerLink.style.display = 'block';
+        profileLink.style.display = 'none'; // Hide profile link
+        logoutLink.style.display = 'none';
       }
-    } else {
-      logoutLink.style.display = 'none';
-      profileLink.href = 'login.html';
-      profileLink.textContent = 'Đăng nhập / Đăng ký';
+    });
+
+    document.getElementById('logoutLink').addEventListener('click', (event) => {
+      event.preventDefault();
+      signOut(auth).then(() => {
+        location.reload();
+      }).catch((error) => {
+        console.error('Đăng xuất thất bại:', error.message);
+      });
+    });
+    // --- Fetch Featured Products from Firestore ---
+    async function fetchFeaturedProducts() {
+  const productGrid = document.querySelector('.product-grid');
+  const loadingMessage = document.getElementById('loadingProducts');
+  const noProductsMessage = document.getElementById('noProducts');
+  const errorMessage = document.getElementById('productError');
+
+  // Reset trạng thái UI
+  productGrid.innerHTML = '';
+  loadingMessage.style.display = 'block';
+  noProductsMessage.style.display = 'none';
+  errorMessage.style.display = 'none';
+
+  try {
+    const productsCol = collection(db, 'products');
+    const q = query(productsCol, limit(4)); // Giới hạn 4 sản phẩm nổi bật
+    const productSnapshot = await getDocs(q);
+
+    if (productSnapshot.empty) {
+      loadingMessage.style.display = 'none';
+      noProductsMessage.style.display = 'block';
+      return;
+    }
+
+    productSnapshot.forEach(doc => {
+      const product = doc.data();
+
+      const productCard = `
+        <div class="product-card">
+          <img src="${product.imageUrl || '/placeholder.svg?height=200&width=200'}" alt="${product.name || 'Sản phẩm'}" class="product-image">
+          <h3 class="product-name">${product.name || 'Chưa đặt tên'}</h3>
+          <p class="product-description">${product.description || ''}</p>
+          <p class="product-price">${(product.price || 0).toLocaleString('vi-VN')} VNĐ</p>
+          <button class="button primary add-to-cart" data-id="${doc.id}">Thêm vào giỏ hàng</button>
+        </div>
+      `;
+
+      productGrid.insertAdjacentHTML('beforeend', productCard);
+    });
+
+    loadingMessage.style.display = 'none';
+
+  } catch (error) {
+    console.error("Lỗi khi tải sản phẩm từ Firestore:", error);
+    loadingMessage.style.display = 'none';
+    errorMessage.style.display = 'block';
+  }
+}
+    // Call the function to fetch products when the page loads
+    document.addEventListener('DOMContentLoaded', fetchFeaturedProducts);
+    // --- Fetch Knowledge Articles from Firestore ---
+    async function fetchKnowledgeArticles() {
+      const articlesGrid = document.querySelector('.articles-grid');
+      const loadingMessage = document.getElementById('loadingArticles');
+      const noArticlesMessage = document.getElementById('noArticles');
+      const errorMessage = document.getElementById('articleError');
+
+      loadingMessage.style.display = 'block';
+      noArticlesMessage.style.display = 'none';
+      errorMessage.style.display = 'none';
+      articlesGrid.innerHTML = ''; // Clear existing content
+
+      try {
+        const articlesCol = collection(db, 'articles'); // Assuming a collection named 'articles'
+        const q = query(articlesCol, orderBy('date', 'desc'), limit(3)); // Get 3 latest articles
+        const articleSnapshot = await getDocs(q);
+
+        if (articleSnapshot.empty) {
+          noArticlesMessage.style.display = 'block';
+          loadingMessage.style.display = 'none';
+          return;
+        }
+
+        articleSnapshot.forEach(doc => {
+          const article = doc.data();
+          const articleCard = `
+            <div class="article-card">
+              <h3>${article.title || 'Không có tiêu đề'}</h3>
+              <p>${article.excerpt || ''}</p>
+            </div>
+          `;
+          articlesGrid.insertAdjacentHTML('beforeend', articleCard);
+        });
+
+        loadingMessage.style.display = 'none';
+
+      } catch (error) {
+        console.error("Lỗi khi tải bài viết từ Firestore:", error);
+        errorMessage.style.display = 'block';
+        loadingMessage.style.display = 'none';
+      }
+    }
+
+    // Call functions to fetch data when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchKnowledgeArticles();
+    });
+    // Handle form submission
+    document.getElementById('consultation-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const phone = form.phone.value;
+    const message = form.message.value;
+
+    // Kiểm tra dữ liệu đầu vào
+    if (!name || !email || !phone) {
+      alert('Vui lòng điền đầy đủ thông tin bắt buộc (Họ tên, Email, SĐT)');
+      return;
+    }
+
+    try {
+      // Thêm dữ liệu vào Firestore
+      await addDoc(collection(db, 'consultations'), {
+        name,
+        email,
+        phone,
+        message,
+        timestamp: serverTimestamp(), // Thêm timestamp tự động
+        status: 'pending' // Trạng thái mặc định
+      });
+      
+      alert('Yêu cầu tư vấn đã được gửi thành công! Chúng tôi sẽ liên hệ lại với bạn sớm nhất.');
+      form.reset(); // Reset form sau khi gửi thành công
+    } catch (error) {
+      console.error('Lỗi khi gửi yêu cầu:', error);
+      alert('Đã có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại sau.');
     }
   });
 
-  document.getElementById('logoutLink').addEventListener('click', (event) => {
-    event.preventDefault();
-    signOut(auth).then(() => {
-      location.reload();
-    }).catch((error) => {
-      console.error('Đăng xuất thất bại:', error.message);
-    });
-  });
-
-  // Basic JavaScript for chatbot toggle
-  const chatbotButton = document.querySelector('.chatbot-button');
-  const chatbotPopup = document.querySelector('.chatbot-popup');
-  const closeChatbot = document.querySelector('.close-chatbot');
-
-  if (chatbotButton && chatbotPopup && closeChatbot) {
-    chatbotButton.addEventListener('click', () => {
-      chatbotPopup.style.display = chatbotPopup.style.display === 'none' ? 'flex' : 'none';
-    });
-    closeChatbot.addEventListener('click', () => {
-      chatbotPopup.style.display = 'none';
-    });
-  }
-</script>
+  </script>
 </body>
 </html>

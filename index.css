@@ -68,17 +68,6 @@ p {
   border-color: #246327;
 }
 
-.button.outline {
-  background-color: transparent;
-  color: #fff;
-  border: 2px solid #fff;
-}
-
-.button.outline:hover {
-  background-color: #fff;
-  color: #2e7d32;
-}
-
 .button.outline-primary {
   background-color: transparent;
   color: #2e7d32;
@@ -220,64 +209,6 @@ section {
   gap: 20px;
   justify-content: center;
 }
-
-/* About Section */
-.about-section {
-  background-color: #f9f9f9;
-  text-align: center;
-}
-
-.about-content {
-  max-width: 900px;
-  margin: 0 auto;
-  font-size: 1.1em;
-  color: #555;
-}
-
-.video-placeholder {
-  position: relative;
-  width: 100%;
-  max-width: 800px;
-  aspect-ratio: 16 / 9; /* 16:9 aspect ratio */
-  background-color: #ccc;
-  border-radius: 10px;
-  margin: 40px auto 0;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.video-thumbnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.play-button {
-  position: relative;
-  z-index: 1;
-  font-size: 4em;
-  color: #fff;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.play-button:hover {
-  transform: scale(1.1);
-}
-
 /* Core Features Section */
 .core-features-section {
   background-color: #fff;
@@ -384,53 +315,6 @@ section {
 .view-all-products {
   margin-top: 30px;
 }
-
-/* Dashboard Preview Section */
-.dashboard-preview-section {
-  background-color: #fff; /* Changed background for contrast */
-  text-align: center;
-}
-
-.dashboard-message {
-  font-size: 1.1em;
-  color: #555;
-  margin-bottom: 40px;
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.kpi-card {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  text-align: left;
-}
-
-.kpi-card h3 {
-  font-size: 1.1em;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.kpi-value {
-  font-size: 2.2em;
-  font-weight: bold;
-  color: #2e7d32;
-  margin-bottom: 5px;
-}
-
-.kpi-desc {
-  font-size: 0.85em;
-  color: #888;
-}
-
 /* Knowledge Section */
 .knowledge-section {
   background-color: #f9f9f9; /* Changed background for contrast */
@@ -569,107 +453,6 @@ section {
 
 .social-icons a:hover {
   color: #1e5a21;
-}
-
-/* Chatbot Button & Popup */
-.chatbot-button {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 70px;
-  height: 70px;
-  background-color: #2e7d32;
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2.5em;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  z-index: 1000;
-  transition: transform 0.3s ease;
-}
-
-.chatbot-button:hover {
-  transform: scale(1.05);
-}
-
-.chatbot-popup {
-  position: fixed;
-  bottom: 110px;
-  right: 30px;
-  width: 320px;
-  height: 400px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  z-index: 1000;
-  border: 1px solid #eee;
-  overflow: hidden;
-}
-
-.chatbot-header {
-  background-color: #2e7d32;
-  color: #fff;
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.chatbot-header h3 {
-  margin: 0;
-  color: #fff;
-  font-size: 1.2em;
-}
-
-.close-chatbot {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.2em;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 5px;
-  transition: background-color 0.2s ease;
-}
-
-.close-chatbot:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.chatbot-body {
-  flex: 1;
-  padding: 15px;
-  overflow-y: auto;
-  color: #555;
-}
-
-.chatbot-body p {
-  margin-bottom: 10px;
-}
-
-.chatbot-body .small-text {
-  font-size: 0.85em;
-  color: #888;
-}
-
-.chatbot-footer {
-  padding: 15px;
-  border-top: 1px solid #eee;
-}
-
-.chatbot-footer input {
-  width: calc(100% - 20px);
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1em;
 }
 
 /* Footer */
